@@ -1,0 +1,6 @@
+uv==0.11.19
+django
+pillow
+djangorestframework
+corsheaders
+djangorestframework-simplejwt
