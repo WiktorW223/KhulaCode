@@ -1,8 +1,8 @@
-* Theme Name: LearnUp - Education HTML Template
+/* 
 * Author: Shreethemes
 * Version: 2.1
 * Last Change: 18 May 2025
-  Author URI    : https://shreethemes.in/
+  Author URI    : https://shreethemes.in/ */
 -------------------------------------------------------------------*/
 /*------------- List Of Table -----------
 # Fonts
@@ -20,6 +20,7 @@
 ------------- List Of Table ----------*/
 
 /* CSS Document */
+
 @import url(../css/plugins/animation.css);
 @import url(../css/plugins/date-picker.css);
 @import url(../css/plugins/dropzone.css);
