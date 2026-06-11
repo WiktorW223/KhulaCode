@@ -50,7 +50,7 @@ export default function StudentDashboard() {
     useEffect(()=>{
         if(access)
         {
-            makeRequest("get-info/")
+            makeRequest("get-info/0/")
             .then(res=>res.json())
             .then(data=>{setProfileInfo(data.profile_data)
             console.log(data.profile_data)

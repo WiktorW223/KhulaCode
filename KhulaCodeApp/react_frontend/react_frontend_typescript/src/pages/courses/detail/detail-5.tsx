@@ -42,6 +42,7 @@ const [refresh,setRefresh] = useState(false)
 const [xp,setXp] = useState(0)
 const [showXP,setShowXP] = useState(false)
 const [prevUnit,setPrevUnit] = useState(0)
+const [tag, setTag] = useState("")
 const {makeRequest} = useApi()
 
 
@@ -265,6 +266,15 @@ return ()=> clearTimeout(timer)
   }
 ,[lessonNumUrl,unitUrl,itemParam])
 
+useEffect (()=>
+{
+makeRequest("get-info/1/")
+.then((res=>res.json()))
+.then((data=>{setTag(data.profile_data.tag)
+}))
+},[refresh])
+
+
 useEffect(()=>
     {
       makeRequest(`lesson/${unitUrl}/${lessonNumUrl}/`)
@@ -273,7 +283,13 @@ useEffect(()=>
           setLesson(data)})
     },[refresh,unitUrl,lessonNumUrl])
 
-
+    useEffect(()=>
+        {
+          makeRequest(`lesson/${unitUrl}/${lessonNumUrl}/`)
+          .then( res => res.json())
+          .then( data => {
+              setLesson(data)})
+        },[refresh,unitUrl,lessonNumUrl])
 
 const handlePrevClick = ()=>{
     if(currentIndex>=1)
@@ -369,11 +385,11 @@ function CoursesOverview({border}:{border:boolean}) {
                     <div className="col-xl-7 col-lg-7 col-md-10">
                         <div className="ed_detail_wrap light">
                             <div className="course-type d-flex align-items-center gap-2 mb-1">
-                                <span className="badge bg-green rounded-pill">Current Title: </span>
+                                <span className="badge bg-green rounded-pill">{tag}</span>
                                 {/* <span className="badge bg-red rounded-pill"><i className="bi bi-tags me-1"></i>Pro</span> */}
                             </div>
                             <div className="ed_header_caption">
-                                <h2 className="ed_title">Khula Code: Lwazi's Adventure in the Cyber Jungle </h2>
+                                <h2 className="ed_title">Lwazi's Adventure in the Cyber Jungle </h2>
                                 {/* <ul>
                                     <li><i className="bi bi-calendar-check"></i>10 - 20 weeks</li>
                                     <li><i className="bi bi-calendar-check"></i>102 Lectures</li>

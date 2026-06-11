@@ -111,7 +111,7 @@ const handleLogin = async (e:React.FormEvent)=>{
         console.log("signed in")
         
         navigate("/student-dashboard")
-        window.location.href="/"
+        window.location.href="/student-dashboard"
         
     }
 

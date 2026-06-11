@@ -24,7 +24,7 @@ path("video/<int:lesson_id>/<int:id>/attempt/",mark_video_complete,name="video_c
 # path("lesson/<int:lesson_num>/activity/",),
 path("make-lesson/",make_lesson,name="make-lesson"),
 path("get-last/",get_most_recent,name="get_most_recent"),
-path("get-info/",get_profile_info,name="get_info"),
+path("get-info/<int:check>/",get_profile_info,name="get_info"),
 path("num-lesson-unit/<int:unit>/",get_num_lesson_unit,name="get_num_lessons"),
 path("get-all-student",get_all_students,name="get_all_students")
 

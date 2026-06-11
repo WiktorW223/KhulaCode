@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.models import User
-from .serializers import  ProfileSerializer, RegisterSerializer, TokenSerializer, LessonSerializer, CurriculumSerializer, LessonListSerializer,StudentSerializer
+from .serializers import  ProfileSerializer, RegisterSerializer, TokenSerializer, LessonSerializer, CurriculumSerializer, LessonListSerializer,StudentSerializer,TagSerializer
 from .models import Profile, Lesson , Activity, Video, Choice, ActivityProgress,VideoProgress, Video
 from rest_framework_simplejwt.views import TokenObtainPairView
 FRONTEND_URL = "http://localhost:5173"
@@ -28,12 +28,13 @@ def get_all_students(request):
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
-def get_profile_info(request):
+def get_profile_info(request,check):
     user = request.user
     profile = get_object_or_404(Profile,user=user)
-    serializer = ProfileSerializer(profile)
-
-    
+    if check==1:
+        serializer = TagSerializer(profile)
+    else:
+        serializer = ProfileSerializer(profile)
     return Response({"profile_data":serializer.data})
 
 @api_view(["GET"])

@@ -41,7 +41,7 @@ export default function StudentNavbar({refreshKey}:{refreshKey?:boolean}) {
     
     useEffect(()=>{
         if(access)
-        {makeRequest("get-info/")
+        {makeRequest("get-info/0/")
             .then((res=>res.json()))
             .then((data)=>
             {
@@ -104,7 +104,7 @@ export default function StudentNavbar({refreshKey}:{refreshKey?:boolean}) {
             <div className="container">
                 <nav id="navigation" className={`${isMobile ? 'navigation navigation-portrait' : 'navigation navigation-landscape'}`}>
                     <div className="nav-header">
-                        <Link className="nav-brand" to="#">
+                        <Link className="nav-brand" to="/">
                             <img src={logo} className="logo" alt="" />
                         </Link>
                         <div className="nav-toggle" onClick={()=>setToggle(!toggle)}></div>

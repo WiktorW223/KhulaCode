@@ -27,7 +27,7 @@ export default function StudentAdminSidebar() {
 
 
     useEffect(()=>{
-        makeRequest("get-info/")
+        makeRequest("get-info/0/")
             .then((res=>res.json()))
             .then((data)=>
             {
