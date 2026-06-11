@@ -4,7 +4,7 @@ import InstructorNavbar from '../../../components/instructor-dashboard/instructo
 import Sidebar from '../../../components/instructor-dashboard/sidebar'
 import FooterDark from '../../../components/footer/footer-dark'
 import { useApi } from '../../../lib/useApi'
-import { studentList } from '../../../data/instructor'
+
 
 interface StudentList{
     img: string;
@@ -24,7 +24,7 @@ export default function InstructorStudents() {
         console.log(data)
         setStudents(data)})
   },[])
-  const studentList = [...students].sort((a,b)=> a.date_joined-b.date_joined)
+  const studentList = [...students].sort((a,b)=> new Date(b.date_joined).getTime() - new Date(a.date_joined).getTime())
   
   
     return (
