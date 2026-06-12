@@ -120,11 +120,12 @@ function App() {
         {/* <Route path="/product-wishlist" element={<ProductWishlist/>} />
         <Route path="/checkout" element={<Checkout/>} />
         <Route path="/shop-order" element={<ShopOrder/>} />
-        <Route path="/about-us" element={<AboutUs/>} />
+        
         <Route path="/blog" element={<Blog/>} />
         <Route path="/blog-detail" element={<BlogDetail/>} />
         <Route path="/blog-detail/:id" element={<BlogDetail/>} /> */}
         {/*<Route path="/pricing" element={<Pricing/>} />*/}
+        <Route path="/about-us" element={<AboutUs/>} />
         <Route path="/404" element={<Error/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/component" element={<Component/>} />

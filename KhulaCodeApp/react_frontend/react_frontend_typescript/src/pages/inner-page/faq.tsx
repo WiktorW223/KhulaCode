@@ -4,7 +4,6 @@ import Footer from '../../components/footer/footer'
 import FooterTop from '../../components/footer/footer-top'
 import StudentNavbar from '../../components/student-dashboard/student-navbar'
 import { getAccessToken } from '../../lib/tokenService'
-const access = getAccessToken()
 interface FAqData{
      data: {
         title: string;
@@ -133,6 +132,7 @@ const faqOne = [
     }
 ]
 export default function Faq() {
+  const access = getAccessToken()
   return (
     <>
         {access?<StudentNavbar/>:<NavDark/>}

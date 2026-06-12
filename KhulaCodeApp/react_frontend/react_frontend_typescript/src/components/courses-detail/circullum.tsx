@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { getBackendUrl, useApi } from "../../lib/useApi";
 import { CircleHelp } from "lucide-react"
 import { Link } from 'react-router-dom'
-import { getAccessToken } from "../../lib/tokenService";
 
 const data = [
     { title:'Lecture: 01', desc:'Web Designing Beginner' },
@@ -12,7 +11,6 @@ const data = [
     { title:'Lecture: 05', desc:'How to Create Sticky Navigation Using JS' },
 ]
 const backendUrl = getBackendUrl()
-const access = getAccessToken()
 
 
 type CurriculumActivity= {

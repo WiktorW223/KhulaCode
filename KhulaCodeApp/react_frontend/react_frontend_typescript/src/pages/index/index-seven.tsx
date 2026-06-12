@@ -13,9 +13,9 @@ import Review from '../../components/review/page'
 // import BlogOne from '../../components/blog/blog-one'
 import FooterTop from '../../components/footer/footer-top'
 import FooterDark from '../../components/footer/footer-dark'
-const access = getAccessToken()
-const bar = access?<StudentNavbar/>:<NavDark/>
 export default function IndexSeven() {
+  const access = getAccessToken()
+  const bar = access?<StudentNavbar/>:<NavDark/>
   return (
     <>
         {bar}

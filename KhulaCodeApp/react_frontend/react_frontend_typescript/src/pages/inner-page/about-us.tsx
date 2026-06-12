@@ -12,8 +12,8 @@ import Footer from '../../components/footer/footer'
 import logo from "../../assets/img/tn.png"
 import StudentNavbar from '../../components/student-dashboard/student-navbar'
 import { getAccessToken } from '../../lib/tokenService'
-const access = getAccessToken()
 export default function AboutUs() {
+  const access = getAccessToken()
   return (
     <>
         <div className="shadow-sm">

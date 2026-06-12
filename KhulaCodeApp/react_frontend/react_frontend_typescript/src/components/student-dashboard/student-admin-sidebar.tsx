@@ -127,7 +127,7 @@ loadRecent()
                             <li><Link to="/student-dashboard" className={current === '/student-dashboard' ? 'active' : ''}><i className="bi bi-ui-radios-grid me-2"></i>Dashboard</Link></li>
                             {/* <li><Link to="/student-all-courses" className={current === '/student-all-courses' ? 'active' : ''}><i className="bi bi-play-circle me-2"></i>All Courses</Link></li>
                             <li><Link to="/student-subscription" className={current === '/student-subscription' ? 'active' : ''}><i className="bi bi-basket2 me-2"></i>My Subscription</Link></li> */}
-                            <li><Link to="/student-course-resume" className={current === '/student-course-resume' ? 'active' : ''}><i className="bi bi-patch-plus me-2"></i>Course Resume</Link></li>
+                            <li><Link to="/student-course-resume" className={current === '/student-course-resume' ? 'active' : ''}><i className="bi bi-play-circle"></i>All Lessons</Link></li>
                             {/* <li><Link to="/student-wishlist" className={current === '/student-wishlist' ? 'active' : ''}><i className="bi bi-wallet2 me-2"></i>Wishlist</Link></li> */}
                             {/* <li><Link to="/student-payment-info" className={current === '/student-payment-info' ? 'active' : ''}><i className="bi bi-star-half me-2"></i>Payment Info</Link></li> */}
                             {/* <li><Link to="#"><i className="bi bi-question-octagon me-2"></i>Help & Support</Link></li> */}
