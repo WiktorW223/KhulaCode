@@ -14,7 +14,7 @@ const [newPassword,setNewPassword] = useState("")
           userId:string,
           token:string 
         }>();
-        console.log({userId, token})
+
         if(!userId||!token)
         {
           return <p>Invalid reset link</p>
@@ -44,7 +44,7 @@ const [newPassword,setNewPassword] = useState("")
         else{
             setMessage(data.detail)
             console.log("success")
-            navigate("/home-7")
+            navigate("/register?tab=signin")
         }
         
         
@@ -62,12 +62,13 @@ const [newPassword,setNewPassword] = useState("")
     return(
         <>
         <div className="form-group mb-4">
-                  {message&&<p>{message}</p>}
+                  
                   <form onSubmit={handleSubmit}>
                   <label htmlFor='password'>Please enter new password: </label>
                   <input onChange = {(e)=>setNewPassword(e.target.value)}  id = "password" type="password" name ="password"/>
                   <button type='submit'>{loading?"Processing...":"Submit"}</button>
                   </form>
+                  {message&&<p>{message}</p>}
                   {errors&& <p style={{color:"red"}}>{errors}</p>}
                   
                   

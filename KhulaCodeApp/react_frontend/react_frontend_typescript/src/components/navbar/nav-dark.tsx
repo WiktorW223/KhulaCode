@@ -68,7 +68,7 @@ export default function NavDark() {
                             <li className={`${['/about-us'].includes(current) ? 'active' : ''}`}><Link to="/about-us">About Us</Link></li>
                             <li className={`${['/faq'].includes(current) ? 'active' : ''}`}><Link to="/faq">Additional Resources</Link></li>
                            
-                            <li className={`${['/grid-with-sidebar','/grid-with-sidebar-2','/grid-with-sidebar-3','/list-with-sidebar','/full-width-course','/full-width-course-2','/full-width-course-3','/full-width-course-4','/detail','/detail-2','/detail-3','/detail-4','/detail-5','/detail-6','/find-instructor','/instructor-detail'].includes(current) ? 'active' : ''}`}><Link to="#">Courses<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
+                            {/* <li className={`${['/grid-with-sidebar','/grid-with-sidebar-2','/grid-with-sidebar-3','/list-with-sidebar','/full-width-course','/full-width-course-2','/full-width-course-3','/full-width-course-4','/detail','/detail-2','/detail-3','/detail-4','/detail-5','/detail-6','/find-instructor','/instructor-detail'].includes(current) ? 'active' : ''}`}><Link to="#">Courses<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
                                 <ul className="nav-dropdown nav-submenu">
                                     <li className={`${['/grid-with-sidebar','/grid-with-sidebar-2','/grid-with-sidebar-3'].includes(current) ? 'active' : ''}`}><Link to="#">Courses Grid Sidebar<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
                                         <ul className="nav-dropdown nav-submenu">
@@ -83,7 +83,7 @@ export default function NavDark() {
                                             <li className={current === '/full-width-course' ? 'active' : ''}><Link to="/full-width-course">Courses grid 1</Link></li>
                                             <li className={current === '/full-width-course-2' ? 'active' : ''}><Link to="/full-width-course-2">Courses grid 2</Link></li>
                                             <li className={current === '/full-width-course-3' ? 'active' : ''}><Link to="/full-width-course-3">Courses grid 3</Link></li>
-                                            {/* <li className={current === '/full-width-course-4' ? 'active' : ''}><Link to="/full-width-course-4">Courses grid 4</Link></li> */}
+                                            <li className={current === '/full-width-course-4' ? 'active' : ''}><Link to="/full-width-course-4">Courses grid 4</Link></li>
                                         </ul>
                                     </li>
                                     <li className={`${['/detail','/detail-2','/detail-3','/detail-4','/detail-5','/detail-6'].includes(current) ? 'active' : ''}`}><Link to="#">Courses Detail<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
@@ -96,14 +96,14 @@ export default function NavDark() {
                                             <li className={current === '/detail-6' ? 'active' : ''}><Link to="/detail-6">Course Detail 6</Link></li>
                                         </ul>
                                     </li>
-                                    {/*<li className={current === '/find-instructor' ? 'active' : ''}><Link to="/find-instructor">Find Instructor</Link></li>*/}
+                                    <li className={current === '/find-instructor' ? 'active' : ''}><Link to="/find-instructor">Find Instructor</Link></li>
                                     <li className={current === '/instructor-detail' ? 'active' : ''}><Link to="/instructor-detail">Instructor Detail</Link></li>
                                 </ul>
-                            </li>
+                            </li> */}
                             
-                            <li className={`${['/about-us','/blog','/blog-detail','/pricing','/404','/register','/component','/contact','/privacy','/faq','/shop-full-width','/shop-left-sidebar','/shop-right-sidebar','/product-detail','/add-to-cart','/product-wishlist','/checkout','/shop-order'].includes(current) ? 'active' : ''}`}><Link to="#">Pages<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
+                            {/* <li className={`${['/about-us','/blog','/blog-detail','/pricing','/404','/register','/component','/contact','/privacy','/faq','/shop-full-width','/shop-left-sidebar','/shop-right-sidebar','/product-detail','/add-to-cart','/product-wishlist','/checkout','/shop-order'].includes(current) ? 'active' : ''}`}><Link to="#">Pages<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
                                 <ul className="nav-dropdown nav-submenu">
-                                    {/*<li className={`${['/shop-full-width','/shop-left-sidebar','/shop-right-sidebar','/product-detail','/add-to-cart','/product-wishlist','/checkout','/shop-order'].includes(current) ? 'active' : ''}`}><Link to="#">Shop Pages<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
+                                    <li className={`${['/shop-full-width','/shop-left-sidebar','/shop-right-sidebar','/product-detail','/add-to-cart','/product-wishlist','/checkout','/shop-order'].includes(current) ? 'active' : ''}`}><Link to="#">Shop Pages<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
                                         <ul className="nav-dropdown nav-submenu">
                                             <li className={current === '/shop-full-width' ? 'active' : ''}><Link to="/shop-full-width">Shop Full Width</Link></li>
                                             <li className={current === '/shop-left-sidebar' ? 'active' : ''}><Link to="/shop-left-sidebar">Shop Sidebar Left</Link></li>
@@ -114,11 +114,11 @@ export default function NavDark() {
                                             <li className={current === '/checkout' ? 'active' : ''}><Link to="/checkout">h</Link></li>
                                             <li className={current === '/shop-order' ? 'active' : ''}><Link to="/shop-order">Order</Link></li>
                                         </ul>
-                                    </li>*/}
+                                    </li>
                                     <li className={current === '/about-us' ? 'active' : ''}><Link to="/about-us">About Us</Link></li>
                                     <li className={current === '/blog' ? 'active' : ''}><Link to="/blog">Blog Style</Link></li>
                                     <li className={current === '/blog-detail' ? 'active' : ''}><Link to="/blog-detail">Blog Detail</Link></li>
-                                    {/*<li className={current === '/pricing' ? 'active' : ''}><Link to="/pricing">Pricing</Link></li>*/}
+                                    <li className={current === '/pricing' ? 'active' : ''}><Link to="/pricing">Pricing</Link></li>
                                     <li className={current === '/404' ? 'active' : ''}><Link to="/404">404 Page</Link></li>
                                     <li className={current === '/register' ? 'active' : ''}><Link to="/register">Register</Link></li>
                                     <li className={current === '/component' ? 'active' : ''}><Link to="/component">Elements</Link></li>
@@ -126,11 +126,11 @@ export default function NavDark() {
                                     <li className={current === '/privacy' ? 'active' : ''}><Link to="/privacy">Privacy Policy</Link></li>
                                     <li className={current === '/faq' ? 'active' : ''}><Link to="/faq">FAQs</Link></li>
                                 </ul>
-                            </li>
+                            </li> */}
                             
-                            <li className={`${['/instructor-dashboard','/instructor-courses','/instructor-create-course','/instructor-course-added','/instructor-earning','/instructor-students','/instructor-orders','/instructor-reviews','/instructor-payout','/student-dashboard','/student-subscription','/student-course-resume','/student-wishlist','/student-payment-info','/profile-edit','/settings','/delete-account'].includes(current) ? 'active' : ''}`}><Link to="#">Accounts<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
+                            {/* <li className={`${['/instructor-dashboard','/instructor-courses','/instructor-create-course','/instructor-course-added','/instructor-earning','/instructor-students','/instructor-orders','/instructor-reviews','/instructor-payout','/student-dashboard','/student-subscription','/student-course-resume','/student-wishlist','/student-payment-info','/profile-edit','/settings','/delete-account'].includes(current) ? 'active' : ''}`}><Link to="#">Accounts<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
                                 <ul className="nav-dropdown nav-submenu">
-                                    {/* <li className={`${['/instructor-dashboard','/instructor-courses','/instructor-create-course','/instructor-course-added','/instructor-earning','/instructor-students','/instructor-orders','/instructor-reviews','/instructor-payout'].includes(current) ? 'active' : ''}`}><Link to="#"><i className="bi bi-person-check me-2"></i>Instructor Dashboard<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
+                                    <li className={`${['/instructor-dashboard','/instructor-courses','/instructor-create-course','/instructor-course-added','/instructor-earning','/instructor-students','/instructor-orders','/instructor-reviews','/instructor-payout'].includes(current) ? 'active' : ''}`}><Link to="#"><i className="bi bi-person-check me-2"></i>Instructor Dashboard<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
                                         <ul className="nav-dropdown nav-submenu">
                                             <li className={current === '/instructor-dashboard' ? 'active' : ''}><Link to="/instructor-dashboard" className="active"><i className="bi bi-ui-radios-grid me-2"></i>Dashboard</Link></li>
                                             <li className={current === '/instructor-courses' ? 'active' : ''}><Link to="/instructor-courses"><i className="bi bi-basket2 me-2"></i>Courses</Link></li>
@@ -142,7 +142,7 @@ export default function NavDark() {
                                             <li className={current === '/instructor-payout' ? 'active' : ''}><Link to="/instructor-payout"><i className="bi bi-wallet2 me-2"></i>Payout</Link></li>
                                             <li><Link to="#"><i className="bi bi-question-octagon me-2"></i>Help & Support</Link></li>
                                         </ul>
-                                    </li> */}
+                                    </li>
                                     <li className={`${['/student-dashboard','/student-subscription','/student-course-resume','/student-wishlist','/student-payment-info'].includes(current) ? 'active' : ''}`}><Link to="#"><i className="bi bi-mortarboard me-2"></i>Student Dashboard<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
                                         <ul className="nav-dropdown nav-submenu">
                                             <li className={current === '/student-dashboard' ? 'active' : ''}><Link to="/student-dashboard"><i className="bi bi-ui-radios-grid me-2"></i>Dashboard</Link></li>
@@ -157,7 +157,7 @@ export default function NavDark() {
                                     <li className={current === '/settings' ? 'active' : ''}><Link to="/settings"><i className="bi bi-gear me-2"></i>Settings</Link></li>
                                     <li className={current === '/delete-account' ? 'active' : ''}><Link to="/delete-account"><i className="bi bi-trash3 me-2"></i>Delete Accounts</Link></li>
                                 </ul>
-                            </li>
+                            </li> */}
                         </ul>
                         
                         <ul className="nav-menu nav-menu-social align-to-right">

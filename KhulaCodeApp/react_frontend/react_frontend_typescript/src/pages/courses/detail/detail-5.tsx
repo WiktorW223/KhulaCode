@@ -111,7 +111,7 @@ const renderLessonContent = ()=>
                                             />
                                         )}
                                     </div>
-                                    {/* <p>{experience}</p> */}
+                                    
                                     </div>
                 )
             }
