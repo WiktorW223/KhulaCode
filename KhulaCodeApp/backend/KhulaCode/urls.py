@@ -27,5 +27,4 @@ path("get-last/",get_most_recent,name="get_most_recent"),
 path("get-info/<int:check>/",get_profile_info,name="get_info"),
 path("num-lesson-unit/<int:unit>/",get_num_lesson_unit,name="get_num_lessons"),
 path("get-all-students/",get_all_students,name="get_all_students")
-
 ]

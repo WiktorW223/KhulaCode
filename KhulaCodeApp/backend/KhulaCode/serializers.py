@@ -346,7 +346,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         return round(count/total *100)
     def get_area(self,obj):
         count = self.get_lessons_completed(obj)
-        if count<2:
+        if count<3:
             return "http://127.0.0.1:8000/media/areas/zero.png"
         elif count<5:
             return "http://127.0.0.1:8000/media/areas/seq.png"
