@@ -22,46 +22,46 @@ interface CoursesData{
 }
 
 export default function StudentWishlist() {
-  const [newPassword,setNewPassword] = useState("")
-  const [errors,setErrors] = useState<Record<string,string[]>>({})
-  const [message, setMessage] = useState("")
-  const {userId,token}= useParams<{
-    userId:string,
-    token:string 
-  }>();
-  if(!userId||!token)
-  {
-    return <p>Invalid reset link</p>
-  }
+  // const [newPassword,setNewPassword] = useState("")
+  // const [errors,setErrors] = useState<Record<string,string[]>>({})
+  // const [message, setMessage] = useState("")
+  // const {userId,token}= useParams<{
+  //   userId:string,
+  //   token:string 
+  // }>();
+  // if(!userId||!token)
+  // {
+  //   return <p>Invalid reset link</p>
+  // }
   
-  const handleSubmit = async (e:React.FormEvent)=>{
-    e.preventDefault()
-    setErrors({})
-    setMessage("")
+  // const handleSubmit = async (e:React.FormEvent)=>{
+  //   e.preventDefault()
+  //   setErrors({})
+  //   setMessage("")
 
     
 
     
-    try{
-    const res = await fetch("http://127.0.0.1:8000/KhulaCode/reset-password/",
-      {
-        method:"POST",
-        headers:{"Content-Type":'application/json'},
-        body:JSON.stringify({new_password:newPassword,user_id:userId,token})
-      }
-    )
+  //   try{
+  //   const res = await fetch("http://127.0.0.1:8000/KhulaCode/reset-password/",
+  //     {
+  //       method:"POST",
+  //       headers:{"Content-Type":'application/json'},
+  //       body:JSON.stringify({new_password:newPassword,user_id:userId,token})
+  //     }
+  //   )
   
   
-  }
-    catch(error)
-    {
-      setErrors({"non_field_errors":["network error please try again"]})
-      return
-    }
+  // }
+  //   catch(error)
+  //   {
+  //     setErrors({"non_field_errors":["network error please try again"]})
+  //     return
+  //   }
 
 
     
-  }
+  // }
   return (
     <>
         /* <StudentNavbar/> */
@@ -100,14 +100,14 @@ export default function StudentWishlist() {
 									</div>
 								</div>
 								<div className="form-group mb-4">
-                {message&&<p>{message}</p>}
+                {/* {message&&<p>{message}</p>}
                 <form onSubmit={handleSubmit}>
                 <label htmlFor='email'>Please enter email to reset password: </label>
                 <input onChange = {(e)=>setNewPassword(e.target.value)}  id = "email" type="email" name ="email"/>
                 <button type='submit'>Submit</button>
                 </form>
                 {errors.new_password&& <p style={{color:"red"}}>{errors.new_password[0]}</p>}
-                {errors.non_field_errors&& <p style={{color:"red"}}>{errors.non_field_errors[0]}</p>}
+                {errors.non_field_errors&& <p style={{color:"red"}}>{errors.non_field_errors[0]}</p>} */}
                 
                 </div>
 								<div className="col-lg-12 col-md-12 col-sm-12">

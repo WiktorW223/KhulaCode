@@ -51,7 +51,7 @@ import Register from "./pages/inner-page/register"
 import Component from "./pages/inner-page/component"
 import Contact from "./pages/inner-page/contact"
 import Privacy from "./pages/inner-page/privacy"
-import Faq from "./pages/inner-page/faq"
+import AdditionalResources from "./pages/inner-page/faq"
 import InstructorDashboard from "./pages/dashboard/instructor/instructor-dashboard"
 import InstructorCourses from "./pages/dashboard/instructor/instructor-courses"
 import InstructorCreateCourse from "./pages/dashboard/instructor/instructor-create-course"
@@ -91,7 +91,7 @@ function App() {
         <Route path="/home-12" element={<NewHome2/>} />
         <Route path="/home-13" element={<NewHome3/>} />*/}
         
-        <Route path="/grid-with-sidebar" element={<GridWithSidebar/>} />
+        {/* <Route path="/grid-with-sidebar" element={<GridWithSidebar/>} />
         <Route path="/grid-with-sidebar-2" element={<GridWithSidebar2/>} />
         <Route path="/grid-with-sidebar-3" element={<GridWithSidebar3/>} />
         <Route path="/list-with-sidebar" element={<ListWidthSidebar/>} />
@@ -105,9 +105,9 @@ function App() {
         <Route path="/course-detail/:id" element={<Detail2/>} />
         <Route path="/detail-3" element={<Detail3/>} />
         <Route path="/detail-4" element={<Detail4/>} />
-        <Route path="/detail-5/" element={<Detail5/>} />
+        <Route path="/detail-5/" element={<Detail5/>} /> */}
         <Route path="/lesson/:unit/:lessonNumber" element={<ProtectedRoute><Detail5/></ProtectedRoute>} />
-        <Route path="/detail-6" element={<Detail6/>} />
+        {/* <Route path="/detail-6" element={<Detail6/>} />
         <Route path="/find-instructor" element={<FindInstructor/>} />
         <Route path="/instructor-detail" element={<InstructorDetail/>} />
         <Route path="/instructor-detail/:id" element={<InstructorDetail/>} />
@@ -115,41 +115,41 @@ function App() {
         <Route path="/shop-left-sidebar" element={<ShopLeftSidebar/>} />
         <Route path="/shop-right-sidebar" element={<ShopRightSidebar/>} />
         <Route path="/product-detail" element={<ProductDetail/>} />
-        <Route path="/product-detail/:id" element={<ProductDetail/>} />
+        <Route path="/product-detail/:id" element={<ProductDetail/>} /> */}
         {/*<Route path="/add-to-cart" element={<AddToCart/>} />*/}
-        <Route path="/product-wishlist" element={<ProductWishlist/>} />
+        {/* <Route path="/product-wishlist" element={<ProductWishlist/>} />
         <Route path="/checkout" element={<Checkout/>} />
         <Route path="/shop-order" element={<ShopOrder/>} />
         <Route path="/about-us" element={<AboutUs/>} />
         <Route path="/blog" element={<Blog/>} />
         <Route path="/blog-detail" element={<BlogDetail/>} />
-        <Route path="/blog-detail/:id" element={<BlogDetail/>} />
+        <Route path="/blog-detail/:id" element={<BlogDetail/>} /> */}
         {/*<Route path="/pricing" element={<Pricing/>} />*/}
         <Route path="/404" element={<Error/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/component" element={<Component/>} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/privacy" element={<Privacy/>} />
-        <Route path="/faq" element={<Faq/>} />
-        <Route path="/instructor-dashboard" element={<InstructorDashboard/>} />
+        <Route path="/additional-resources" element={<AdditionalResources/>} />
+        {/* <Route path="/instructor-dashboard" element={<InstructorDashboard/>} />
         <Route path="/instructor-courses" element={<InstructorCourses/>} />
         <Route path="/instructor-create-course" element={<InstructorCreateCourse/>} />
-        <Route path="/instructor-earning" element={<InstructorEarning/>} />
+        <Route path="/instructor-earning" element={<InstructorEarning/>} /> */}
         <Route path="/instructor-students" element={<InstructorStudents/>} />
-        <Route path="/instructor-orders" element={<InstructorOrders/>} />
+        {/* <Route path="/instructor-orders" element={<InstructorOrders/>} />
         <Route path="/instructor-reviews" element={<InstructorReviews/>} />
-        <Route path="/instructor-payout" element={<InstructorPayout/>} />
-        <Route path="/student-dashboard" element={<StudentDashboard/>} />
-        <Route path="/student-all-courses" element={<StudentAllCourses/>} />
-        <Route path="/student-subscription" element={<StudentSubscription/>} />
-        <Route path="/student-course-resume" element={<StudentCourseResume/>} />
+        <Route path="/instructor-payout" element={<InstructorPayout/>} /> */}
+        <Route path="/student-dashboard" element={<ProtectedRoute><StudentDashboard/></ProtectedRoute>} />
+        {/* <Route path="/student-all-courses" element={<StudentAllCourses/>} />
+        <Route path="/student-subscription" element={<StudentSubscription/>} /> */}
+        <Route path="/student-course-resume" element={<ProtectedRoute><StudentCourseResume/></ProtectedRoute>} />
         <Route path="/student-wishlist" element={<StudentWishlist/>} />
-        <Route path="/student-payment-info" element={<StudentPaymentInfo/>} />
+        {/* <Route path="/student-payment-info" element={<StudentPaymentInfo/>} />
         <Route path="/profile-edit" element={<ProfileEdit/>} />
         <Route path="/settings" element={<Settings/>} />
         <Route path="/delete-account" element={<DeleteAccount/>} />
         <Route path="/become-tutor" element={<BecomeTutor/>} />
-        <Route path="/thank-you" element={<ThankYou/>} />
+        <Route path="/thank-you" element={<ThankYou/>} /> */}
 
         {/* my routes */}
         <Route path="/forgot-password" element={<ForgotPassword/>}/>

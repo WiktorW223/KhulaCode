@@ -66,7 +66,7 @@ export default function NavDark() {
 
                             </li>
                             <li className={`${['/about-us'].includes(current) ? 'active' : ''}`}><Link to="/about-us">About Us</Link></li>
-                            <li className={`${['/faq'].includes(current) ? 'active' : ''}`}><Link to="/faq">Additional Resources</Link></li>
+                            <li className={`${['/faq'].includes(current) ? 'active' : ''}`}><Link to="/additional-resources">Additional Resources</Link></li>
                            
                             {/* <li className={`${['/grid-with-sidebar','/grid-with-sidebar-2','/grid-with-sidebar-3','/list-with-sidebar','/full-width-course','/full-width-course-2','/full-width-course-3','/full-width-course-4','/detail','/detail-2','/detail-3','/detail-4','/detail-5','/detail-6','/find-instructor','/instructor-detail'].includes(current) ? 'active' : ''}`}><Link to="#">Courses<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
                                 <ul className="nav-dropdown nav-submenu">
