@@ -194,7 +194,7 @@ export default function Faq() {
                                                     <div className="single-group" key={index}>
                                                         <h4>{el.title}</h4>
                                                         <p >{el.desc}</p>
-                                                        <a style={{ color: "#0d6efd", fontWeight: "bold" }} href={el.site}> {el.title} Link</a>
+                                                        <a style={{ color: "var(--maincolor)", fontWeight: "bold" }} href={el.site}> {el.title} Link</a>
                                                     </div>
                                                 ))}      
                                             </div>
@@ -212,7 +212,7 @@ export default function Faq() {
                                                     <div className="single-group" key={index}>
                                                         <h4 >{el.title}</h4>
                                                         <p >{el.desc}</p>
-                                                        <a style={{ color: "#0d6efd", fontWeight: "bold" }} href={el.site}> {el.title} Link</a>
+                                                        <a style={{ color: "var(--maincolor)", fontWeight: "bold" }} href={el.site}> {el.title} Link</a>
                                                     </div>
                                                 ))}      
                                             </div>
@@ -230,7 +230,7 @@ export default function Faq() {
                                                     <div className="single-group" key={index}>
                                                         <h4 >{el.title}</h4>
                                                         <p >{el.desc}</p>
-                                                        <a style={{ color: "#0d6efd", fontWeight: "bold" }} href={el.site}> {el.title} Link</a>
+                                                        <a style={{ color: "var(--maincolor)", fontWeight: "bold" }} href={el.site}> {el.title} Link</a>
                                                     </div>
                                                 ))}      
                                             </div>

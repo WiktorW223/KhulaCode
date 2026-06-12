@@ -1,105 +1,62 @@
-import logo from '../../assets/img/tn.png'
-import { footerCat, footerHelp, footerLink1 } from '../../data/data'
 import { Link } from 'react-router-dom'
 
-interface LinkOne{
-	name: string;
-    link: string;
-}
+const exploreLinks = [
+	{ name: 'Home', link: '/' },
+	{ name: 'About Us', link: '/about-us' },
+	{ name: 'Additional Resources', link: '/additional-resources' },
+]
+
+const supportLinks = [
+	{ name: 'Sign up / Log in', link: '/register' },
+	{ name: 'Contact', link: '/contact' },
+	{ name: 'Privacy', link: '/privacy' },
+]
 
 export default function FooterDark() {
   return (
-		<footer className="dark-footer">
-			{/* <div> */}
-				{/* <div className="container">
-					<div className="row">
-						<div className="col-lg-3 col-md-3">
-							<div className="footer-widget">
-								<img src={logo} className="img-footer" alt="" />
-								<div className="footer-add">
-									<address className="mb-4 lh-base">Cape Town<br/>South Africa</address>
-									<div className="d-flex align-items-center call-now gap-2 mb-3">
-										<div className="square--30 circle bg-light-main text-main"><i className="bi bi-telephone"></i></div>
-										<div className="fs-6 fw-semibold">+1 246-345-0695</div>
-									</div>
-									<div className="d-flex align-items-center call-now gap-2">
-										<div className="square--30 circle bg-light-main text-main"><i className="bi bi-envelope"></i></div>
-										<div className="fs-6 fw-semibold">support@learnup.com</div>
-									</div>
-								</div>
-							</div>
-						</div>		
-						<div className="col-lg-2 col-md-3">
-							<div className="footer-widget">
-								<h4 className="widget-title">Navigations</h4>
-								<ul className="footer-menu">
-									{footerLink1.map((item:LinkOne,index:number)=>(
-										<li key={index}><Link to={item.link}>{item.name}</Link></li>
-									))}
-								</ul>
-							</div>
-						</div>
-								
-						<div className="col-lg-2 col-md-3">
-							<div className="footer-widget">
-								<h4 className="widget-title">New Categories</h4>
-								<ul className="footer-menu">
-									{footerCat.map((item:string,index:number)=>( 
-										<li key={index}><Link to="#">{item}</Link></li>
-									))}
-								</ul>
-							</div>
-						</div>
-						
-						<div className="col-lg-2 col-md-3">
-							<div className="footer-widget">
-								<h4 className="widget-title">Help & Support</h4>
-								<ul className="footer-menu">
-									{footerHelp.map((item:string,index:number)=>( 
-										<li key={index}><Link to="#">{item}</Link></li>
-									))}
-								</ul>
-							</div>
-						</div>
-						
-						<div className="col-lg-3 col-md-12">
-							<div className="footer-widget">
-								<h4 className="widget-title">Download Apps</h4>
-								<Link to="#" className="other-store-link">
-									<div className="other-store-app">
-										<div className="os-app-icon"><i className="bi bi-google-play"></i></div>
-										<div className="os-app-caps">Google Play<span>Get It Now</span></div>
-									</div>
-								</Link>
-								<Link to="#" className="other-store-link">
-									<div className="other-store-app">
-										<div className="os-app-icon"><i className="bi bi-apple"></i></div>
-										<div className="os-app-caps">App Store<span>Now it Available</span></div>
-									</div>
-								</Link>
-							</div>
+		<footer className="dark-footer pt-4">
+			<div className="container">
+				<div className="row g-4 pb-3">
+					<div className="col-lg-5 col-md-12">
+						<div className="footer-widget">
+							<h4 className="widget-title mb-2">KhulaCode</h4>
+							<p className="mb-0" style={{ maxWidth: 360 }}>Learn the basics of coding in Xhosa, guided by Lwazi — story-driven lessons that make computer science click for young minds.</p>
 						</div>
 					</div>
-				</div> */}
-			{/* </div> */}
-			
-			<div className="footer-bottom">
-				<div className="container">
-					<div className="row align-items-center g-3">
-						
-						<div className="col-lg-6 col-md-6">
-							<p className="mb-0">© {new Date().getFullYear()} KhulaCode</p>
-						</div>
-						
-						{/* <div className="col-lg-6 col-md-6 text-md-end">
-							<ul className="footer-bottom-social">
-								<li><Link to="#"><i className="ti-facebook"></i></Link></li>
-								<li><Link to="#"><i className="ti-twitter"></i></Link></li>
-								<li><Link to="#"><i className="ti-instagram"></i></Link></li>
-								<li><Link to="#"><i className="ti-linkedin"></i></Link></li>
+
+					<div className="col-lg-3 col-md-6">
+						<div className="footer-widget">
+							<h4 className="widget-title">Explore</h4>
+							<ul className="footer-menu">
+								{exploreLinks.map((item, index) => (
+									<li key={index}><Link to={item.link}>{item.name}</Link></li>
+								))}
 							</ul>
 						</div>
-						 */}
+					</div>
+
+					<div className="col-lg-4 col-md-6">
+						<div className="footer-widget">
+							<h4 className="widget-title">Account &amp; Support</h4>
+							<ul className="footer-menu">
+								{supportLinks.map((item, index) => (
+									<li key={index}><Link to={item.link}>{item.name}</Link></li>
+								))}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div className="footer-bottom mt-2 py-2">
+				<div className="container">
+					<div className="row align-items-center g-2">
+						<div className="col-lg-6 col-md-6">
+							<p className="mb-0 small">© {new Date().getFullYear()} KhulaCode</p>
+						</div>
+						<div className="col-lg-6 col-md-6 text-md-end">
+							<p className="mb-0 small">Made for young coders in South Africa 🌱</p>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { getAccessToken } from '../../lib/tokenService'
-import logo from '../../assets/img/k3.png'
-import logoIcon from '../../assets/img/k.png'
+import BrandLogo from '../../assets/img/newlogo.png'
 
 export default function NavDark() {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 992);
@@ -41,7 +40,7 @@ export default function NavDark() {
                 <nav id="navigation" className={`${isMobile ? 'navigation navigation-portrait' : 'navigation navigation-landscape'}`}>
                     <div className="nav-header">
                         <Link className="nav-brand" to="/">
-                            <img src={logo} className="logo" alt="" />
+                            <img src={BrandLogo} className="brand-logo-img" alt="KhulaCode" />
                         </Link>
                         <div className="nav-toggle" onClick={()=>setToggle(!toggle)}></div>
                     </div>
@@ -182,9 +181,7 @@ export default function NavDark() {
                     <div className="modal-body p-4">
                         <div className="login-card">
                             
-                            <div className="web-logo d-flex align-items-center justify-content-center mb-3">
-                                <div className="logo"><img src={logoIcon} className="img-fluid" width="60" alt="Logo"/></div>
-                            </div>
+                            
                             
                             <div className="login-caps mb-3">
                                 <div className="text-center">
@@ -255,7 +252,7 @@ export default function NavDark() {
                         <div className="login-card">
                             
                             <div className="web-logo d-flex align-items-center justify-content-center mb-3">
-                                <div className="logo"><img src={logoIcon} className="img-fluid" width="60" alt="Logo"/></div>
+                                
                             </div>
                             
                             <div className="login-caps mb-4">

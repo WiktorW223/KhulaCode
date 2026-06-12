@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import logo from '../../assets/img/k3.png'
-import logoIcon from '../../assets/img/k.png'
+import BrandLogo from '../../assets/img/newlogo.png'
 import { useApi } from '../../lib/useApi'
 import { clearTokens, getAccessToken } from '../../lib/tokenService'
 
@@ -31,6 +30,7 @@ export default function StudentNavbar({refreshKey}:{refreshKey?:boolean}) {
     const [profileData,setProfileData] = useState<profile|null>(null)
     const [completedCourse,setCompletedCourse] = useState(false)
     const current = location.pathname
+    
 
     
     const handleClick = ()=>
@@ -104,8 +104,8 @@ export default function StudentNavbar({refreshKey}:{refreshKey?:boolean}) {
             <div className="container">
                 <nav id="navigation" className={`${isMobile ? 'navigation navigation-portrait' : 'navigation navigation-landscape'}`}>
                     <div className="nav-header">
-                        <Link className="nav-brand" to="/">
-                            <img src={logo} className="logo" alt="" />
+                    <Link className="nav-brand" to="/">
+                            <img src={BrandLogo} className="brand-logo-img" alt="KhulaCode" />
                         </Link>
                         <div className="nav-toggle" onClick={()=>setToggle(!toggle)}></div>
                         <div className="mobile_nav">
@@ -313,7 +313,8 @@ export default function StudentNavbar({refreshKey}:{refreshKey?:boolean}) {
                         <div className="login-card">
                             
                             <div className="web-logo d-flex align-items-center justify-content-center mb-3">
-                                <div className="logo"><img src={logoIcon} className="img-fluid" width="60" alt="Logo"/></div>
+                                
+                                
                             </div>
                             
                             <div className="login-caps mb-3">
@@ -385,7 +386,7 @@ export default function StudentNavbar({refreshKey}:{refreshKey?:boolean}) {
                         <div className="login-card">
                             
                             <div className="web-logo d-flex align-items-center justify-content-center mb-3">
-                                <div className="logo"><img src={logoIcon} className="img-fluid" width="60" alt="Logo"/></div>
+                                
                             </div>
                             
                             <div className="login-caps mb-4">
