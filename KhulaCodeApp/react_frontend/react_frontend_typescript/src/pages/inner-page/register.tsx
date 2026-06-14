@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { getAccessToken,getRefreshToken,getTokenStorage } from '../../lib/tokenService'
-import logo from '../../assets/img/log.png'
-import logoIcon from '../../assets/img/logo-icon.png'
+import logoIcon from '../../assets/img/favicon_io/apple-touch-icon.png'
 
 import NavDark from '../../components/navbar/nav-dark'
 import FooterTop from '../../components/footer/footer-top'
@@ -197,9 +196,7 @@ return (
                     </div>
                 </div>
             </div>
-            <div className="position-absolute end-0 top-0"><img src={logo} className="img-fluid" width="200" alt="Log Screen"/></div>
-            <div className="position-absolute start-0 bottom-0"><img src={logo} className="img-fluid" width="150" alt="Log Screen"/></div>
-        </div>  
+        </div>
 
         <section className="pt-0">
             <div className="container">
@@ -207,7 +204,7 @@ return (
                     <div className="col-xxl-6 col-xl-7 col-lg-9 col-md-12">
                         <div className="card border py-xl-5 p-4 login-card overlio overlios">
                             <div className="web-logo d-flex align-items-center justify-content-center mb-3">
-                                <div className="logo"><img src={logoIcon} className="img-fluid" width="60" alt="Logo"/></div>
+                                <div className="logo"><img src={logoIcon} className="img-fluid rounded-4" width="64" alt="KhulaCode"/></div>
                             </div>
                             
                             <div className="login-caps mb-4">

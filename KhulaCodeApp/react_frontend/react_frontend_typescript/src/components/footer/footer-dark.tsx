@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import logoIcon from '../../assets/img/favicon_io/apple-touch-icon.png'
 
 const exploreLinks = [
 	{ name: 'Home', link: '/' },
@@ -19,7 +20,8 @@ export default function FooterDark() {
 				<div className="row g-4 pb-3">
 					<div className="col-lg-5 col-md-12">
 						<div className="footer-widget">
-							<h4 className="widget-title mb-2">KhulaCode</h4>
+							<img src={logoIcon} className="rounded-4 mb-3" width="54" height="54" alt="KhulaCode" />
+								<h4 className="widget-title mb-2">KhulaCode</h4>
 							<p className="mb-0" style={{ maxWidth: 360 }}>Learn the basics of coding in Xhosa, guided by Lwazi — story-driven lessons that make computer science click for young minds.</p>
 						</div>
 					</div>
