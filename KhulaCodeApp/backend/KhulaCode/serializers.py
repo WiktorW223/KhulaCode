@@ -319,8 +319,9 @@ class ProfileSerializer(serializers.ModelSerializer):
         if hasattr(self,"_last_unit"):
             return self._last_unit
         user = obj.user    
-        lessons = Lesson.objects.prefetch_related("activities","videos").all()
+        lessons = sorted(list(Lesson.objects.prefetch_related("activities","videos").all()),key=lambda x:x.unit)
         count =0
+        
         for lesson in lessons:
             lesson_completed = True
             items = sorted(list(lesson.videos.all())+list(lesson.activities.all()),key=lambda item:item.order)
@@ -346,51 +347,54 @@ class ProfileSerializer(serializers.ModelSerializer):
         return round(count/total *100)
     def get_area(self,obj):
         count = self.get_lessons_completed(obj)
-        if count<3:
+        unit = self.get_last_unit(obj)
+        if unit==0:
             return "http://127.0.0.1:8000/media/areas/zero.png"
-        elif count<5:
+        elif unit==1:
             return "http://127.0.0.1:8000/media/areas/seq.png"
-        elif count<8:
+        elif unit==2:
             return "http://127.0.0.1:8000/media/areas/dec.png"
-        elif count <13:
+        elif unit ==3:
             return "http://127.0.0.1:8000/media/areas/loop.png"
-        elif count<17:
+        elif unit==4:
             return "http://127.0.0.1:8000/media/areas/var.png"
-        elif count <21:
+        elif unit ==5:
             return "http://127.0.0.1:8000/media/areas/challenge.png"
-        else:
+        elif unit ==5 and count == 'complete':
             return "http://127.0.0.1:8000/media/areas/done.png"
     def get_tag(self,obj):
         count = self.get_lessons_completed(obj)
-        if count<3:
+        unit = self.get_last_unit(obj)
+        if unit==0:
             return "Beginner"
-        elif count<5:
+        elif unit==1:
             return "Jungle Explorer"
-        elif count<8:
+        elif unit==2:
             return "Path Finder"
-        elif count <13:
+        elif unit==3:
             return "Code Tracker"
-        elif count<17:
+        elif unit==4:
             return "Cyber Adventurer"
-        elif count <21:
+        elif unit==5:
             return "Logic Warrior"
-        else:
+        elif unit ==5 and count == "complete":
             return "Cyber Jungle Hero"
     def get_img(self,obj):
         count = self.get_lessons_completed(obj)
-        if count<3:
+        unit = self.get_last_unit(obj)
+        if unit==0:
             return "http://127.0.0.1:8000/media/pfp/pfp0.png"
-        elif count<5:
+        elif unit==1:
             return "http://127.0.0.1:8000/media/pfp/pfp1.png"
-        elif count<8:
+        elif unit==2:
             return "http://127.0.0.1:8000/media/pfp/pfp2.png"
-        elif count <13:
+        elif unit==3:
             return "http://127.0.0.1:8000/media/pfp/pfp3.png"
-        elif count<17:
+        elif unit==4:
             return "http://127.0.0.1:8000/media/pfp/pfp4.png"
-        elif count <21:
+        elif unit==5:
             return "http://127.0.0.1:8000/media/pfp/pfp5.png"
-        else:
+        elif unit ==5 and count == "complete":
             return "http://127.0.0.1:8000/media/pfp/pfp6.png"
 
 class RegisterSerializer(serializers.Serializer):
