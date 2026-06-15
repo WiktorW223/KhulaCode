@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import user from '../../assets/img/avatar-1.jpg'
 import { useApi } from '../../lib/useApi'; 
 import { Link, useLocation } from 'react-router-dom'
-import { getRecentLesson } from '../../lib/recentApi';
-import type { RecentLesson } from '../../lib/recentApi';
 import { getAccessToken } from '../../lib/tokenService';
 
 export default function StudentAdminSidebar() {
@@ -13,8 +11,6 @@ export default function StudentAdminSidebar() {
     const {makeRequest} =useApi()
     const [profileData,setProfileData] = useState<profile|null>(null)
     const [showImage,setShowImage] = useState(false)
-    const [recentLesson,setRecentLesson] = useState<RecentLesson|null>(null)
-    const [completed,setCompleted] = useState(false)
 
     type profile=
     {
@@ -36,34 +32,6 @@ export default function StudentAdminSidebar() {
             })
             
 
-    },[])
-    useEffect(()=>{
-        const loadRecent = async()=>
-        {
-            if (access)   
-                {
-                   const res = await makeRequest("get-last/")
-                   if(!res.ok)
-                   {
-                    console.log("ERROR")   
-                    return 
-                       
-                   }
-                   const data = await res.json()
-           
-                   if(data.message==="all lessons completed")
-                   {
-                    setCompleted(true)
-                    return
-                   }
-                   setRecentLesson(data)
-           
-               }
-            
-        }
-        
-            
-loadRecent()
     },[])
   return (
     <>
@@ -110,15 +78,9 @@ loadRecent()
                                 </div> */}
                             </div>
                         </div>
-                        <div className="d-flex justify-content-between mb-4">
-                            <div className="d-flex flex-column justify-content-center align-items-center gap-1">
-                                <h6 className="text-dark lh-1 fw-semibold m-0">{profileData?.xp}</h6>
-                                <span style={{color:"green"}}className="text-muted-2 m-0">XP</span>
-                            </div>
-                            <div className="d-flex flex-column justify-content-center align-items-center gap-2">
-                                <h6 className="text-dark lh-1 fw-semibold m-0">{completed?"FINISHED!":`${recentLesson?.unit}/5`}</h6>
-                                <span className="text-muted-2 m-0">Current Unit</span>
-                            </div>
+                        <div className="d-flex flex-column align-items-center mb-4">
+                            <h1 className="lh-1 fw-bold m-0" style={{color:"var(--goldcolor)"}}><i className="bi bi-star-fill me-2" style={{fontSize:"0.55em"}}></i>{profileData?.xp ?? 0}</h1>
+                            <span className="text-muted-2 m-0">XP earned</span>
                         </div>
                     </div>
                     

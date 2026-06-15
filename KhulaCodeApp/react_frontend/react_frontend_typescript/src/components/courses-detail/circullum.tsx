@@ -104,7 +104,7 @@ export default function Circullum({border,refreshKey}:{border:boolean,refreshKey
     {
         const fillLessons = async() =>
         {
-            const res= await makeRequest("lessons/00/")
+            const res= await makeRequest("curriculum/")
             if(!res.ok)
             {
                 console.log("errors")

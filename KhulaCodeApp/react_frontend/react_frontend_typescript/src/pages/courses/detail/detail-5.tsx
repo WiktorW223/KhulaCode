@@ -45,7 +45,7 @@ const [prevUnit,setPrevUnit] = useState(0)
 const [tag, setTag] = useState("")
 const {makeRequest} = useApi()
 
-
+const nextButtonCaption = currentIndex===1&&currentUnitIndex+1=== unitLessons.length?`Unit ${unitUrl+1}`:currentIndex===1?nextLesson?.title:"Activity"
 
 const [selected,setSelected] = useState<number|null>(null)
 
@@ -69,7 +69,6 @@ const renderLessonContent = ()=>
             console.log("error")
             }
             const data = await res.json()
-            // console.log({data})
             setRefresh((value)=>!value)
             setXp(data.amount_xp)
 
@@ -145,8 +144,6 @@ const renderLessonContent = ()=>
                     
                     
                 )}
-                
-                {/* <p>{experience}</p>    */}
             </>
         )
             }       
@@ -234,7 +231,7 @@ return ()=> clearTimeout(timer)
 
   useEffect(()=>
     {
-      makeRequest(`lessons/${unitUrl}/`)
+        makeRequest(`lessons/${unitUrl}/`)
       .then( res => res.json())
       .then( data => {setUnitLessons(data)})
     }
@@ -283,13 +280,7 @@ useEffect(()=>
           setLesson(data)})
     },[refresh,unitUrl,lessonNumUrl])
 
-    useEffect(()=>
-        {
-          makeRequest(`lesson/${unitUrl}/${lessonNumUrl}/`)
-          .then( res => res.json())
-          .then( data => {
-              setLesson(data)})
-        },[refresh,unitUrl,lessonNumUrl])
+
 
 const handlePrevClick = ()=>{
     if(currentIndex>=1)
@@ -337,17 +328,7 @@ const handleNextClick = ()=>{
 
 function CoursesOverview({border}:{border:boolean}) {
 
-    const data:string[] = [
-      "Beginners interested in starting a career in web design",
-      "Developers looking to expand their skills into design",
-      "Anyone wanting to create their own websites or improve existing ones",
-      "Students pursuing careers in tech, design, or media",
-      "Freelancers who want to expand their service offerings",
-      "Graphic designers looking to transition into UI/UX or web design",
-      "Entrepreneurs and business owners who want to build or maintain their own websites"
-    ]
 
-    
     
     
     
@@ -360,14 +341,6 @@ function CoursesOverview({border}:{border:boolean}) {
           <h4 className="edu_title">Lesson Overview</h4>
           <p>{lesson?.description}</p>		
           
-          {/* <div className="who-enrolled-block mt-4">
-              <h5 className="edu_title mb-2">Who Should Enroll?</h5>
-              <ul className="features-list">
-                  {data.map((item:string,index:number)=>( 
-                    <li key={index}><i className="bi bi-check-circle"></i>{item}</li>
-                  ))}
-              </ul>
-          </div> */}
       </div>
     )
   }
@@ -376,7 +349,6 @@ function CoursesOverview({border}:{border:boolean}) {
 
   return (
     <>
-       {/* <NavDark/> */}
        <StudentNavbar refreshKey={refresh}/>
 
         <div className="image-cover ed_detail_head lg theme-ov" style={{backgroundColor:'#f4f4f4', backgroundImage:`url(${bg})`}} data-overlay="7">
@@ -386,31 +358,10 @@ function CoursesOverview({border}:{border:boolean}) {
                         <div className="ed_detail_wrap light">
                             <div className="course-type d-flex align-items-center gap-2 mb-1">
                                 <span className="badge bg-green rounded-pill">{tag}</span>
-                                {/* <span className="badge bg-red rounded-pill"><i className="bi bi-tags me-1"></i>Pro</span> */}
                             </div>
                             <div className="ed_header_caption">
                                 <h2 className="ed_title">Lwazi's Adventure in the Cyber Jungle </h2>
-                                {/* <ul>
-                                    <li><i className="bi bi-calendar-check"></i>10 - 20 weeks</li>
-                                    <li><i className="bi bi-calendar-check"></i>102 Lectures</li>
-                                    <li><i className="bi bi-people"></i>502 Student Enrolled</li>
-                                </ul> */}
                             </div>
-                            
-                            {/* <div className="ed_rate_info">
-                                <div className="d-flex align-items-center justify-content-start gap-2">
-                                    <div className="star_info text-md d-flex align-items-center gap-1">
-                                        <i className="fas fa-star text-warning"></i>
-                                        <i className="fas fa-star text-warning"></i>
-                                        <i className="fas fa-star text-warning"></i>
-                                        <i className="fas fa-star text-warning"></i>
-                                        <i className="fas fa-star text-warning"></i>
-                                    </div>
-                                    <div className="review_counter d-flex align-items-center gap-1">
-                                        <strong className="high fw-bold text-light">4.9</strong><span className="text-mid text-light">(2.24k Reviews)</span>
-                                    </div>
-                                </div>
-                            </div> */}
                         </div>
                     </div>
                 </div>
@@ -425,15 +376,9 @@ function CoursesOverview({border}:{border:boolean}) {
                             <div className="inline_edu_first">
                                 <h4>{`Unit ${unitUrl}: ${lesson?.title}`}</h4>
                                 <ul className="edu_inline_info">
-                                    {/* <li><i className="ti-calendar"></i>10 weeks</li> */}
-                                    {/* <li><i className="bi bi-camera-video"></i>{lesson?.total_number}</li> */}
                                     <li><i className={`bi ${currentItem?.completed ? "bi-check-circle-fill text-success" : "bi-circle text-muted"}`}></i>{currentItem?.completed ? "Completed" : "Not completed"}</li>
-                                    {/* <li><i className="ti-user"></i>42k Student Enrolled</li> */}
                                 </ul>
                             </div>	
-                            {/* <div className="inline_edu_last">
-                                <h4 className="edu_price">$49.00</h4><a href="#" className="btn btn-main enroll-btn">Buy Now<i className="ti-angle-right"></i></a>
-                            </div> */}
                         </div>
                         
                         {xp>0 && (
@@ -446,38 +391,13 @@ function CoursesOverview({border}:{border:boolean}) {
     </div>
   )}
                         {renderLessonContent()}
-                        
-                            
-                           
-                            {/* <div className="instructor_over_info">
-                                <ul>
-                                    <li>
-                                        <div className="ins_info">
-                                            <div className="ins_info_thumb"><img src={avatar} className="img-fluid" alt="" /></div>
-                                            <div className="ins_info_caption"><span>Teacher</span><h4>Jessica West</h4></div>
-                                        </div>
-                                    </li>
-                                    <li><span>Category</span>Software</li>
-                                    <li>
-                                        <span>Reviews</span>
-                                        <div className="eds_rate">4.2
-                                            <div className="eds_rating">
-                                                <i className="fas fa-star filled"></i>
-                                                <i className="fas fa-star filled"></i>
-                                                <i className="fas fa-star filled"></i>
-                                                <i className="fas fa-star filled"></i>
-                                                <i className="fas fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div> */}
-                            
-                        
-                        
+
+                        <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 mt-4 mb-4">
+                            <button  disabled={currentIndex<1&&prevLesson===null&&unitUrl<=0} onClick={handlePrevClick} type="button" className="btn btn-light-main"><i className="bi bi-arrow-left me-1"></i>Prev{currentIndex<1&&prevLesson===null&&unitUrl<=0?"":currentIndex===0&&currentUnitIndex=== 0?`: Unit ${unitUrl-1}`:currentIndex===0? `: ${prevLesson?.title}` :": Video"}</button>
+                            <button  disabled={lessonItems.length-1<=currentIndex&&nextLesson===null&&unitUrl>=5} type="button" onClick = {handleNextClick} className="btn btn-main">Next{lessonItems.length-1<=currentIndex&&nextLesson===null&&unitUrl>=5 ?"":currentIndex===1&&currentUnitIndex+1=== unitLessons.length?`: Unit ${unitUrl+1}`:currentIndex===1? `: ${nextLesson?.title}` : ": Activity"}<i className="bi bi-arrow-right ms-1"></i></button>
+                        </div>
+
                         <div className="tab_box_info mt-4">
-                        <button  disabled={currentIndex<1&&prevLesson===null&&unitUrl<=0} onClick={handlePrevClick} type="button" className="btn btn-light-main me-1">Prev</button>
-                        <button  disabled={lessonItems.length-1<=currentIndex&&nextLesson===null&&unitUrl>=5} type="button" onClick = {handleNextClick} className="btn btn-light-main me-1">Next</button>
                             <ul className="nav nav-pills mb-3 light" id="pills-tab" role="tablist">
                                 <li className="nav-item">
                                     <a className="nav-link active" id="overview-tab" data-bs-toggle="pill" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
@@ -485,37 +405,14 @@ function CoursesOverview({border}:{border:boolean}) {
                                 <li className="nav-item">
                                     <a className="nav-link" id="curriculum-tab" data-bs-toggle="pill" href="#curriculum" role="tab" aria-controls="curriculum" aria-selected="false">Curriculum</a>
                                 </li>
-                                {/* <li className="nav-item">
-                                    <a className="nav-link" id="instructor-tab" data-bs-toggle="pill" href="#instructor" role="tab" aria-controls="instructor" aria-selected="false">Instructor</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" id="reviews-tab" data-bs-toggle="pill" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a>
-                                </li> */}
                             </ul>
-                            {/* disabled={lesson?.number<=1}
-                            disabled={lesson?.number>=lesson?.total_number} */}
-                           
-                        
+
                             <div className="tab-content" id="pills-tabContent">
-                                
-                                <div className="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab"> 
+                                <div className="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                                     <CoursesOverview border={false}/>
                                 </div>
-                                
                                 <div className="tab-pane fade" id="curriculum" role="tabpanel" aria-labelledby="curriculum-tab">
                                     <Circullum border={false} refreshKey={refresh}/>
-                                </div>
-                                
-                                <div className="tab-pane fade" id="instructor" role="tabpanel" aria-labelledby="instructor-tab">
-                                    <CourseDetail border={false}/>
-                                </div>
-                                
-                                <div className="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                                    <DetailRating border={false}/>
-                        
-                                    <CourseRating border={false}/>
-                                    
-                                    <ReviewForm border={false}/>
                                 </div>
                             </div>
                         </div>
@@ -525,9 +422,6 @@ function CoursesOverview({border}:{border:boolean}) {
                 </div>
             </div>
         </section>
-
-        {/* */}
-        {/* <FooterDark/> */}
     </>
   )
 }
