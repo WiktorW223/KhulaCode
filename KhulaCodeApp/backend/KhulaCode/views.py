@@ -207,13 +207,17 @@ def get_num_lesson_unit(request,unit):
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
+def curriculum(request):
+    lessons = Lesson.objects.all()
+    serializer = CurriculumSerializer(lessons,many=True,context={"request":request})
+    return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
 def get_many_lessons(request,unit):
-    if unit==00:
-        lessons = Lesson.objects.all()
-        serializer = CurriculumSerializer(lessons,many=True,context={"request":request})
-    else:
-        lessons = Lesson.objects.filter(unit=unit)
-        serializer = LessonListSerializer(lessons,many=True,context={"request":request})
+    lessons = Lesson.objects.filter(unit=unit)
+    serializer = LessonListSerializer(lessons,many=True,context={"request":request})
     return Response(serializer.data)
 
 

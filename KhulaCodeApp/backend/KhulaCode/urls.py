@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import Register, ForgotPassword, ResetPassword, TokenView, LessonDetailView,get_profile_info, get_many_lessons, make_lesson, mark_activity_complete,mark_video_complete,get_most_recent,get_num_lesson_unit,get_all_students
+from .views import Register, ForgotPassword, ResetPassword, TokenView, LessonDetailView,get_profile_info, get_many_lessons, make_lesson, mark_activity_complete,mark_video_complete,get_most_recent,get_num_lesson_unit,get_all_students, curriculum
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework_simplejwt.views import TokenRefreshView
@@ -17,6 +17,7 @@ path("token/refresh/",TokenRefreshView.as_view(),name="token_refresh"),
 path("forgot-password/",ForgotPassword.as_view(),name="forgot-password"),
 path("reset-password/",ResetPassword.as_view(),name="reset-password"),
 path("lessons/<int:unit>/",get_many_lessons,name="get_many_lessons"),
+path("curriculum/",curriculum,name="curriculum"),
 path("lesson/<int:unit>/<int:lesson_num>/",LessonDetailView.as_view(),name="lesson"),
 path("activity/<int:lesson_id>/<int:id>/attempt/",mark_activity_complete,name="activity_complete"),
 path("video/<int:lesson_id>/<int:id>/attempt/",mark_video_complete,name="video_complete"),
