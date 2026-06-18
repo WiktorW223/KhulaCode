@@ -140,7 +140,7 @@ export default function StudentDashboard() {
                                 </div>
                             </div>
 
-                            <div className="col-lg-12 col-md-12 col-sm-12">
+                            <div className="col-lg-12 col-md-12 col-sm-12 mt-4 pt-2">
                                 <div className="d-flex align-items-center justify-content-between gap-2 mb-3">
                                     <div className="head-title"><h4 className="mb-2 mb-sm-0">Current Area of the Cyber Jungle</h4></div>
                                 </div>
