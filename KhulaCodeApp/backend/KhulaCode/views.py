@@ -43,7 +43,7 @@ def get_most_recent(request):
     # if not request.user.is_authenticated:
     #     return Response({"error":"not authenticated"})
     user = request.user    
-    lessons = Lesson.objects.all()
+    lessons = sorted(list(Lesson.objects.all()),key=lambda item:item.unit)
     for lesson in lessons:
         items = sorted((list(lesson.activities.all())+list(lesson.videos.all())),key=lambda item:item.order)
         for item in items:
@@ -191,16 +191,12 @@ def make_lesson(request):
     
 
 
-# @api_view(["GET"])
-# @permission_classes([IsAuthenticated])
-# def get_lesson_video(request,lesson_num):
-#     lesson = get_object_or_404(Lesson, pk=lesson_num)
-#     return FileResponse(lesson.video_url.open(),content_type = "video/mp4")
+
 
 
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def get_num_lesson_unit(request,unit):
     count = Lesson.objects.filter(unit=unit).count()
     return Response({"num":{count}})

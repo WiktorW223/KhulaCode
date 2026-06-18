@@ -132,10 +132,10 @@ function App() {
         <Route path="/contact" element={<Contact/>} />
         <Route path="/privacy" element={<Privacy/>} />
         <Route path="/additional-resources" element={<AdditionalResources/>} />
-        {/* <Route path="/instructor-dashboard" element={<InstructorDashboard/>} />
-        <Route path="/instructor-courses" element={<InstructorCourses/>} />
+         {/*<Route path="/instructor-dashboard" element={<InstructorDashboard/>} />
+        <Route path="/instructor-courses" element={<InstructorCourses/>} />*/}
         <Route path="/instructor-create-course" element={<InstructorCreateCourse/>} />
-        <Route path="/instructor-earning" element={<InstructorEarning/>} /> */}
+        {/* <Route path="/instructor-earning" element={<InstructorEarning/>} />  */}
         <Route path="/instructor-students" element={<InstructorStudents/>} />
         {/* <Route path="/instructor-orders" element={<InstructorOrders/>} />
         <Route path="/instructor-reviews" element={<InstructorReviews/>} />

@@ -27,6 +27,7 @@ let [item] = useSearchParams()
 const itemParam = Number(item.get("item"))
 const lessonNumUrl = Number(lessonNumber)
 const unitUrl = Number(unit)
+const numberUrl = Number(lessonNumber)
 const [currentIndex,setCurrentIndex] = useState(0)
 const [unitLessons, setUnitLessons]= useState<Lesson[]>([])
 const currentUnitIndex = unitLessons.findIndex((lesson)=>lesson.number===Number(lessonNumUrl))
@@ -239,14 +240,13 @@ return ()=> clearTimeout(timer)
 
   useEffect(()=>
     {
-      if(unitUrl>1)
-        {makeRequest(`num-lesson-unit/${unitUrl-1}/`)
+        makeRequest(`num-lesson-unit/${unitUrl-1}/`)
       .then( res => res.json())
       .then( data => {
         console.log(data.num)
         setPrevUnit(data.num)
 
-      })}
+      })
     }
   ,[unitUrl])
 
@@ -298,6 +298,7 @@ const handlePrevClick = ()=>{
     }
     if(unitUrl>0)
     {
+        console.log(prevUnit)
         navigate(`/lesson/${unitUrl-1}/${prevUnit}?item=2`)
         return
     }
@@ -412,7 +413,7 @@ function CoursesOverview({border}:{border:boolean}) {
                                     <CoursesOverview border={false}/>
                                 </div>
                                 <div className="tab-pane fade" id="curriculum" role="tabpanel" aria-labelledby="curriculum-tab">
-                                    <Circullum border={false} refreshKey={refresh}/>
+                                    <Circullum border={false} refreshKey={refresh} unitParam={unitUrl} numberParam={numberUrl} lessonIndex={currentIndex}/>
                                 </div>
                             </div>
                         </div>
