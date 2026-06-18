@@ -236,7 +236,6 @@ h5,
 h6 {
 	color:var(--headingcolor);
 	font-weight:600;
-	text-transform: capitalize;
 	font-family:var(--primaryfont);
 }
 
