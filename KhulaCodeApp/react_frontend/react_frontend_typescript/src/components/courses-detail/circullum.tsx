@@ -47,55 +47,11 @@ type mostRecent=
     order:number,
     message:string
 }
-// type Lesson = {
-//     id:number
-//     title:string
-//     description:string
-//     completed:boolean
-//     number:number
-//     total_number?:number
-//     activities:ActivityItem[]
-//     videos:VideoItem[]
-//     unit:number
-// }
 
-// type VideoItem = {
-//     order:number
-//     type: "video"
-//     video_url: string
-//     title:string
-//     completed:boolean
-//   }
-  
-//   type Choice = {
-//     text: string
-//     is_correct: boolean
-//     activity:number
-//     order:number
-
-// }
-  
-//   type ActivityItem = {
-//     choices:Choice[]
-//     order:number
-//     type: "activity"
-//     question: string
-//     title:string
-//     completed:boolean
-    
-//   }
-  
-//   type LessonContent = VideoItem | ActivityItem  
-
-// interface Data {
-//     title: string;
-//     desc: string;
-//}
 
 export default function Circullum({border,refreshKey, unitParam, numberParam, lessonIndex}:{border:boolean,refreshKey?:boolean,unitParam?:number, numberParam?:number,lessonIndex?:number}) {
     const {makeRequest} = useApi()
     const [lessons,setLessons] = useState<CurriculumLesson[]>([])
-    const [openTab,setOpenTab]=useState<number>(1)
     const [lessonData,setLessonData] = useState<mostRecent>()
 
     
@@ -138,10 +94,7 @@ export default function Circullum({border,refreshKey, unitParam, numberParam, le
                 const data = await res.json()
                 if(data.message==="all lessons completed")
                 {
-                setOpenTab(5)
-                return
                 }
-                setOpenTab(data.unit)
                 setLessonData(data)
         }
         getRecent()
@@ -151,13 +104,6 @@ export default function Circullum({border,refreshKey, unitParam, numberParam, le
     
     
     
-  const unitZeroLessons = lessons.filter((lesson)=>lesson.unit==0)
-    const unitOneLessons = lessons.filter((lesson) => lesson.unit === 1)
-    const unitTwoLessons = lessons.filter((lesson) => lesson.unit === 2)
-    const unitThreeLessons = lessons.filter((lesson) => lesson.unit === 3)
-    const unitFourLessons = lessons.filter((lesson) => lesson.unit === 4)
-    const unitFiveLessons = lessons.filter((lesson) => lesson.unit === 5)
-
     const units = ["Introduction","Sequencing","Decisions","Loops","Variables","Challenges"]
   
   

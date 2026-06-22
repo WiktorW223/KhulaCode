@@ -120,8 +120,8 @@ const renderLessonContent = ()=>
            
             return(
                 <>
-                <h3 style={{ whiteSpace: "pre-line" }}>{currentItem?.question?currentItem.question.replace(/\\n/g,"\n"):""}</h3>
-                
+                <h3 style={{ whiteSpace: "pre-wrap" }}>{currentItem?.question?currentItem.question.replace(/\\n/g,"\n"):""}</h3>
+                <p> </p>
                 {currentItem.choices.map((opt:Choice ,optIndex:number)=>
                     {
                     const isSelected = selected === optIndex
