@@ -189,9 +189,33 @@ class StudentSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ["first_name","last_name","percentage","date_joined","img"]
     
+    def get_last_unit(self,obj):
+        if hasattr(self,"_last_unit"):
+            return self._last_unit
+        user = obj.user    
+        lessons = sorted(list(Lesson.objects.prefetch_related("activities","videos").all()),key=lambda x:x.unit)
+        count =0
+        
+        for lesson in lessons:
+            lesson_completed = True
+            items = sorted(list(lesson.videos.all())+list(lesson.activities.all()),key=lambda item:item.order)
+            if not items:
+                continue
+            for item in items:
+                if isinstance(item,Video):
+                    completed = VideoProgress.objects.filter(video=item,user=user,completed=True).exists()
+                else:
+                    completed = ActivityProgress.objects.filter(activity=item,user=user,completed=True).exists()
+                if not completed:
+                    lesson_completed = False
+                    self._last_unit = lesson.unit
+                    return lesson.unit
+            if lesson_completed:
+                count+=1
+        return "complete"
     def get_lessons_completed(self,obj):
         user = obj.user
-        lessons = Lesson.objects.prefetch_related("activities","videos").all()
+        lessons = sorted(list(Lesson.objects.prefetch_related("activities","videos").all()),key=lambda x:x.unit)
         count =0
         for lesson in lessons:
             lesson_completed = True
@@ -205,7 +229,6 @@ class StudentSerializer(serializers.ModelSerializer):
                     completed = ActivityProgress.objects.filter(activity=item,user=user,completed=True).exists()
                 if not completed:
                     lesson_completed = False
-                    break
             if lesson_completed:
                 count+=1
         self._lesson_count_cache = count
@@ -215,20 +238,21 @@ class StudentSerializer(serializers.ModelSerializer):
         total = Lesson.objects.count()
         return round(count/total *100)
     def get_img(self,obj):
-        count = self.get_lessons_completed(obj)
-        
-        if count<5:
-            return "http://127.0.0.1:8000/media/pfp/pfp1.png"
-        elif count<8:
-            return "http://127.0.0.1:8000/media/pfp/pfp2.png"
-        elif count <13:
-            return "http://127.0.0.1:8000/media/pfp/pfp3.png"
-        elif count<17:
-            return "http://127.0.0.1:8000/media/pfp/pfp4.png"
-        elif count <21:
-            return "http://127.0.0.1:8000/media/pfp/pfp5.png"
-        else:
+        unit = self.get_last_unit(obj)
+        if unit == "complete":
             return "http://127.0.0.1:8000/media/pfp/pfp6.png"
+        elif unit==0:
+            return "http://127.0.0.1:8000/media/pfp/pfp0.png"
+        elif unit==1:
+            return "http://127.0.0.1:8000/media/pfp/pfp1.png"
+        elif unit==2:
+            return "http://127.0.0.1:8000/media/pfp/pfp2.png"
+        elif unit==3:
+            return "http://127.0.0.1:8000/media/pfp/pfp3.png"
+        elif unit==4:
+            return "http://127.0.0.1:8000/media/pfp/pfp4.png"
+        elif unit==5:
+            return "http://127.0.0.1:8000/media/pfp/pfp5.png"
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -237,14 +261,14 @@ class TagSerializer(serializers.ModelSerializer):
         model = Profile
         fields =["tag"]
     
-    def get_lessons_completed(self,obj):
-        if hasattr(self,"_lesson_count_cache"):
-            return self._lesson_count_cache
+    def get_last_unit(self,obj):
+        if hasattr(self,"_last_unit"):
+            return self._last_unit
         user = obj.user    
-        lessons = Lesson.objects.prefetch_related("activities","videos").all()
+        lessons = sorted(list(Lesson.objects.prefetch_related("activities","videos").all()),key=lambda x:x.unit)
         count =0
+        
         for lesson in lessons:
-
             lesson_completed = True
             items = sorted(list(lesson.videos.all())+list(lesson.activities.all()),key=lambda item:item.order)
             if not items:
@@ -256,26 +280,28 @@ class TagSerializer(serializers.ModelSerializer):
                     completed = ActivityProgress.objects.filter(activity=item,user=user,completed=True).exists()
                 if not completed:
                     lesson_completed = False
-                    break
+                    self._last_unit = lesson.unit
+                    return lesson.unit
             if lesson_completed:
                 count+=1
-        return count
+        return "complete"
+
     def get_tag(self,obj):
-        count = self.get_lessons_completed(obj)
-        if count<3:
-            return "Beginner"
-        elif count<5:
-            return "Jungle Explorer"
-        elif count<8:
-            return "Path Finder"
-        elif count <13:
-            return "Code Tracker"
-        elif count<17:
-            return "Cyber Adventurer"
-        elif count <21:
-            return "Logic Warrior"
-        else:
+        unit = self.get_last_unit(obj)
+        if unit == "complete":
             return "Cyber Jungle Hero"
+        elif unit==0:
+            return "Beginner"
+        elif unit==1:
+            return "Jungle Explorer"
+        elif unit==2:
+            return "Path Finder"
+        elif unit==3:
+            return "Code Tracker"
+        elif unit==4:
+            return "Cyber Adventurer"
+        elif unit==5:
+            return "Logic Warrior"
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -295,7 +321,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         if hasattr(self,"_lesson_count_cache"):
             return self._lesson_count_cache
         user = obj.user    
-        lessons = Lesson.objects.prefetch_related("activities","videos").all()
+        lessons = list(sorted(Lesson.objects.prefetch_related("activities","videos").all(),key=lambda x:x.unit))
         count =0
         for lesson in lessons:
             lesson_completed = True
@@ -309,7 +335,6 @@ class ProfileSerializer(serializers.ModelSerializer):
                     completed = ActivityProgress.objects.filter(activity=item,user=user,completed=True).exists()
                 if not completed:
                     lesson_completed = False
-                    break
             if lesson_completed:
                 count+=1
         self._lesson_count_cache = count
@@ -346,9 +371,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         total = Lesson.objects.count()
         return round(count/total *100)
     def get_area(self,obj):
-        count = self.get_lessons_completed(obj)
         unit = self.get_last_unit(obj)
-        if unit==0:
+        if unit == "complete":
+            return "http://127.0.0.1:8000/media/areas/done.png"
+        elif unit==0:
             return "http://127.0.0.1:8000/media/areas/zero.png"
         elif unit==1:
             return "http://127.0.0.1:8000/media/areas/seq.png"
@@ -360,12 +386,11 @@ class ProfileSerializer(serializers.ModelSerializer):
             return "http://127.0.0.1:8000/media/areas/var.png"
         elif unit ==5:
             return "http://127.0.0.1:8000/media/areas/challenge.png"
-        elif unit ==5 and count == 'complete':
-            return "http://127.0.0.1:8000/media/areas/done.png"
     def get_tag(self,obj):
-        count = self.get_lessons_completed(obj)
         unit = self.get_last_unit(obj)
-        if unit==0:
+        if unit == "complete":
+            return "Cyber Jungle Hero"
+        elif unit==0:
             return "Beginner"
         elif unit==1:
             return "Jungle Explorer"
@@ -377,12 +402,11 @@ class ProfileSerializer(serializers.ModelSerializer):
             return "Cyber Adventurer"
         elif unit==5:
             return "Logic Warrior"
-        elif unit ==5 and count == "complete":
-            return "Cyber Jungle Hero"
     def get_img(self,obj):
-        count = self.get_lessons_completed(obj)
         unit = self.get_last_unit(obj)
-        if unit==0:
+        if unit == "complete":
+            return "http://127.0.0.1:8000/media/pfp/pfp6.png"
+        elif unit==0:
             return "http://127.0.0.1:8000/media/pfp/pfp0.png"
         elif unit==1:
             return "http://127.0.0.1:8000/media/pfp/pfp1.png"
@@ -394,8 +418,6 @@ class ProfileSerializer(serializers.ModelSerializer):
             return "http://127.0.0.1:8000/media/pfp/pfp4.png"
         elif unit==5:
             return "http://127.0.0.1:8000/media/pfp/pfp5.png"
-        elif unit ==5 and count == "complete":
-            return "http://127.0.0.1:8000/media/pfp/pfp6.png"
 
 class RegisterSerializer(serializers.Serializer):
     profile = ProfileSerializer(read_only = True)
