@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import InstructorNavbar from '../../../components/instructor-dashboard/instructor-navbar'
 import FooterDark from '../../../components/footer/footer-dark';
+import { useApi } from '../../../lib/useApi';
 
 export default function InstructorCreateCourse() {
     const [activeTab, setActiveTab] = useState<number>(1)
+    const {makeRequest} = useApi()
     
     type ActivityOption={
         isCorrect:boolean
@@ -83,7 +85,7 @@ export default function InstructorCreateCourse() {
         const ultimateData = {...lessonData,content:finalData}
 
         try{
-            const res = await fetch("http://127.0.0.1:8000/KhulaCode/make-lesson/",
+            const res = await makeRequest("make-lesson/",
                 {
                     method:"POST",
                     headers:{"Content-Type":"application/json"},
@@ -105,7 +107,7 @@ export default function InstructorCreateCourse() {
         }
   return (
     <>
-        <InstructorNavbar/>   
+        {/* <InstructorNavbar/>    */}
 
         <section className="bg-gredient py-5">
             <div className="container">
@@ -307,232 +309,19 @@ export default function InstructorCreateCourse() {
 
                                         
                                         
-                                        {/* <div className="mb-4">
-                                            <label className="form-label">Video Thumbnail 1 <span className="text-danger">*</span></label>
-                                            <input name="thumbnail" className='form-control' type='text'/> */}
-                                            {/* <div className="border rounded d-flex align-items-center justify-content-between p-3">
-                                                <div className="d-flex align-items-center">
-                                                    <i className="bi bi-image fs-4 text-primary me-3"></i>
-                                                    <input type="file" id="thumbnailInput" className="form-control" onChange={handleThumbnailChange} accept="image/*"/>
-                                                </div>
-                                                {preview && (
-                                                    <img id="thumbnailPreview" src={preview} className="img-thumbnail ms-3" style={{width:'100px', }} alt="Preview"/>
-                                                )}
-                                            </div>
-                                            <small className="text-muted d-block mt-2">Recommended: 800x600px | JPG/PNG</small> */}
-                                        {/* </div>
-
-                                        <div className="mb-4">
-                                            <label className="form-label">Video URL 1 </label>
-                                            <input name="video_url" className="form-control" type='text'/> */}
-                                            {/* <div className="border rounded d-flex align-items-center justify-content-between p-3"> */}
-                                                {/* <div className="d-flex align-items-center">
-                                                    <i className="bi bi-image fs-4 text-primary me-3"></i> */}
-                                                    {/* <input type="file" id="thumbnailInput" className="form-control" onChange={handleThumbnailChange2} accept="image/*"/>
-                                                </div>
-                                                {preview2 && (
-                                                    <img id="thumbnailPreview" src={preview2} className="img-thumbnail ms-3" style={{width:'100px', }} alt="Preview"/>
-                                                )}
-                                            </div> */}
-                                            {/* <small className="text-muted d-block mt-2">Format: MP4/WebM | Max: 100MB</small> */}
-                                        </div>
-
-                                        {/* <div className="mb-4">
-                                            <label className="form-label">Activity Question 1</label>
-                                            <input name="video_url" className="form-control" type='text'/>
-                                        </div>
                                         
-                                        <div className="mb-4">
-                                            <label className="form-label">Activity 1 Option 1</label>
-                                            <input name="option" className="form-control" type='text'/>
                                         </div>
 
-                                        <div className="mb-4">
-                                            <label className="form-label">Activity 1 Option 2</label>
-                                            <input name="option" className="form-control" type='text'/>
-                                        </div>
-
-                                        <div className="mb-4">
-                                            <label className="form-label">Activity 1 Option 3</label>
-                                            <input name="option" className="form-control" type='text'/>
-                                        </div>
                                         
-                                        <div className="mb-4">
-                                            <label className="form-label">Activity Question 2</label>
-                                            <input name="video_url" className="form-control" type='text'/>
-                                        </div>
-                                        
-                                        <div className="mb-4">
-                                            <label className="form-label">Activity 2 Option 1</label>
-                                            <input name="option" className="form-control" type='text'/>
-                                        </div>
-
-                                        <div className="mb-4">
-                                            <label className="form-label">Activity 2 Option 2</label>
-                                            <input name="option" className="form-control" type='text'/>
-                                        </div>
-
-                                        <div className="mb-4">
-                                            <label className="form-label">Activity 2 Option 3</label>
-                                            <input name="option" className="form-control" type='text'/>
-                                        </div>
-
-                                        <div className="mb-4">
-                                            <label className="form-label">Activity Question 3 </label>
-                                            <input name="video_url" className="form-control" type='text'/>
-                                        </div>
-                                        
-                                        <div className="mb-4">
-                                            <label className="form-label">Activity 3 Option 1</label>
-                                            <input name="option" className="form-control" type='text'/>
-                                        </div>
-
-                                        <div className="mb-4">
-                                            <label className="form-label">Activity 3 Option 2</label>
-                                            <input name="option" className="form-control" type='text'/>
-                                        </div>
-
-                                        <div className="mb-4">
-                                            <label className="form-label">Activity 3 Option 3</label>
-                                            <input name="option" className="form-control" type='text'/>
-                                        </div> */}
-
-
-                                       
-                                        {/* <div className="mb-4">
-                                            <label className="form-label">Course Resources</label>
-                                            <div className="border rounded d-flex align-items-center justify-content-between p-3">
-                                                <div className="d-flex align-items-center">
-                                                    <i className="bi bi-image fs-4 text-primary me-3"></i>
-                                                    <input type="file" id="thumbnailInput" className="form-control" onChange={handleThumbnailChange3} accept="image/*"/>
-                                                </div>
-                                                {preview3 && (
-                                                    <img id="thumbnailPreview" src={preview3} className="img-thumbnail ms-3" style={{width:'100px', }} alt="Preview"/>
-                                                )}
-                                            </div>
-                                            <small className="text-muted d-block mt-2">Optional: PDF, ZIP, or DOCX | Max 5 files</small>
-                                        </div> */}
                                         
                                         <button type="submit">Submit</button>
                                         <p>{msg}</p>
                                         
-                                    {/* </div> */}
                                     
-                                    <div className={`step ${activeTab === 2 ? 'active' : ''}`}>
-                                        <div className="mb-4">
-                                            <h5 className="lh-base m-0">Course Curriculum</h5>
-                                            <p className="text-muted">Add course sections and lessons below. You can add as many as needed.</p>
-                                        </div>
+                                    
+                                    
 
-                                        <div id="curriculumContainer">
-                                            <div className="section border p-3 rounded mb-4">
-                                                <div className="d-flex justify-content-between align-items-center mb-3">
-                                                <h6 className="mb-0 text-dark">Lesson Title</h6>
-                                                <button type="button" className="btn btn-sm btn-red remove-section rounded-2">Remove Section</button>
-                                                </div>
-
-                                                <div className="mb-3">
-                                                <label className="form-label">Lesson Title</label>
-                                                <input type="text" className="form-control" placeholder="e.g., Getting Started"/>
-                                                </div>
-
-                                                <div className="lessons">
-                                                <div className="lesson mb-3">
-                                                    <label className="form-label">Lecture Title</label>
-                                                    <input type="text" className="form-control mb-2" placeholder="e.g., Introduction"/>
-                                                    <textarea className="form-control" rows={2} placeholder="Lecture description..."></textarea>
-                                                </div>
-                                                </div>
-
-                                                <button type="button" className="btn btn-sm btn-light-main add-lesson rounded-2">+ Add Lecture</button>
-                                            </div>
-                                        </div>
-
-                                        <button type="button" className="btn btn-outline-main rounded-2" id="addSection">+ Add Lesson</button>
-                                    </div>
-
-                                    <div className={`step ${activeTab === 3 ? 'active' : ''}`}>
-                                        
-                                        <div className="form-group mb-3">
-                                            <label className="form-label">Is this as a free course?</label>
-                                            <div className="form-check">
-                                                <input id="freecpurse" className="form-check-input" name="freecpurse" type="checkbox"/>
-                                                <label htmlFor="freecpurse" className="form-check-label text-muted-2">Check if this is a free course.</label>
-                                            </div>
-                                        </div>
-                                        
-                                        <div className="form-group mb-3">
-                                            <label className="form-label">Course Price ($)</label>
-                                            <input type="number" className="form-control" placeholder="e.g., 99"/>
-                                        </div>
-                                        
-                                        <div className="form-group mb-3">
-                                            <label className="form-label">This course has a discount</label>
-                                            <div className="form-check">
-                                                <input id="coursediscount" className="form-check-input" name="coursediscount" type="checkbox"/>
-                                                <label htmlFor="coursediscount" className="form-check-label text-muted-2">Check if this course has discount.</label>
-                                            </div>
-                                        </div>
-                                        
-                                        <div className="form-group mb-3">
-                                            <label className="form-label">Discount Price ($)</label>
-                                            <input type="number" className="form-control" placeholder="e.g., 99"/>
-                                            <span className="text-muted text-mid">This course has <i className="fs-semibold text-green">10.5%</i> discount.</span>
-                                        </div>
-                                        
-                                        <div className="form-group mb-3">
-                                            <label className="form-label">Discount Expiry Period</label>
-                                            <div className="d-flex align-items-center gap-3">
-                                                <div className="form-check">
-                                                    <input id="lifetime" className="form-check-input" name="expireperiod" type="radio"/>
-                                                    <label htmlFor="lifetime" className="form-check-label text-muted-2">Lifetime</label>
-                                                </div>
-                                                <div className="form-check">
-                                                    <input id="limitedtime" className="form-check-input" name="expireperiod" type="radio" defaultChecked/>
-                                                    <label htmlFor="limitedtime" className="form-check-label text-muted-2">Limited Period</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div className="form-group mb-3">
-                                            <label className="form-label">Number of Days</label>
-                                            <input type="number" className="form-control" placeholder="e.g., 20"/>
-                                        </div>
-                                    </div>
-
-                                    <div className={`step ${activeTab === 4 ? 'active' : ''}`}>
-                                        <div className="form-group mb-3">
-                                            <label className="form-label">SEO Meta Title</label>
-                                            <input type="text" className="form-control" placeholder="e.g., Advance Java Script"/>
-                                            <span className="text-muted text-mid">Use max 65 characters only.</span>
-                                        </div>
-                                        
-                                        <div className="form-group mb-3">
-                                            <label className="form-label">SEO Description</label>
-                                            <input type="number" className="form-control" placeholder="e.g., Meta Description"/>
-                                            <span className="text-muted text-mid">Use max 150 characters only.</span>
-                                        </div>
-                                        
-                                        <div className="form-group mb-3">
-                                            <label className="form-label">Course Tags</label>
-                                            <input type="number" className="form-control" placeholder="e.g., Design, Figma, Java"/>
-                                            <span className="text-muted text-mid">Use tags with commas.</span>
-                                        </div>
-                                        
-                                        <div className="form-group mb-3">
-                                            <label className="form-label">Visibility</label>
-                                            <select className="form-control" id="visibility">
-                                                <option value="">&nbsp;</option>
-                                                <option value="public">Public</option>
-                                                <option value="private">Private</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div className="d-flex justify-content-between mt-4">
-                                        <button type="button" className="btn btn-gray px-4" id="prevBtn" onClick={()=>setActiveTab(activeTab > 1 ? activeTab - 1 : 1)}>Previous</button>
-                                        <button type="button" className="btn btn-main px-4" id="nextBtn" onClick={()=>setActiveTab(activeTab < 4 ? activeTab + 1 : 4)}>Next</button>
-                                    </div>
+                                    
                                 </form>
                             </div>
                         </div>						
@@ -540,7 +329,7 @@ export default function InstructorCreateCourse() {
                 </div>
             </div>
         </section>
-        <FooterDark/>
+        {/* <FooterDark/> */}
     </>
   )
 }

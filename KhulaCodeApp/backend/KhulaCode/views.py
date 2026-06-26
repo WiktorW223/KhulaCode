@@ -147,45 +147,48 @@ def mark_video_complete(request,lesson_id,id):
 
 
 @api_view(["POST"])
-# @permission_classes([IsAdminUser])
+@permission_classes([IsAdminUser])
 def make_lesson(request):
-    data = request.data
-    content = data.get("content", [])
-    lesson = Lesson.objects.create(
-        title=data.get("title", ""),
-        description=data.get("description", ""),
-        unit=data.get("unit", 0),
-        number=data.get("number", 0),
-    )
+    if request.user.is_superuser:
+        data = request.data
+        content = data.get("content", [])
+        lesson = Lesson.objects.create(
+            title=data.get("title", ""),
+            description=data.get("description", ""),
+            unit=data.get("unit", 0),
+            number=data.get("number", 0),
+        )
 
-    for item in content:
-        item_type = item.get("type")
+        for item in content:
+            item_type = item.get("type")
 
-        if item_type == "video":
-            Video.objects.create(
-                lesson=lesson,
-                title=item.get("title", ""),
-                video_url=item.get("video_url", ""),
-                order=item.get("order", 0),
-            )
-        elif item_type == "activity":
-            activity = Activity.objects.create(
-                lesson=lesson,
-                title=item.get("title", ""),
-                question=item.get("question", ""),
-                order=item.get("order", 0),
+            if item_type == "video":
+                Video.objects.create(
+                    lesson=lesson,
+                    title=item.get("title", ""),
+                    video_url=item.get("video_url", ""),
+                    order=item.get("order", 0),
+                )
+            elif item_type == "activity":
+                activity = Activity.objects.create(
+                    lesson=lesson,
+                    title=item.get("title", ""),
+                    question=item.get("question", ""),
+                    order=item.get("order", 0),
 
-            )
-
-            for index, obj in enumerate(item.get("choices", []), start=1):
-                Choice.objects.create(
-                    activity=activity,
-                    text=obj.get("text", ""),
-                    order=obj.get("order", index),
-                    is_correct=obj.get("is_correct", obj.get("isCorrect", False)),
                 )
 
-    return Response({"detail":"lesson created"})
+                for index, obj in enumerate(item.get("choices", []), start=1):
+                    Choice.objects.create(
+                        activity=activity,
+                        text=obj.get("text", ""),
+                        order=obj.get("order", index),
+                        is_correct=obj.get("is_correct", obj.get("isCorrect", False)),
+                    )
+
+        return Response({"detail":"lesson created"})
+    else:
+        return Response(status=status.HTTP_403_FORBIDDEN)
 
 
     
@@ -196,7 +199,7 @@ def make_lesson(request):
 
 
 @api_view(["GET"])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def get_num_lesson_unit(request,unit):
     count = Lesson.objects.filter(unit=unit).count()
     return Response({"num":{count}})
@@ -243,14 +246,18 @@ class TokenView(TokenObtainPairView):
     serializer_class = TokenSerializer
         
 class ForgotPassword(APIView):
+    # permission_classes = [IsAdminUser]
     def post(self,request):
         username = request.data.get("username")
         try:
             user = User.objects.get(username=username)
         except User.DoesNotExist:
-            return Response({"detail":'If this username exists, a reset link was created.'})
-        token = default_token_generator.make_token(user)
-        reset_url = f"{FRONTEND_URL}/reset-password/{user.pk}/{token}"
+            return Response({"detail":'Error, please ensure user exists'},status=status.HTTP_200_OK)
+        password = request.data.get("password")
+        user.set_password(password)
+        user.save()
+        # token = default_token_generator.make_token(user)
+        # reset_url = f"{FRONTEND_URL}/reset-password/{user.pk}/{token}"
         #when khulacode email made
         # send_mail(
         #     "Reset your password",
@@ -258,7 +265,7 @@ class ForgotPassword(APIView):
         #     "noreply@yourapp.com",
         #     [user.email],
         # )
-        return Response({"detail":'If this username exists, a reset link was created.',"url": reset_url})
+        return Response({"detail":'password reset successfully. You may now return to login page.'},status=status.HTTP_400_BAD_REQUEST)
 
 class ResetPassword(APIView):
     def post(self, request):
