@@ -12,6 +12,7 @@ interface StudentList{
     last_name: string;
     percentage: number;
     date_joined: number;
+    xp:number;
 }
 
 export default function InstructorStudents() {
@@ -99,7 +100,9 @@ export default function InstructorStudents() {
                                                         <th scope="col" className="border-0 rounded-start">Student Name</th>
                                                         <th scope="col" className="border-0">Progress %</th>
                                                         {/* <th scope="col" className="border-0">Courses</th> */}
+                                                        <th scope="col" className="border-0">XP</th>
                                                         <th scope="col" className="border-0">Enrolled Date</th>
+                                                        
                                                         {/* <th scope="col" className="border-0 rounded-end">Action</th> */}
                                                     </tr>
                                                 </thead>
@@ -118,6 +121,7 @@ export default function InstructorStudents() {
                                                                         <div className="d-flex gap-2">
                                                                             <p className="mb-0 text-muted-2 me-1"><i></i>{item.last_name}</p>
                                                                         </div>
+                                                    
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -133,8 +137,12 @@ export default function InstructorStudents() {
                                                             </td>
                                                             {/* <td><span className="text-muted-2">{item.percentage}</span></td> */}
                                                             <td>
+                                                            <span className="text-muted-2">{item.xp}</span>
+                                                            </td>
+                                                            <td>
                                                                 <span className="text-muted-2">{item.date_joined}</span>
                                                             </td>
+                                                            
                                                             {/* <td>
                                                                 <Link to="#" className="btn btn-sm btn-gray me-1 mb-0"data-bs-toggle="modal" data-bs-target="#messageModal"><i className="bi bi-chat-dots"></i></Link>
                                                                 <Link to="#" className="btn btn-sm btn-light-red mb-0" data-bs-toggle="tooltip" data-bs-title="Block"><i className="bi bi-ban"></i></Link>
@@ -146,7 +154,7 @@ export default function InstructorStudents() {
                                         </div>
 
                                         <div className="d-sm-flex justify-content-sm-between align-items-sm-center mt-3">
-                                            <p className="mb-0 text-center text-sm-start text-muted">Showing 1 to 8 of 20 entries</p>
+                                            <p className="mb-0 text-center text-sm-start text-muted">Showing 1 to 8 of 20 gtegte</p>
                                             <nav className="d-flex justify-content-center mb-0" aria-label="navigation">
                                                 <ul className="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
                                                     <li className="page-item mb-0"><Link className="page-link" to="#" tabIndex={-1}><i className="fas fa-angle-left"></i></Link></li>

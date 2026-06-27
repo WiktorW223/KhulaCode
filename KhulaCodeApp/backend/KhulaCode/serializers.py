@@ -187,7 +187,7 @@ class StudentSerializer(serializers.ModelSerializer):
     img = serializers.SerializerMethodField()
     class Meta:
         model = Profile
-        fields = ["first_name","last_name","percentage","date_joined","img"]
+        fields = ["first_name","last_name","percentage","date_joined","img","xp"]
     
     def get_last_unit(self,obj):
         if hasattr(self,"_last_unit"):
