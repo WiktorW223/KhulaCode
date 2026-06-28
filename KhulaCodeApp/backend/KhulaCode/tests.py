@@ -34,7 +34,7 @@ class TestRegisterAndSignIn(APITestCase):
         self.assertEqual(User.objects.count(),1)
 
     def test_sign_in(self):
-        user = User.objects.create_user(first_name="Tester",last_name="Test",username="TT",password="TT123")
+        User.objects.create_user(first_name="Tester",last_name="Test",username="TT",password="TT123")
         response = self.client.post(reverse("login"),{"username":"TT","password":"TT123"},format="json")
         self.assertEqual(response.status_code,200)
     
@@ -48,7 +48,34 @@ class TestRegisterAndSignIn(APITestCase):
         self.assertEqual(User.objects.count(),0)
     
     def test_reset_password(self):
-        pass
+        user = User.objects.create_user(first_name="Tester",last_name="McTest",username="TT",password="oldpass")
+        self.client.force_authenticate(user=user)
+        response = self.client.post(reverse("forgot-password"),{"username":"TT","password":"TT123"})
+        self.assertEqual(response.status_code,status.HTTP_403_FORBIDDEN)
+        user.profile.is_teacher = True
+        self.assertTrue(user.check_password("oldpass"))
+        response = self.client.post(reverse("forgot-password"),{"username":"notexist","password":"TT123"})
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+        response = self.client.post(reverse("forgot-password"),{"username":"TT","password":"TT123"})
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response = self.client.post(reverse("login"),{"username":"TT","password":"TT123"})
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+
+    def test_admin_privilege(self):
+        user = User.objects.create_user(first_name="Tester",last_name="McTest",username="TT",password="oldpass")
+        self.client.force_authenticate(user=user)
+        user.profile.is_teacher = True
+        response = self.client.get(reverse("all-students"))
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+    def test_authorized_view(self):
+        response = self.client.get(reverse("curriculum"))
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        user = User.objects.create_user(first_name="Tester",last_name="McTest",username="TT",password="pass")
+        response = self.client.get(reverse("curriculum"))
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.client.force_authenticate(user=user)
+        response = self.client.get(reverse("curriculum"))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 class ProgressTesting(APITestCase):
     def create_lesson_with_items(self, unit, number):
@@ -106,15 +133,3 @@ class ProgressTesting(APITestCase):
         self.assertEqual(profile_data["lessons_completed"],2)
         self.assertEqual(response1.data["completed"],True)
         self.assertEqual(response2.data["completed"],True)
-
-
-
-
-
-
-    
-
-
-
-
-        

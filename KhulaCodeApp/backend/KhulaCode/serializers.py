@@ -236,6 +236,8 @@ class StudentSerializer(serializers.ModelSerializer):
     def get_percentage(self,obj):
         count = self.get_lessons_completed(obj)
         total = Lesson.objects.count()
+        if total==0:
+            return 0
         return round(count/total *100)
     def get_img(self,obj):
         unit = self.get_last_unit(obj)
@@ -369,6 +371,8 @@ class ProfileSerializer(serializers.ModelSerializer):
     def get_percentage(self,obj):
         count = self.get_lessons_completed(obj)
         total = Lesson.objects.count()
+        if total==0:
+            return 0
         return round(count/total *100)
     def get_area(self,obj):
         unit = self.get_last_unit(obj)
