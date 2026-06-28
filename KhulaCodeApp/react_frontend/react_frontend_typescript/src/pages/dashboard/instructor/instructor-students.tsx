@@ -30,19 +30,26 @@ export default function InstructorStudents() {
   
     return (
     <>
-        <InstructorNavbar/>
+        {/* <InstructorNavbar/> */}
 
-        <section className="bg-gredient p-0">
-            <div className="container-fluid px-0">
-                <div className="ht-200"></div>
+        <section className="page-title" style={{ background: 'linear-gradient(135deg, var(--maincolor) 0%, var(--navcolor) 100%)' }}>
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-12">
+                        <div className="pageTitle-wrap text-center">
+                            <h1 className="text-white">My Students</h1>
+                            <p className="mb-0" style={{ color: 'rgba(255,255,255,0.9)' }}>Track your class's progress through the Cyber Jungle.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>  
+        </section>
 
         <section className="pt-4">
             <div className="container">
                 <div className="row gx-xl-5">
                     <div className="col-lg-3">
-                        <Sidebar/>							
+                        {/* <Sidebar/>							 */}
                     </div>	
                     
                     <div className="col-lg-9 col-md-12 col-sm-12">
@@ -60,7 +67,7 @@ export default function InstructorStudents() {
                         
                         <div className="row">
                             <div className="col-lg-12 col-md-12 col-sm-12">
-                                <div className="card border bg-transparent rounded-3">
+                                <div className="card border-0 shadow-sm rounded-3">
                                     <div className="card-header border-bottom">
                                         <div className="d-flex align-items-center justify-content-between w-100">
                                             <h4 className="mb-2 mb-sm-0">All Students</h4>
@@ -95,15 +102,12 @@ export default function InstructorStudents() {
                     
                                         <div className="table-responsive border-0 rounded-3">
                                             <table className="table align-middle p-4 mb-0">
-                                                <thead className="table-dark">
+                                                <thead>
                                                     <tr>
-                                                        <th scope="col" className="border-0 rounded-start">Student Name</th>
-                                                        <th scope="col" className="border-0">Progress %</th>
-                                                        {/* <th scope="col" className="border-0">Courses</th> */}
-                                                        <th scope="col" className="border-0">XP</th>
-                                                        <th scope="col" className="border-0">Enrolled Date</th>
-                                                        
-                                                        {/* <th scope="col" className="border-0 rounded-end">Action</th> */}
+                                                        <th scope="col" className="border-0 rounded-start" style={{ backgroundColor: 'var(--navcolor)', color: '#ffffff' }}>Student Name</th>
+                                                        <th scope="col" className="border-0" style={{ backgroundColor: 'var(--navcolor)', color: '#ffffff' }}>Progress %</th>
+                                                        <th scope="col" className="border-0" style={{ backgroundColor: 'var(--navcolor)', color: '#ffffff' }}>XP</th>
+                                                        <th scope="col" className="border-0 rounded-end" style={{ backgroundColor: 'var(--navcolor)', color: '#ffffff' }}>Enrolled Date</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -112,7 +116,7 @@ export default function InstructorStudents() {
                                                             <td key={index}>
                                                                 <div className="d-flex align-items-center gap-2">
                                                                     <div className="w-15">
-                                                                        <img src={item.img} className="img-fluid rounded" alt=""/>
+                                                                        <img src={item.img} className="img-fluid rounded-circle" alt=""/>
                                                                     </div>
                                                                     <div className="student-info">
                                                                         <h6 className="mb-0 fw-semibold table-responsive-title">	
@@ -130,7 +134,7 @@ export default function InstructorStudents() {
                                                                     <h6 className="fw-semibold">{item.percentage}</h6>
                                                                     <div className="d-flex w-30">
                                                                         <div className="progress w-100" role="progressbar" aria-label="Success striped example" aria-valuenow={item.percentage} aria-valuemin={0} aria-valuemax={100} style={{height: "8px"}}>
-                                                                            <div className="progress-bar progress-bar-striped bg-success" style={{width: item.percentage}}></div>
+                                                                            <div className="progress-bar progress-bar-striped bg-green" style={{width: item.percentage}}></div>
                                                                         </div>
                                                                     </div>
                                                                 </div>

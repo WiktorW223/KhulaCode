@@ -6,6 +6,7 @@ import ForgotPassword from "./pages/auth/forgot-password"
 import ResetPassword from "./pages/auth/reset-password"
 import ProtectedRoute from "./components/ProtectedRoute"
 import Detail5 from "./pages/courses/detail/detail-5"
+import ForgotPasswordInfo from "./pages/inner-page/forgot-password-info"
 /*import IndexTwo from "./pages/index/index-two"
 import IndexThree from "./pages/index/index-three"
 import IndexFour from "./pages/index/index-four"
@@ -155,7 +156,8 @@ function App() {
         {/* my routes */}
         <Route path="/forgot-password" element={<ForgotPassword/>}/>
         <Route path="/reset-password/:userId/:token" element={<ResetPassword/>}/>
-        <Route path="*" element={<Error /> } />
+        <Route path = "/forgot-password-info" element={<ForgotPasswordInfo/>}/>
+        <Route path="*" element={<Error/> } />
       </Routes>
       <ScrollToTop/>
     </>

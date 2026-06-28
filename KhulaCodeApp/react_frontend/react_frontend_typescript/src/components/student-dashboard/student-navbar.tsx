@@ -289,13 +289,13 @@ export default function StudentNavbar({refreshKey}:{refreshKey?:boolean}) {
                                                 <li><Link to="/student-dashboard" className={current === '/student-dashboard' ? 'active' : ''}><i className="bi bi-ui-radios-grid me-2"></i>Dashboard</Link></li>
                                                 {/* <li><Link to="/student-all-courses" className={current === '/student-all-courses' ? 'active' : ''}><i className="bi bi-play-circle me-2"></i>All Lessons</Link></li> */}
                                                 <li><Link to="/student-course-resume" className={current === '/student-course-resume' ? 'active' : ''}><i className="bi bi-play-circle me-2"></i>All Lessons</Link></li>
-                                                <li><Link to="/" onClick={handleClick}><i className="bi bi-box-arrow-right me-2"></i>Logout</Link></li>
                                                 {profileData?.is_teacher&&
                                                 <>
                                                 <li><Link to="/forgot-password" className={current === '/forgot-password' ? 'active' : ''}><i className="bi bi-lock"></i>Student Reset Password</Link></li>
                                                 <li><Link to="/instructor-students" className={current === '/instructor-students' ? 'active' : ''}><i className="bi bi-people"></i>Student Progress</Link></li>
                                                 </>
                                                 }
+                                                <li><Link to="/" onClick={handleClick}><i className="bi bi-box-arrow-right me-2"></i>Logout</Link></li>
                                                 {/* <li><Link to="/student-wishlist" className={current === '/student-wishlist' ? 'active' : ''}><i className="bi bi-wallet2 me-2"></i>Wishlist</Link></li>
                                                 <li><Link to="/student-payment-info" className={current === '/student-payment-info' ? 'active' : ''}><i className="bi bi-star-half me-2"></i>Payment Info</Link></li> */}
                                                 {/* <li><Link to="#"><i className="bi bi-question-octagon me-2"></i>Help & Support</Link></li> */}
