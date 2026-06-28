@@ -315,7 +315,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     last_name = serializers.CharField(source="user.last_name",read_only = True)
     class Meta:
         model = Profile
-        fields = ["xp","img","tag","first_name","last_name","percentage","lessons_completed","last_unit","area"] #"__all__" #["email","password","username","display_name","date_of_birth","xp","img",]
+        fields = ["xp","img","tag","first_name","last_name","percentage","lessons_completed","last_unit","area","is_teacher"] #"__all__" #["email","password","username","display_name","date_of_birth","xp","img",]
     
     def get_lessons_completed(self,obj):
         if hasattr(self,"_lesson_count_cache"):

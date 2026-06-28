@@ -248,7 +248,7 @@ return (
                                                         <input id="saveinfo" checked = {rememberMe} onChange ={(e)=> setRememberMe(e.target.checked)} className="form-check-input" name="saveinfo" type="checkbox"/>
                                                         <label htmlFor="saveinfo" className="form-check-label">Remember me</label>
                                                     </div>
-                                                    <div className="forget-password"><Link to="/forgot-password" className="text-decoration-underline">Forgot Password?</Link> </div>
+                                                    <div className="forget-password"><Link to="/forgot-password-info" className="text-decoration-underline">Forgot Password?</Link> </div>
                                                 </div>
                                             </div>
                                             

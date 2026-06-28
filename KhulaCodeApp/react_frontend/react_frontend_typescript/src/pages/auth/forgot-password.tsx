@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useApi } from '../../lib/useApi'
 
 export default function ForgotPassword() {
     
@@ -8,7 +9,8 @@ export default function ForgotPassword() {
     const [username,setUsername]=useState("")
     const [msg, setMsg]=useState("")
     const [loading,setLoading] = useState(false)
-    // const [temp, setTemp] = useState(String||null)
+    const [password,setPassword] = useState("")
+    const {makeRequest} = useApi()
 
     const handleSubmit = async(e:React.FormEvent)=>
     {
@@ -16,11 +18,11 @@ export default function ForgotPassword() {
         e.preventDefault()
         setMsg("")
         setLoading(true)
-            const res = await fetch("http://127.0.0.1:8000/KhulaCode/forgot-password/",
+            const res = await makeRequest("forgot-password/",
             {
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
-                body:JSON.stringify({username})
+                body:JSON.stringify({username,password})
             }
         )
         const  data = await res.json()
@@ -30,7 +32,6 @@ export default function ForgotPassword() {
         }
         else{
             setMsg(data.detail)
-            console.log(data.url)
         }
 
     }
@@ -67,9 +68,13 @@ export default function ForgotPassword() {
                                   </div>
                 <div className="form-group mb-4">
                   <form onSubmit={handleSubmit}>
-                  <label htmlFor='username'>Please enter your username to reset password: </label>
+                  <label htmlFor='username'>Please enter your student's username to reset password: </label>
                   <input onChange = {(e)=>setUsername(e.target.value)}  id = "username" type="text" name ="username"/>
-                  <button type='submit'>{loading?"Creating reset link...":"Submit"}</button>
+                  <br></br>
+                  <label htmlFor='password'>Please enter new password: </label>
+                  <input onChange = {(e)=>setPassword(e.target.value)}  id = "password" type="text" name ="password"/>
+                  <br></br>
+                  <button type='submit'>{loading?"Processing...":"Submit"}</button>
                   </form>
                   <Link to="/register?tab=signin">Return to Login Page</Link>
                   {msg&& <p>{msg}</p>}

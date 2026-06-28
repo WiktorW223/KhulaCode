@@ -246,26 +246,28 @@ class TokenView(TokenObtainPairView):
     serializer_class = TokenSerializer
         
 class ForgotPassword(APIView):
-    # permission_classes = [IsAdminUser]
     def post(self,request):
-        username = request.data.get("username")
-        try:
-            user = User.objects.get(username=username)
-        except User.DoesNotExist:
-            return Response({"detail":'Error, please ensure user exists'},status=status.HTTP_200_OK)
-        password = request.data.get("password")
-        user.set_password(password)
-        user.save()
-        # token = default_token_generator.make_token(user)
-        # reset_url = f"{FRONTEND_URL}/reset-password/{user.pk}/{token}"
-        #when khulacode email made
-        # send_mail(
-        #     "Reset your password",
-        #     f"Click here: {reset_url}",
-        #     "noreply@yourapp.com",
-        #     [user.email],
-        # )
-        return Response({"detail":'password reset successfully. You may now return to login page.'},status=status.HTTP_400_BAD_REQUEST)
+        if request.user.profile.is_teacher:
+            username = request.data.get("username")
+            try:
+                user = User.objects.get(username=username)
+            except User.DoesNotExist:
+                return Response({"detail":'Error, please ensure user exists'},status=status.HTTP_400_BAD_REQUEST)
+            password = request.data.get("password")
+            user.set_password(password)
+            user.save()
+            # token = default_token_generator.make_token(user)
+            # reset_url = f"{FRONTEND_URL}/reset-password/{user.pk}/{token}"
+            #when khulacode email made
+            # send_mail(
+            #     "Reset your password",
+            #     f"Click here: {reset_url}",
+            #     "noreply@yourapp.com",
+            #     [user.email],
+            # )
+            return Response({"detail":'password reset successfully. You may now return to login page.'},status=status.HTTP_200_OK)
+        else:
+            return Response({"detail":"You are not cleared to use this page. Please return to home page."},status=status.HTTP_403_FORBIDDEN)
 
 class ResetPassword(APIView):
     def post(self, request):

@@ -13,6 +13,7 @@ class Profile(models.Model):
     #date_of_birth = models.DateTimeField("date of birth")
     user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="profile") 
     xp = models.IntegerField(default=0)
+    is_teacher=models.BooleanField(default=False)
 
     def __str__(self):
         return f"Name: {self.user.username}" 
