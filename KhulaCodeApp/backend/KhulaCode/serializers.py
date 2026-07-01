@@ -183,7 +183,7 @@ class StudentSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(source="user.first_name",read_only=True)
     last_name = serializers.CharField(source="user.last_name",read_only = True)
     percentage = serializers.SerializerMethodField()
-    date_joined = serializers.DateTimeField(source="user.date_joined",read_only=True,format="%Y-%m-%dT%H:%M:%S.%fZ")
+    date_joined = serializers.DateTimeField(source="user.date_joined",read_only=True,format="%Y-%m-%d")
     img = serializers.SerializerMethodField()
     class Meta:
         model = Profile

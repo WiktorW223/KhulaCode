@@ -22,7 +22,7 @@ class Index(APIView):
 # @permission_classes([IsAdminUser])
 @api_view(["GET"])
 def get_all_students(request):
-    students = Profile.objects.filter()
+    students = Profile.objects.filter(is_teacher = False)
     serializer = StudentSerializer(students,many=True)
     return Response(serializer.data)
 

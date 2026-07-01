@@ -6,6 +6,7 @@ import FooterDark from '../../../components/footer/footer-dark'
 import { useApi } from '../../../lib/useApi'
 
 
+
 interface StudentList{
     img: string;
     first_name: string;
@@ -18,6 +19,16 @@ interface StudentList{
 export default function InstructorStudents() {
     const [students,setStudents] = useState<StudentList[]|[]>([])
     const {makeRequest} = useApi()
+    const [searchQuery,setSearchQuery] = useState("")
+    const [sortBy, setSortBy] = useState("alphabetical")
+    const filtered = [...students].filter((stu)=>`${stu.first_name} ${stu.last_name}`.toLowerCase().includes(searchQuery.toLowerCase()))
+
+    const sorted = [...filtered].sort((a,b)=>{
+        if(sortBy==="xp") return b.xp-a.xp
+        if(sortBy ==="progress") return b.percentage - a.percentage
+        if (sortBy === "date_joined") return new Date(b.date_joined).getTime() - new Date(a.date_joined).getTime()
+        return a.first_name.localeCompare(b.first_name)
+    })
     useEffect(()=>{
     makeRequest("get-all-students/")
     .then(res=>res.json())
@@ -25,8 +36,8 @@ export default function InstructorStudents() {
         console.log(data)
         setStudents(data)})
   },[])
-  const studentList = [...students].sort((a,b)=> new Date(b.date_joined).getTime() - new Date(a.date_joined).getTime())
   
+   
   
     return (
     <>
@@ -48,13 +59,13 @@ export default function InstructorStudents() {
         <section className="pt-4">
             <div className="container">
                 <div className="row gx-xl-5">
-                    <div className="col-lg-3">
-                        {/* <Sidebar/>							 */}
+                    <div className="d-none">
+                        {/* <Sidebar/> */}
                     </div>	
                     
-                    <div className="col-lg-9 col-md-12 col-sm-12">
+                    <div className="col-lg-12 col-md-12 col-sm-12">
                         <div className="row">
-                            <div className="col-lg-12 col-md-12 col-sm-12 pb-4">
+                            {/* <div className="col-lg-12 col-md-12 col-sm-12 pb-4">
                                 <nav aria-label="breadcrumb">
                                     <ol className="breadcrumb">
                                         <li className="breadcrumb-item"><Link to="#">Home</Link></li>
@@ -62,7 +73,7 @@ export default function InstructorStudents() {
                                         <li className="breadcrumb-item active" aria-current="page">Students List</li>
                                     </ol>
                                 </nav>
-                            </div>
+                            </div> */}
                         </div>
                         
                         <div className="row">
@@ -75,28 +86,22 @@ export default function InstructorStudents() {
                                     </div>
 
                                     <div className="card-body">
-                                        <div className="row g-3 align-items-center justify-content-between mb-4">
-                                            <div className="col-md-7">
-                                                <form className="rounded position-relative">
-                                                    <input className="form-control pe-5 bg-transparent" type="search" placeholder="Search" aria-label="Search"/>
-                                                    <button className="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
-                                                        <i className="bi bi-search text-muted opacity-75 fs-6 "></i>
-                                                    </button>
-                                                </form>
+                                        <div className="row g-3 align-items-end mb-4">
+                                            <div className="col-md-8">
+                                                <label htmlFor="search" className="form-label fw-semibold">Search</label>
+                                                <div className="position-relative">
+                                                    <i className="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+                                                    <input id="search" className="form-control ps-5" type="search" value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)} placeholder="Search student name" aria-label="Search"/>
+                                                </div>
                                             </div>
-
-                                            <div className="col-md-3">
-                                                <form>
-                                                    <div className="position-relative">
-                                                        <select id="sorting" className="form-control form-select">
-                                                            <option value="1">Free</option>
-                                                            <option value="2">Most Popular</option>
-                                                            <option value="3">Most Viewed</option>
-                                                            <option value="4">Newest</option>
-                                                            <option value="5">Trending</option>
-                                                        </select>
-                                                    </div>
-                                                </form>
+                                            <div className="col-md-4">
+                                                <label htmlFor="filter" className="form-label fw-semibold">Sort by</label>
+                                                <select id="filter" name="filter" value={sortBy} onChange={(e)=>setSortBy(e.target.value)} className="form-select">
+                                                    <option value="alphabetical">Alphabetical</option>
+                                                    <option value="xp">XP</option>
+                                                    <option value="progress">Progress</option>
+                                                    <option value="date_joined">Date Joined</option>
+                                                </select>
                                             </div>
                                         </div>
                     
@@ -105,13 +110,13 @@ export default function InstructorStudents() {
                                                 <thead>
                                                     <tr>
                                                         <th scope="col" className="border-0 rounded-start" style={{ backgroundColor: 'var(--navcolor)', color: '#ffffff' }}>Student Name</th>
-                                                        <th scope="col" className="border-0" style={{ backgroundColor: 'var(--navcolor)', color: '#ffffff' }}>Progress %</th>
+                                                        <th scope="col" className="border-0" style={{ backgroundColor: 'var(--navcolor)', color: '#ffffff' }}>Progress</th>
                                                         <th scope="col" className="border-0" style={{ backgroundColor: 'var(--navcolor)', color: '#ffffff' }}>XP</th>
                                                         <th scope="col" className="border-0 rounded-end" style={{ backgroundColor: 'var(--navcolor)', color: '#ffffff' }}>Enrolled Date</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {studentList?.map((item:StudentList,index:number)=>( 
+                                                    {sorted?.map((item:StudentList,index:number)=>( 
                                                         <tr key={index}>
                                                             <td key={index}>
                                                                 <div className="d-flex align-items-center gap-2">
@@ -131,7 +136,7 @@ export default function InstructorStudents() {
                                                             </td>
                                                             <td>
                                                                 <div className="progress-info">
-                                                                    <h6 className="fw-semibold">{item.percentage}</h6>
+                                                                    <h6 className="fw-semibold">{item.percentage}%</h6>
                                                                     <div className="d-flex w-30">
                                                                         <div className="progress w-100" role="progressbar" aria-label="Success striped example" aria-valuenow={item.percentage} aria-valuemin={0} aria-valuemax={100} style={{height: "8px"}}>
                                                                             <div className="progress-bar progress-bar-striped bg-green" style={{width: item.percentage}}></div>
@@ -157,8 +162,8 @@ export default function InstructorStudents() {
                                             </table>
                                         </div>
 
-                                        <div className="d-sm-flex justify-content-sm-between align-items-sm-center mt-3">
-                                            <p className="mb-0 text-center text-sm-start text-muted">Showing 1 to 8 of 20 gtegte</p>
+                                        {/* <div className="d-sm-flex justify-content-sm-between align-items-sm-center mt-3">
+                                            <p className="mb-0 text-center text-sm-start text-muted">{`Showing ${filtered.length} of ${students.length} students`}</p>
                                             <nav className="d-flex justify-content-center mb-0" aria-label="navigation">
                                                 <ul className="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
                                                     <li className="page-item mb-0"><Link className="page-link" to="#" tabIndex={-1}><i className="fas fa-angle-left"></i></Link></li>
@@ -169,7 +174,7 @@ export default function InstructorStudents() {
                                                     <li className="page-item mb-0"><Link className="page-link" to="#"><i className="fas fa-angle-right"></i></Link></li>
                                                 </ul>
                                             </nav>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>

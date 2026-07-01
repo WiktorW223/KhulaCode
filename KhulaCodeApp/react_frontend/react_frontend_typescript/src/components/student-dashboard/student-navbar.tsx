@@ -292,7 +292,7 @@ export default function StudentNavbar({refreshKey}:{refreshKey?:boolean}) {
                                                 {profileData?.is_teacher&&
                                                 <>
                                                 <li><Link to="/forgot-password" className={current === '/forgot-password' ? 'active' : ''}><i className="bi bi-lock"></i>Student Reset Password</Link></li>
-                                                <li><Link to="/instructor-students" className={current === '/instructor-students' ? 'active' : ''}><i className="bi bi-people"></i>Student Progress</Link></li>
+                                                <li><Link to="/instructor-students" className={current === '/instructor-students' ? 'active' : ''}><i className="bi bi-people"></i>My Students</Link></li>
                                                 </>
                                                 }
                                                 <li><Link to="/" onClick={handleClick}><i className="bi bi-box-arrow-right me-2"></i>Logout</Link></li>
