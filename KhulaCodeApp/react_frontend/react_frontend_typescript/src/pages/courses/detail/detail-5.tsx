@@ -395,7 +395,7 @@ function CoursesOverview({border}:{border:boolean}) {
 
                         <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 mt-4 mb-4">
                             <button  disabled={currentIndex<1&&prevLesson===null&&unitUrl<=0} onClick={handlePrevClick} type="button" className="btn btn-light-main"><i className="bi bi-arrow-left me-1"></i>Prev{currentIndex<1&&prevLesson===null&&unitUrl<=0?"":currentIndex===0&&currentUnitIndex=== 0?`: Unit ${unitUrl-1}`:currentIndex===0? `: ${prevLesson?.title}` :": Video"}</button>
-                            <button  disabled={lessonItems.length-1<=currentIndex&&nextLesson===null&&unitUrl>=5} type="button" onClick = {handleNextClick} className="btn btn-main">Next{lessonItems.length-1<=currentIndex&&nextLesson===null&&unitUrl>=5 ?"":currentIndex===1&&currentUnitIndex+1=== unitLessons.length?`: Unit ${unitUrl+1}`:currentIndex===1? `: ${nextLesson?.title}` : ": Activity"}<i className="bi bi-arrow-right ms-1"></i></button>
+                            <button  disabled={(lessonItems.length-1<=currentIndex&&nextLesson===null&&unitUrl>=5)||!currentItem?.completed} type="button" onClick = {handleNextClick} className="btn btn-main">Next{lessonItems.length-1<=currentIndex&&nextLesson===null&&unitUrl>=5 ?"":currentIndex===1&&currentUnitIndex+1=== unitLessons.length?`: Unit ${unitUrl+1}`:currentIndex===1? `: ${nextLesson?.title}` : ": Activity"}<i className="bi bi-arrow-right ms-1"></i></button>
                         </div>
 
                         <div className="tab_box_info mt-4">

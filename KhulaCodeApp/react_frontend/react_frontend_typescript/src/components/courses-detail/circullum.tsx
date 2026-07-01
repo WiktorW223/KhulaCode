@@ -125,7 +125,9 @@ export default function Circullum({border,refreshKey, unitParam, numberParam, le
             
     {units.map((name,index)=>{
         const completed = lessonData?.message==="all lessons completed"
-        const locked = (index!=0)&&(!(completed)&&(lessonData?.unit??0)<index)
+        const prevUnit = lessons.filter((lesson=>lesson.unit===index-1))
+        const prevUnitDone = prevUnit.every(l=>l.completed)
+        const locked = (index!=0)&&(!completed)&&((lessonData?.unit??0)<index)&&(!prevUnitDone)
         const icon = completed?"bi-check-circle-fill text-success":locked?"bi-lock-fill":""
         const msg = completed?"":locked?`Finish Unit ${index-1} to unlock`:""
         
