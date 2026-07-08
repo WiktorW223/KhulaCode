@@ -7,14 +7,15 @@ from django.db.models import ForeignKey
 # class Achievements(models.Model):
 #     title = models.CharField(max_length=50)
 #     needed_xp = models.IntegerField()
-    
+class School(models.Model):
+    name = models.CharField(max_length=255)
 
 class Profile(models.Model):
     #date_of_birth = models.DateTimeField("date of birth")
+    school = models.ForeignKey(School,on_delete=models.PROTECT)
     user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="profile") 
     xp = models.IntegerField(default=0)
     is_teacher=models.BooleanField(default=False)
-
     def __str__(self):
         return f"Name: {self.user.username}" 
     def get_xp(self,item,first):

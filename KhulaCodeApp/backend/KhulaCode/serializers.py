@@ -3,11 +3,18 @@ from rest_framework.validators import UniqueValidator
 from django.contrib.auth.models import User
 from django.db.models import ForeignKey
 from django.contrib.auth import authenticate
-from .models import Profile,Lesson, Choice, Activity, Video, ActivityProgress, VideoProgress
+from .models import Profile,Lesson,School,Choice, Activity, Video, ActivityProgress, VideoProgress
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 # class TestSerializer(serializers.Serializer):
 #     msg = serializers.CharField()
+
+
+
+class SchoolSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = School
+        fields = "__all__"
 
 class TokenSerializer(TokenObtainPairSerializer):
     username_field = "username"
@@ -424,19 +431,21 @@ class ProfileSerializer(serializers.ModelSerializer):
             return "http://127.0.0.1:8000/media/pfp/pfp5.png"
 
 class RegisterSerializer(serializers.Serializer):
-    profile = ProfileSerializer(read_only = True)
     username = serializers.CharField(
         max_length=150,
-        validators=[UniqueValidator(queryset=User.objects.all())],
+        validators=[UniqueValidator(queryset=User.objects.all())]
     )
     password = serializers.CharField(write_only = True)
     first_name = serializers.CharField(required=True)#required= True
     last_name = serializers.CharField(required=True)
 
     def create(self, validated_data):
+            school = validated_data.pop("school")
             user = User.objects.create_user(
                 username = validated_data["username"],
                 first_name = validated_data["first_name"],
                 last_name = validated_data["last_name"],
                 password = validated_data["password"])
+            Profile.objects.create(user=user,school=school)
             return user 
+            

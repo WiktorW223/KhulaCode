@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import Register, ForgotPassword, ResetPassword, TokenView, LessonDetailView,get_profile_info, get_many_lessons, make_lesson, mark_activity_complete,mark_video_complete,get_most_recent,get_num_lesson_unit,get_all_students, curriculum
+from .views import Register, ForgotPassword, ResetPassword, TokenView, LessonDetailView,get_schools, get_profile_info, get_many_lessons, make_lesson, mark_activity_complete,mark_video_complete,get_most_recent,get_num_lesson_unit,get_all_students, curriculum
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework_simplejwt.views import TokenRefreshView
@@ -27,5 +27,6 @@ path("make-lesson/",make_lesson,name="make-lesson"),
 path("get-last/",get_most_recent,name="get_most_recent"),
 path("get-info/<int:check>/",get_profile_info,name="get_info"),
 path("num-lesson-unit/<int:unit>/",get_num_lesson_unit,name="get_num_lessons"),
-path("get-all-students/",get_all_students,name="all-students")
+path("get-all-students/",get_all_students,name="all-students"),
+path("get-schools/",get_schools,name="get-schools")
 ]

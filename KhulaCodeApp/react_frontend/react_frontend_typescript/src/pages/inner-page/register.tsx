@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react'
-import { Link, Navigate, useNavigate, useSearchParams } from 'react-router-dom'
-import { getAccessToken,getRefreshToken,getTokenStorage } from '../../lib/tokenService'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { getAccessToken } from '../../lib/tokenService'
 import logoIcon from '../../assets/img/favicon_io/apple-touch-icon.png'
 
 import NavDark from '../../components/navbar/nav-dark'
-import FooterTop from '../../components/footer/footer-top'
 import Footer from '../../components/footer/footer'
 import type React from 'react'
-import { Timer } from 'lucide-react'
+
+type School = {
+    id: number
+    name: string
+}
 
 export default function Register() {
 
@@ -24,7 +27,7 @@ if(token)
 const navigate = useNavigate()
 const [searchParams] = useSearchParams()
 const initialTab = searchParams.get("tab") === "signin" ? "signin" : "register"
-
+const [schools,setSchools] = useState<School[]>([])
 const [rememberMe,setRememberMe] = useState(false)
 
 const [loginFormData, setLoginFormData] = useState(
@@ -38,6 +41,7 @@ const [formData, setFormData] =useState({
     lastName: "",
     username: "",
     password: "",
+    school:"No School Selected"
 
 })
 const [seePass,setSeePass] = useState(false)
@@ -71,6 +75,24 @@ const handleLoginChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
     setLoginErrors(newErrors)
 }
 
+
+useEffect(()=> 
+{
+    const getSchools = async() =>
+    {
+    const res = await fetch("http://127.0.0.1:8000/KhulaCode/get-schools/")
+
+const data = await res.json()
+if(!res.ok)
+{
+console.log("error in backend")
+return
+}
+setSchools(data.schools)
+    
+} 
+getSchools()
+},[])
 
 const handleLogin = async (e:React.FormEvent)=>{
     e.preventDefault()
@@ -140,7 +162,7 @@ const res = await fetch("http://127.0.0.1:8000/KhulaCode/register/",{
     headers:{
         'Content-Type' : 'application/json'
     },
-    body: JSON.stringify({username:formData.username,password:formData.password,first_name:formData.firstName,last_name:formData.lastName}),
+    body: JSON.stringify({username:formData.username,password:formData.password,first_name:formData.firstName,last_name:formData.lastName,school:formData.school}),
 })
 const data = await res.json()
 
@@ -157,7 +179,7 @@ if (!res.ok){
     }
     return
 }
-setFormData({firstName:"",lastName:"",username:"",password:""})
+setFormData({firstName:"",lastName:"",username:"",password:"", school:""})
 console.log(data.message)
 navigate("/register?tab=signin")
 
@@ -290,6 +312,21 @@ return (
                                                     {errors.password && (<p style={{ position: "absolute", top: "100%", margin: 0, fontSize: "0.75rem", color: "red" }}>{errors.password[0]}</p>)}
                                                 </div>
                                             </div>
+                                            
+
+
+                                            <label htmlFor="school" className="form-label fw-semibold">Select Your School</label>
+                                                <select id="school" name="school" value={formData.school} onChange={(e)=>setFormData({...formData,["school"]:e.target.value})} className="form-select">
+                                                    <option value="No School Selected">No School Selected</option>
+                                                    {schools.map((school) => (
+                                                        <option key={school.id} value={school.name}>{school.name}</option>
+                                                    ))}
+                                                    
+                                                    
+                                                </select>
+                                                
+                                            
+                                            
                                             <div className="form-group mb-3">
                                                 {errors.non_field_errors&&<p style={{color:"red"}}>{errors.non_field_errors[0]}</p>}
                                                 <p></p>
