@@ -8,11 +8,11 @@ from django.db.models import ForeignKey
 #     title = models.CharField(max_length=50)
 #     needed_xp = models.IntegerField()
 class School(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255,unique=True)
 
 class Profile(models.Model):
     #date_of_birth = models.DateTimeField("date of birth")
-    school = models.ForeignKey(School,on_delete=models.PROTECT)
+    school = models.ForeignKey(School,on_delete=models.PROTECT,related_name="profile")
     user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="profile") 
     xp = models.IntegerField(default=0)
     is_teacher=models.BooleanField(default=False)

@@ -9,8 +9,8 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.models import User
-from .serializers import  ProfileSerializer, RegisterSerializer, TokenSerializer, LessonSerializer, CurriculumSerializer, LessonListSerializer,StudentSerializer,TagSerializer
-from .models import Profile, Lesson , Activity, Video, Choice, ActivityProgress,VideoProgress, Video
+from .serializers import  ProfileSerializer, SchoolSerializer,RegisterSerializer, TokenSerializer, LessonSerializer, CurriculumSerializer, LessonListSerializer,StudentSerializer,TagSerializer
+from .models import Profile, Lesson , Activity, Video, Choice, ActivityProgress,VideoProgress, Video, School
 from rest_framework_simplejwt.views import TokenObtainPairView
 FRONTEND_URL = "http://localhost:5173"
 
@@ -18,11 +18,13 @@ class Index(APIView):
     None
 
 
-
-# @permission_classes([IsAdminUser])
 @api_view(["GET"])
+@permission_classes([IsAuthenticated])
 def get_all_students(request):
-    students = Profile.objects.filter(is_teacher = False)
+    if request.user.profile.is_teacher == False:
+        return Response(status=status.HTTP_403_FORBIDDEN)
+    school = request.user.profile.school
+    students = Profile.objects.filter(is_teacher = False, school = school)
     serializer = StudentSerializer(students,many=True)
     return Response(serializer.data)
 
@@ -194,7 +196,11 @@ def make_lesson(request):
     
 
 
-
+@api_view(["GET"])
+def get_schools(request):
+    schools = School.objects.all()
+    serializer = SchoolSerializer(schools, many=True)
+    return Response({"schools": serializer.data})
 
 
 

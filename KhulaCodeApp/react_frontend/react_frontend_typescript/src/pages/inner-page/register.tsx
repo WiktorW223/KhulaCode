@@ -41,7 +41,7 @@ const [formData, setFormData] =useState({
     lastName: "",
     username: "",
     password: "",
-    school:"No School Selected"
+    school:""
 
 })
 const [seePass,setSeePass] = useState(false)
@@ -53,7 +53,7 @@ const[showSuccess,setShowSuccess] = useState(false)
 
 
 
-const handleChange = (e:React.ChangeEvent<HTMLInputElement> ) =>{
+const handleChange = (e:React.ChangeEvent<HTMLInputElement|HTMLSelectElement> ) =>{
     const { name, value } = e.target
     setFormData({
         ...formData,
@@ -181,11 +181,10 @@ if (!res.ok){
 }
 setFormData({firstName:"",lastName:"",username:"",password:"", school:""})
 console.log(data.message)
-navigate("/register?tab=signin")
-
 setShowSuccess(true)
-
-
+await sleep(2500)
+navigate("/register?tab=signin")
+window.location.reload()
 
 
 }
@@ -196,9 +195,7 @@ catch(error){
 }
 finally{
     setLoading(false)
-    await sleep(2500)
     setShowSuccess(false)
-    window.location.reload()
 
 }  
 }
@@ -316,14 +313,13 @@ return (
 
 
                                             <label htmlFor="school" className="form-label fw-semibold">Select Your School</label>
-                                                <select id="school" name="school" value={formData.school} onChange={(e)=>setFormData({...formData,["school"]:e.target.value})} className="form-select">
-                                                    <option value="No School Selected">No School Selected</option>
+                                                <select id="school" name="school" value={formData.school} onChange={handleChange} className="form-select">
+                                                    <option value ="" >No School Selected</option>
                                                     {schools.map((school) => (
-                                                        <option key={school.id} value={school.name}>{school.name}</option>
+                                                        <option key={school.id} value={school.id}>{school.name}</option>
                                                     ))}
-                                                    
-                                                    
                                                 </select>
+                                                {errors.school && (<p style={{  margin: 0, fontSize: "0.75rem", color: "red" }}>{errors.school[0]}</p>)}
                                                 
                                             
                                             

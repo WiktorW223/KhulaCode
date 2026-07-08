@@ -327,8 +327,6 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ["xp","img","tag","first_name","last_name","percentage","lessons_completed","last_unit","area","is_teacher"] #"__all__" #["email","password","username","display_name","date_of_birth","xp","img",]
     
     def get_lessons_completed(self,obj):
-        if hasattr(self,"_lesson_count_cache"):
-            return self._lesson_count_cache
         user = obj.user    
         lessons = list(sorted(Lesson.objects.prefetch_related("activities","videos").all(),key=lambda x:x.unit))
         count =0
@@ -350,8 +348,6 @@ class ProfileSerializer(serializers.ModelSerializer):
         return count
     
     def get_last_unit(self,obj):
-        if hasattr(self,"_last_unit"):
-            return self._last_unit
         user = obj.user    
         lessons = sorted(list(Lesson.objects.prefetch_related("activities","videos").all()),key=lambda x:x.unit)
         count =0
@@ -438,6 +434,7 @@ class RegisterSerializer(serializers.Serializer):
     password = serializers.CharField(write_only = True)
     first_name = serializers.CharField(required=True)#required= True
     last_name = serializers.CharField(required=True)
+    school = serializers.PrimaryKeyRelatedField(queryset=School.objects.all(),required=True)
 
     def create(self, validated_data):
             school = validated_data.pop("school")

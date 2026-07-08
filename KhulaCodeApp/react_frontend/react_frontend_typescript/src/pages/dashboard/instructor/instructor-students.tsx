@@ -49,7 +49,7 @@ export default function InstructorStudents() {
                     <div className="col-lg-12">
                         <div className="pageTitle-wrap text-center">
                             <h1 className="text-white">My Students</h1>
-                            <p className="mb-0" style={{ color: 'rgba(255,255,255,0.9)' }}>Track your class's progress through the Cyber Jungle.</p>
+                            <p className="mb-0" style={{ color: 'rgba(255,255,255,0.9)' }}>Track your class' progress through the Cyber Jungle.</p>
                         </div>
                     </div>
                 </div>
