@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { getAccessToken } from '../../lib/tokenService'
-
+import ReactPlayer from 'react-player'
 import tricone from '../../assets/img/tricone-slide.png'
 import lwaziHero from '../../assets/img/lwaziJungle.png'
 import lwaziPortrait from '../../assets/img/lwaziwhitebackground.png'
@@ -8,6 +8,8 @@ import StudentNavbar from '../../components/student-dashboard/student-navbar'
 import NavDark from '../../components/navbar/nav-dark'
 import FooterDark from '../../components/footer/footer-dark'
 import SectionWave from '../../components/section-wave'
+import demoVid from '../../assets/videos/demo.mp4'
+import { useState } from 'react'
 
 const journey = [
   { unit: 'Unit 0', title: 'Intro to Computers', desc: 'Get comfortable with computers. Xhosa voiceover, no coding yet.', icon: 'bi-pc-display', intro: true },
@@ -30,6 +32,7 @@ export default function IndexSeven() {
   const bar = access ? <StudentNavbar /> : <NavDark />
   const startLink = access ? '/lesson/0/1' : '/register'
   const startLabel = access ? 'Continue learning' : 'Sign up to start learning'
+  const [showDemoVid,setShowDemoVid] = useState(false)
 
   return (
     <>
@@ -60,8 +63,8 @@ export default function IndexSeven() {
                                     </Link>
                                 </div>
                                 <div className="join-buttons d-flex align-items-center justify-content-start gap-2">
-                                    <Link id="play-video" data-bs-toggle="modal" data-bs-target="#staticBackdrop" className="video-play-button" to=""><span></span></Link>
-                                    <Link to="" data-bs-toggle="modal" data-bs-target="#staticBackdrop" className="fw-semibold">How It Works?</Link>
+                                    <Link onClick = {()=>setShowDemoVid(true)} id="play-video" data-bs-toggle="modal" data-bs-target="#staticBackdrop" className="video-play-button" to=""><span></span></Link>
+                                    <Link onClick = {()=>setShowDemoVid(true)} to="" data-bs-toggle="modal" data-bs-target="#staticBackdrop" className="fw-semibold">How It Works?</Link>
                                 </div>
                             </div>
                         </div>
@@ -178,10 +181,16 @@ export default function IndexSeven() {
             <div className="modal-dialog modal-dialog-centered modal-lg">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button onClick={()=>setShowDemoVid(false)} type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body p-0">
-                        <iframe src="https://www.youtube.com/embed/S_CGed6E610"  width='100%' height="450px" style={{marginBottom: 0, display: 'block'}}></iframe>
+                    {showDemoVid&&<ReactPlayer
+                    src={demoVid}
+                    playing={true}
+                    controls
+                    width="100%"
+                    height="450px"
+                    />}
                     </div>
                 </div>
             </div>

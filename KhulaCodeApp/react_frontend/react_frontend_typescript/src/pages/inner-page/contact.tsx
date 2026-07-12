@@ -96,7 +96,7 @@ export default function Contact() {
                                         </div>
                                         <div className="caps-content">
                                             <h5 className="cn-info-title mb-0">Email us</h5>
-                                            <p className="text-muted lh-base"><a href="mailto:khulacode@email.com" style={{ color: 'var(--maincolor)' }}>khulacode@email.com</a></p>
+                                            <p className="text-muted lh-base"><a href="mailto:khulacode0@gmail.com" style={{ color: 'var(--maincolor)' }}>khulacode0@gmail.com</a></p>
                                         </div>
                                     </div>
 
