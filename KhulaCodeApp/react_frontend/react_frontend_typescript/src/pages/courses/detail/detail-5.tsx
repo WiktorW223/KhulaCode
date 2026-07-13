@@ -2,22 +2,14 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { useApi } from '../../../lib/useApi'
 import bg from '../../../assets/img/black.png'
-import image from '../../../assets/videos/black.png'
-import avatar from '../../../assets/img/avatar-6.jpg'
+
 import ReactPlayer from 'react-player'
 import thumbnail from '../../../assets/img/white.png'
-import NavDark from '../../../components/navbar/nav-dark'
+
 import StudentNavbar from '../../../components/student-dashboard/student-navbar'
-import ReviewForm from '../../../components/courses-detail/review-form'
-import DetailRating from '../../../components/courses-detail/detail-rating'
-import CourseRating from '../../../components/courses-detail/course-rating'
-import CourseDetail from '../../../components/courses-detail/course-detail'
+
 import Circullum from '../../../components/courses-detail/circullum'
-import CoursesOverview from '../../../components/courses-detail/courses-overview'
-import FooterTop from '../../../components/footer/footer-top'
-import FooterDark from '../../../components/footer/footer-dark'
-import DetailSidebarFour from '../../../components/courses-detail/detail-sidebar-four'
-import videoFile from "../../../assets/videos/videoplayback.mp4"
+
 
 export default function Detail5() {
 const navigate = useNavigate()
@@ -41,7 +33,6 @@ const lessonId = Number(lesson?.id??0)
 const [message,setMessage] = useState("")
 const [refresh,setRefresh] = useState(false)
 const [xp,setXp] = useState(0)
-const [showXP,setShowXP] = useState(false)
 const [prevUnit,setPrevUnit] = useState(0)
 const [tag, setTag] = useState("")
 const {makeRequest} = useApi()

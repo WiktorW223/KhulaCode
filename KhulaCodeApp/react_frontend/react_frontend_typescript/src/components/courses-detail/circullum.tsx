@@ -1,17 +1,6 @@
 import { useState, useEffect } from "react";
-import { getBackendUrl, useApi } from "../../lib/useApi";
-import { CircleHelp } from "lucide-react"
+import { useApi } from "../../lib/useApi";
 import { Link } from 'react-router-dom'
-
-const data = [
-    { title:'Lecture: 01', desc:'Web Designing Beginner' },
-    { title:'Lecture: 02', desc:'Startup Designing with HTML5 & CSS3' },
-    { title:'Lecture: 03', desc:'How To Call Google Map iFrame' },
-    { title:'Lecture: 04', desc:'Create Drop Down Navigation Using CSS3' },
-    { title:'Lecture: 05', desc:'How to Create Sticky Navigation Using JS' },
-]
-const backendUrl = getBackendUrl()
-
 
 type CurriculumActivity= {
     title:string

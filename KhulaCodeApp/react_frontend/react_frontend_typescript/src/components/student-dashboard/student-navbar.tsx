@@ -150,19 +150,7 @@ export default function StudentNavbar({refreshKey}:{refreshKey?:boolean}) {
                         <ul className="nav-menu">
                             <li className={`${['/','/home-2','/home-3','/home-4','/home-5','/home-6','/home-7','/home-8','/home-9','/home-10','/home-11','/home-12','/home-13'].includes(current) ? 'active' : ''}`}><Link to="/">Home</Link>
                                 
-                                    {/* <li className={current === '/' ? 'active' : ''}><Link to="/">Home Layout 01</Link></li> */}
-                                    {/* <li className={current === '/home-2' ? 'active' : ''}><Link to="/home-2">Home Layout 02</Link></li>
-                                    <li className={current === '/home-3' ? 'active' : ''}><Link to="/home-3">Home Layout 03</Link></li>
-                                    <li className={current === '/home-4' ? 'active' : ''}><Link to="/home-4">Home Layout 04</Link></li>
-                                    <li className={current === '/home-5' ? 'active' : ''}><Link to="/home-5">Home Layout 05</Link></li>
-                                    <li className={current === '/home-6' ? 'active' : ''}><Link to="/home-6">Home Layout 06</Link></li> */}
-                                    {/* <li className={current === '/home-7' ? 'active' : ''}><Link to="/home-7">Home Layout 07</Link></li> */}
-                                    {/* <li className={current === '/home-8' ? 'active' : ''}><Link to="/home-8">Home Layout 08</Link></li>
-                                    <li className={current === '/home-9' ? 'active' : ''}><Link to="/home-9">Home Layout 09</Link></li>
-                                    <li className={current === '/home-10' ? 'active' : ''}><Link to="/home-10">Home Layout 10</Link></li>
-                                    <li className={current === '/home-11' ? 'active' : ''}><Link to="/home-11">Home Layout 11</Link></li>
-                                    <li className={current === '/home-12' ? 'active' : ''}><Link to="/home-12">Home Layout 12</Link></li>
-                                    <li className={current === '/home-13' ? 'active' : ''}><Link to="/home-13">Home Layout 13</Link></li> */}
+                            
                              
                             </li>
                             
@@ -170,38 +158,7 @@ export default function StudentNavbar({refreshKey}:{refreshKey?:boolean}) {
                             <li className={`${['/student-dashboard','/student-all-courses','/student-course-resume'].includes(current) ? 'active' : ''}`}><Link to="/student-dashboard">Dashboard</Link></li>
                             <li className={`${['/about-us'].includes(current) ? 'active' : ''}`}><Link to="/about-us">About Us</Link></li>
                             <li className={`${['/additional-resources'].includes(current) ? 'active' : ''}`}><Link to="/additional-resources">Additional Resources</Link></li>
-                            {/* <li className={`${['/grid-with-sidebar','/grid-with-sidebar-2','/grid-with-sidebar-3','/list-with-sidebar','/full-width-course','/full-width-course-2','/full-width-course-3','/full-width-course-4','/detail','/detail-2','/detail-3','/detail-4','/detail-5','/detail-6','/find-instructor','/instructor-detail'].includes(current) ? 'active' : ''}`}><Link to="#">Courses<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
-                                <ul className="nav-dropdown nav-submenu">
-                                    <li className={`${['/grid-with-sidebar','/grid-with-sidebar-2','/grid-with-sidebar-3'].includes(current) ? 'active' : ''}`}><Link to="#">Courses Grid Sidebar<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
-                                        <ul className="nav-dropdown nav-submenu">
-                                            <li className={current === '/grid-with-sidebar' ? 'active' : ''}><Link to="/grid-with-sidebar">Sidebar grid 1</Link></li>
-                                            <li className={current === '/grid-with-sidebar-2' ? 'active' : ''}><Link to="/grid-with-sidebar-2">Sidebar grid 2</Link></li>
-                                            <li className={current === '/grid-with-sidebar-3' ? 'active' : ''}><Link to="/grid-with-sidebar-3">Sidebar grid 3</Link></li>
-                                        </ul>
-                                    </li>
-                                    <li className={current === '/list-with-sidebar' ? 'active' : ''}><Link to="/list-with-sidebar">List Layout with Sidebar</Link></li>
-                                    <li className={`${['/full-width-course','/full-width-course-2','/full-width-course-3','/full-width-course-4'].includes(current) ? 'active' : ''}`}><Link to="#">Courses Grid Full Width<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
-                                        <ul className="nav-dropdown nav-submenu">
-                                            <li className={current === '/full-width-course' ? 'active' : ''}><Link to="/full-width-course">Courses grid 1</Link></li>
-                                            <li className={current === '/full-width-course-2' ? 'active' : ''}><Link to="/full-width-course-2">Courses grid 2</Link></li>
-                                            <li className={current === '/full-width-course-3' ? 'active' : ''}><Link to="/full-width-course-3">Courses grid 3</Link></li>
-                                            <li className={current === '/full-width-course-4' ? 'active' : ''}><Link to="/full-width-course-4">Courses grid 4</Link></li>
-                                        </ul>
-                                    </li>
-                                    <li className={`${['/detail','/detail-2','/detail-3','/detail-4','/detail-5','/detail-6'].includes(current) ? 'active' : ''}`}><Link to="#">Courses Detail<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
-                                        <ul className="nav-dropdown nav-submenu">
-                                            <li className={current === '/detail' ? 'active' : ''}><Link to="/detail">TEST</Link></li>
-                                            <li className={current === '/detail-2' ? 'active' : ''}><Link to="/detail-2">Course Detail 2</Link></li>
-                                            <li className={current === '/detail-3' ? 'active' : ''}><Link to="/detail-3">Course Detail 3</Link></li>
-                                            <li className={current === '/detail-4' ? 'active' : ''}><Link to="/detail-4">Course Detail 4</Link></li>
-                                            <li className={current === '/detail-5' ? 'active' : ''}><Link to="/detail-5">Course Detail 5</Link></li>
-                                            <li className={current === '/detail-6' ? 'active' : ''}><Link to="/detail-6">Course Detail 6</Link></li>
-                                        </ul>
-                                    </li>
-                                    <li className={current === '/find-instructor' ? 'active' : ''}><Link to="/find-instructor">Find Instructor</Link></li>
-                                    <li className={current === '/instructor-detail' ? 'active' : ''}><Link to="/instructor-detail">Instructor Detail</Link></li>
-                                </ul>
-                            </li> */}
+                            
                             
                             {/* <li className={`${['/about-us','/blog','/blog-detail','/pricing','/404','/register','/component','/contact','/privacy','/faq','/shop-full-width','/shop-left-sidebar','/shop-right-sidebar','/product-detail','/add-to-cart','/product-wishlist','/checkout','/shop-order'].includes(current) ? 'active' : ''}`}><Link to="#">Pages<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
                                 <ul className="nav-dropdown nav-submenu">
@@ -230,37 +187,7 @@ export default function StudentNavbar({refreshKey}:{refreshKey?:boolean}) {
                                 </ul>
                             </li> */}
                             
-                            {/* <li className={`${['/instructor-dashboard','/instructor-courses','/instructor-create-course','/instructor-course-added','/instructor-earning','/instructor-students','/instructor-orders','/instructor-reviews','/instructor-payout','/student-dashboard','/student-all-courses','/student-subscription','/student-course-resume','/student-wishlist','/student-payment-info','/profile-edit','/settings','/delete-account'].includes(current) ? 'active' : ''}`}><Link to="#">Accounts<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
-                                <ul className="nav-dropdown nav-submenu">
-                                    <li className={`${['/instructor-dashboard','/instructor-courses','/instructor-create-course','/instructor-course-added','/instructor-earning','/instructor-students','/instructor-orders','/instructor-reviews','/instructor-payout'].includes(current) ? 'active' : ''}`}><Link to="#"><i className="bi bi-person-check me-2"></i>Instructor Dashboard<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
-                                        <ul className="nav-dropdown nav-submenu">
-                                            <li className={current === '/instructor-dashboard' ? 'active' : ''}><Link to="/instructor-dashboard" className="active"><i className="bi bi-ui-radios-grid me-2"></i>Dashboard</Link></li>
-                                            <li className={current === '/instructor-courses' ? 'active' : ''}><Link to="/instructor-courses"><i className="bi bi-basket2 me-2"></i>Courses</Link></li>
-                                            <li className={current === '/instructor-create-course' ? 'active' : ''}><Link to="/instructor-create-course"><i className="bi bi-patch-plus me-2"></i>Create Course</Link></li>
-                                            <li className={current === '/instructor-earning' ? 'active' : ''}><Link to="/instructor-earning"><i className="bi bi-coin me-2"></i>Earning</Link></li>
-                                            <li className={current === '/instructor-students' ? 'active' : ''}><Link to="/instructor-students"><i className="bi bi-people me-2"></i>Students</Link></li>
-                                            <li className={current === '/instructor-orders' ? 'active' : ''}><Link to="/instructor-orders"><i className="bi bi-bag-check me-2"></i>My Orders</Link></li>
-                                            <li className={current === '/instructor-reviews' ? 'active' : ''}><Link to="/instructor-reviews"><i className="bi bi-star-half me-2"></i>Reviews</Link></li>
-                                            <li className={current === '/instructor-payout' ? 'active' : ''}><Link to="/instructor-payout"><i className="bi bi-wallet2 me-2"></i>Payout</Link></li>
-                                            <li><Link to="#"><i className="bi bi-question-octagon me-2"></i>Help & Support</Link></li>
-                                        </ul>
-                                    </li>
-                                    <li className={`${['/student-dashboard','/student-all-courses','/student-subscription','/student-course-resume','/student-wishlist','/student-payment-info'].includes(current) ? 'active' : ''}`}><Link to="#"><i className="bi bi-mortarboard me-2"></i>Student Dashboard<span className="submenu-indicator"><span className='submenu-indicator-chevron'></span></span></Link>
-                                        <ul className="nav-dropdown nav-submenu">
-                                            <li className={current === '/student-dashboard' ? 'active' : ''}><Link to="/student-dashboard"><i className="bi bi-ui-radios-grid me-2"></i>Dashboard</Link></li>
-                                            <li className={current === '/student-all-courses' ? 'active' : ''}><Link to="/student-all-courses"><i className="bi bi-play-circle me-2"></i>All Courses</Link></li>
-                                            <li className={current === '/student-subscription' ? 'active' : ''}><Link to="/student-subscription"><i className="bi bi-basket2 me-2"></i>My Subscription</Link></li>
-                                            <li className={current === '/student-course-resume' ? 'active' : ''}><Link to="/student-course-resume"><i className="bi bi-patch-plus me-2"></i>Course Resume</Link></li>
-                                            <li className={current === '/student-wishlist' ? 'active' : ''}><Link to="/student-wishlist"><i className="bi bi-wallet2 me-2"></i>Wishlist</Link></li>
-                                            <li className={current === '/student-payment-info' ? 'active' : ''}><Link to="/student-payment-info"><i className="bi bi-star-half me-2"></i>Payment Info</Link></li>
-                                            <li><Link to="#"><i className="bi bi-question-octagon me-2"></i>Help & Support</Link></li>
-                                        </ul>
-                                    </li>
-                                    <li className={current === '/profile-edit' ? 'active' : ''}><Link to="/profile-edit"><i className="bi bi-person-bounding-box me-2"></i>My Profile</Link></li>
-                                    <li className={current === '/settings' ? 'active' : ''}><Link to="/settings"><i className="bi bi-gear me-2"></i>Settings</Link></li>
-                                    <li className={current === '/delete-account' ? 'active' : ''}><Link to="/delete-account"><i className="bi bi-trash3 me-2"></i>Delete Accounts</Link></li>
-                                </ul>
-                            </li> */}
+                            
                         </ul>
                         
                         <ul className="nav-menu nav-menu-social align-to-right">
@@ -287,7 +214,6 @@ export default function StudentNavbar({refreshKey}:{refreshKey?:boolean}) {
                                         <div className="dropdown-body">
                                             <ul>
                                                 <li><Link to="/student-dashboard" className={current === '/student-dashboard' ? 'active' : ''}><i className="bi bi-ui-radios-grid me-2"></i>Dashboard</Link></li>
-                                                {/* <li><Link to="/student-all-courses" className={current === '/student-all-courses' ? 'active' : ''}><i className="bi bi-play-circle me-2"></i>All Lessons</Link></li> */}
                                                 <li><Link to="/student-course-resume" className={current === '/student-course-resume' ? 'active' : ''}><i className="bi bi-play-circle me-2"></i>All Lessons</Link></li>
                                                 {profileData?.is_teacher&&
                                                 <>
@@ -296,9 +222,7 @@ export default function StudentNavbar({refreshKey}:{refreshKey?:boolean}) {
                                                 </>
                                                 }
                                                 <li><Link to="/" onClick={handleClick}><i className="bi bi-box-arrow-right me-2"></i>Logout</Link></li>
-                                                {/* <li><Link to="/student-wishlist" className={current === '/student-wishlist' ? 'active' : ''}><i className="bi bi-wallet2 me-2"></i>Wishlist</Link></li>
-                                                <li><Link to="/student-payment-info" className={current === '/student-payment-info' ? 'active' : ''}><i className="bi bi-star-half me-2"></i>Payment Info</Link></li> */}
-                                                {/* <li><Link to="#"><i className="bi bi-question-octagon me-2"></i>Help & Support</Link></li> */}
+                                                
                                             </ul>
                                         </div>
                                     </div>

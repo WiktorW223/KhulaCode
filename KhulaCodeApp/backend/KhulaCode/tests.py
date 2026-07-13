@@ -1,6 +1,6 @@
 from rest_framework.test import APITestCase
 from rest_framework import status
-from .models import Lesson, Activity, Video, User, ActivityProgress, VideoProgress
+from .models import Lesson, Activity, Video, User, ActivityProgress, VideoProgress,Profile,School
 from .serializers import ActivitySerializer
 from django.urls import reverse
 
@@ -29,7 +29,8 @@ class ActivitySerializerTest(APITestCase):
 
 class TestRegisterAndSignIn(APITestCase):
     def test_register(self):
-        response = self.client.post(reverse("register"),{"first_name":"John","last_name":"Doe","username":"JohnD","password":"JD123"},format="json")
+        school = School.objects.create(name="Masonwabe Primary School")
+        response = self.client.post(reverse("register"),{"first_name":"John","last_name":"Doe","username":"JohnD","password":"JD123","school":school.id},format="json")
         self.assertEqual(response.status_code,status.HTTP_201_CREATED)
         self.assertEqual(User.objects.count(),1)
 
@@ -46,38 +47,44 @@ class TestRegisterAndSignIn(APITestCase):
         response = self.client.post(reverse("register"),{"first_name":"","last_name":"","username":"","password":""},format="json")
         self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
         self.assertEqual(User.objects.count(),0)
-    
-    def test_reset_password(self):
-        user = User.objects.create_user(first_name="Tester",last_name="McTest",username="TT",password="oldpass")
-        self.client.force_authenticate(user=user)
-        response = self.client.post(reverse("forgot-password"),{"username":"TT","password":"TT123"})
-        self.assertEqual(response.status_code,status.HTTP_403_FORBIDDEN)
-        user.profile.is_teacher = True
-        self.assertTrue(user.check_password("oldpass"))
-        response = self.client.post(reverse("forgot-password"),{"username":"notexist","password":"TT123"})
-        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
-        response = self.client.post(reverse("forgot-password"),{"username":"TT","password":"TT123"})
-        self.assertEqual(response.status_code,status.HTTP_200_OK)
-        response = self.client.post(reverse("login"),{"username":"TT","password":"TT123"})
-        self.assertEqual(response.status_code,status.HTTP_200_OK)
+class TestUserPrivilages:
+        def setUp(self):
+            school = School.objects.create(name="Masonwabe Primary School")
+            self.client.post(reverse("register"),{"first_name":"John","last_name":"Doe","username":"JohnD","password":"JD123","school":school.id},format="json")
+            self.user =User.objects.get(username="JohnD")
+            self.client.force_authenticate(user=self.user)
+        def test_reset_password(self):
+            response = self.client.post(reverse("forgot-password"),{"username":"TT","password":"TT123"})
+            self.assertEqual(response.status_code,status.HTTP_403_FORBIDDEN)
+            self.user.profile.is_teacher = True
+            self.assertTrue(self.user.check_password("oldpass"))
+            response = self.client.post(reverse("forgot-password"),{"username":"notexist","password":"TT123"})
+            self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+            response = self.client.post(reverse("forgot-password"),{"username":"TT","password":"TT123"})
+            self.assertEqual(response.status_code,status.HTTP_200_OK)
+            response = self.client.post(reverse("login"),{"username":"TT","password":"TT123"})
+            self.assertEqual(response.status_code,status.HTTP_200_OK)
 
-    def test_admin_privilege(self):
-        user = User.objects.create_user(first_name="Tester",last_name="McTest",username="TT",password="oldpass")
-        self.client.force_authenticate(user=user)
-        user.profile.is_teacher = True
-        response = self.client.get(reverse("all-students"))
-        self.assertEqual(response.status_code,status.HTTP_200_OK)
-    def test_authorized_view(self):
-        response = self.client.get(reverse("curriculum"))
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-        user = User.objects.create_user(first_name="Tester",last_name="McTest",username="TT",password="pass")
-        response = self.client.get(reverse("curriculum"))
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-        self.client.force_authenticate(user=user)
-        response = self.client.get(reverse("curriculum"))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        def test_admin_privilege(self):
+            response = self.client.get(reverse("all-students"))
+            self.assertEqual(response.status_code,status.HTTP_200_OK)
+        def test_authorized_view(self):
+            self.client.force_authenticate(user=None)
+            response = self.client.get(reverse("curriculum"))
+            self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+            response = self.client.get(reverse("curriculum"))
+            self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+            self.client.force_authenticate(user=self.user)
+            response = self.client.get(reverse("curriculum"))
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 class ProgressTesting(APITestCase):
+    def setUp(self):
+        self.school = School.objects.create(name="Masonwabe Primary School")
+        self.user = User.objects.create_user(first_name="Tester",last_name="Test",username="TT",password="TT123")
+        self.profile = Profile.objects.create(user=self.user,school=self.school)
+        self.client.force_authenticate(user=self.user)
+    
     def create_lesson_with_items(self, unit, number):
         lesson = Lesson.objects.create(
             description=f"lesson {unit}-{number}",
@@ -90,8 +97,6 @@ class ProgressTesting(APITestCase):
         return lesson
     
     def test_completed_progress(self):
-        user = User.objects.create_user(first_name="Tester",last_name="Test",username="TT",password="TT123")
-        self.client.force_authenticate(user=user)
 
         for unit in range(1, 6):
             for number in range(1, 6):
@@ -101,8 +106,8 @@ class ProgressTesting(APITestCase):
         for lesson in lessons:
             activity = list(lesson.activities.all())[0]
             video = list(lesson.videos.all())[0]
-            ActivityProgress.objects.create(activity=activity,completed=True,user=user)
-            VideoProgress.objects.create(video=video,completed=True,user=user)
+            ActivityProgress.objects.create(activity=activity,completed=True,user=self.user)
+            VideoProgress.objects.create(video=video,completed=True,user=self.user)
         response = self.client.get(reverse("get_info",args=[0]))
         profile_data = response.data["profile_data"]
         self.assertEqual(profile_data["percentage"],100)
@@ -110,7 +115,8 @@ class ProgressTesting(APITestCase):
         self.assertEqual(profile_data["area"],"http://127.0.0.1:8000/media/areas/done.png")
     
     def test_unordered_lesson_completion(self):
-        user = User.objects.create_user(first_name="Tester",last_name="Test",username="TT",password="TT123")
+        user = User.objects.create_user(first_name="Second",last_name="Test",username="Sec",password="222")
+        Profile.objects.create(user=user,school=self.school)
         self.client.force_authenticate(user=user)
         for unit in range(1, 6):
             for number in range(1, 6):
