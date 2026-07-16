@@ -1,5 +1,7 @@
 __pycache__
 .DS_Store
 backend/media/
+backend/react_build/
+backend/staticfiles/
 *.sqlite3
 backend/db.sqlite3
