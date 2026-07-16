@@ -1,10 +1,12 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models import ForeignKey
 from django.contrib.auth import authenticate
 from .models import Profile,Lesson,School,Choice, Activity, Video, ActivityProgress, VideoProgress
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
 
 # class TestSerializer(serializers.Serializer):
 #     msg = serializers.CharField()
@@ -248,23 +250,25 @@ class StudentSerializer(serializers.ModelSerializer):
         return round(count/total *100)
     def get_img(self,obj):
         unit = self.get_last_unit(obj)
+        base = settings.MEDIA_BASE_URL
         if unit == "complete":
-            return "http://127.0.0.1:8000/media/pfp/pfp6.png"
+            return f"{base}/pfp/pfp6.png"
         elif unit==0:
-            return "http://127.0.0.1:8000/media/pfp/pfp0.png"
+            return f"{base}/pfp/pfp0.png"
         elif unit==1:
-            return "http://127.0.0.1:8000/media/pfp/pfp1.png"
+            return f"{base}/pfp/pfp1.png"
         elif unit==2:
-            return "http://127.0.0.1:8000/media/pfp/pfp2.png"
+            return f"{base}/pfp/pfp2.png"
         elif unit==3:
-            return "http://127.0.0.1:8000/media/pfp/pfp3.png"
+            return f"{base}/pfp/pfp3.png"
         elif unit==4:
-            return "http://127.0.0.1:8000/media/pfp/pfp4.png"
+            return f"{base}/pfp/pfp4.png"
         elif unit==5:
-            return "http://127.0.0.1:8000/media/pfp/pfp5.png"
+            return f"{base}/pfp/pfp5.png"
 
 
 class TagSerializer(serializers.ModelSerializer):
+
     tag = serializers.SerializerMethodField()
     class Meta:
         model = Profile
@@ -379,20 +383,22 @@ class ProfileSerializer(serializers.ModelSerializer):
         return round(count/total *100)
     def get_area(self,obj):
         unit = self.get_last_unit(obj)
+        base = settings.MEDIA_BASE_URL
         if unit == "complete":
-            return "http://127.0.0.1:8000/media/areas/done.png"
+            return f"{base}/areas/done.png"
         elif unit==0:
-            return "http://127.0.0.1:8000/media/areas/zero.png"
+            return f"{base}/areas/zero.png"
         elif unit==1:
-            return "http://127.0.0.1:8000/media/areas/seq.png"
+            return f"{base}/areas/seq.png"
         elif unit==2:
-            return "http://127.0.0.1:8000/media/areas/dec.png"
+            return f"{base}/areas/dec.png"
         elif unit ==3:
-            return "http://127.0.0.1:8000/media/areas/loop.png"
+            return f"{base}/areas/loop.png"
         elif unit==4:
-            return "http://127.0.0.1:8000/media/areas/var.png"
+            return f"{base}/areas/var.png"
         elif unit ==5:
-            return "http://127.0.0.1:8000/media/areas/challenge.png"
+            return f"{base}/areas/challenge.png"
+
     def get_tag(self,obj):
         unit = self.get_last_unit(obj)
         if unit == "complete":
@@ -411,22 +417,24 @@ class ProfileSerializer(serializers.ModelSerializer):
             return "Logic Warrior"
     def get_img(self,obj):
         unit = self.get_last_unit(obj)
+        base = settings.MEDIA_BASE_URL
         if unit == "complete":
-            return "http://127.0.0.1:8000/media/pfp/pfp6.png"
+            return f"{base}/pfp/pfp6.png"
         elif unit==0:
-            return "http://127.0.0.1:8000/media/pfp/pfp0.png"
+            return f"{base}/pfp/pfp0.png"
         elif unit==1:
-            return "http://127.0.0.1:8000/media/pfp/pfp1.png"
+            return f"{base}/pfp/pfp1.png"
         elif unit==2:
-            return "http://127.0.0.1:8000/media/pfp/pfp2.png"
+            return f"{base}/pfp/pfp2.png"
         elif unit==3:
-            return "http://127.0.0.1:8000/media/pfp/pfp3.png"
+            return f"{base}/pfp/pfp3.png"
         elif unit==4:
-            return "http://127.0.0.1:8000/media/pfp/pfp4.png"
+            return f"{base}/pfp/pfp4.png"
         elif unit==5:
-            return "http://127.0.0.1:8000/media/pfp/pfp5.png"
+            return f"{base}/pfp/pfp5.png"
 
 class RegisterSerializer(serializers.Serializer):
+
     username = serializers.CharField(
         max_length=150,
         validators=[UniqueValidator(queryset=User.objects.all())]

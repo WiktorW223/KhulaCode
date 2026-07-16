@@ -24,63 +24,15 @@ export default function Contact() {
 
         <section>
             <div className="container">
-                <div className="row g-4">
-                    <div className="col-lg-8 col-md-7">
+                <div className="row g-4 justify-content-center">
+                    <div className="col-lg-8 col-md-10">
                         <div className="card border-0 shadow-sm rounded-4">
-
-                            <div className="card-header bg-transparent border-bottom">
-                                <h4 className="card-title mb-0">Send us a message</h4>
-                            </div>
-
-                            <div className="card-body p-4">
-                                <div className="row g-3">
-
-                                    <div className="col-lg-6 col-md-12">
-                                        <div className="form-group">
-                                            <label>Name</label>
-                                            <input type="text" className="form-control"/>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-lg-6 col-md-12">
-                                        <div className="form-group">
-                                            <label>Email</label>
-                                            <input type="email" className="form-control"/>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-lg-12 col-md-12">
-                                        <div className="form-group">
-                                            <label>Subject</label>
-                                            <input type="text" className="form-control"/>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-lg-12 col-md-12">
-                                        <div className="form-group">
-                                            <label>Message</label>
-                                            <textarea className="form-control"></textarea>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-lg-12 col-md-12">
-                                        <div className="form-group">
-                                            <button className="btn btn-main rounded-pill px-5" type="button">Submit Request</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-lg-4 col-md-5">
-                        <div className="card border-0 shadow-sm rounded-4">
-                            <div className="card-body p-4">
+                            <div className="card-body p-4 p-lg-5">
                                 <div className="contact-info">
                                     <h4>Get in touch</h4>
                                     <p className="text-muted">Reach out and we'll get back to you as soon as we can.</p>
 
-                                    <div className="d-flex align-items-start gap-3 mb-3">
+                                    <div className="d-flex align-items-start gap-3 mb-4">
                                         <div className="icons">
                                             <div className="square--50 rounded-3 bg-light-main"><i className="bi bi-pin-map-fill text-main"></i></div>
                                         </div>
@@ -90,7 +42,7 @@ export default function Contact() {
                                         </div>
                                     </div>
 
-                                    <div className="d-flex align-items-start gap-3 mb-3">
+                                    <div className="d-flex align-items-start gap-3 mb-4">
                                         <div className="icons">
                                             <div className="square--50 rounded-3 bg-light-main"><i className="bi bi-envelope-open text-main"></i></div>
                                         </div>
@@ -116,6 +68,7 @@ export default function Contact() {
                 </div>
             </div>
         </section>
+
 
         <Footer />
     </>

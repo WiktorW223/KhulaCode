@@ -61,7 +61,7 @@ export default function AboutUs() {
                                     <h5 className="mb-0 fw-bold">Wiktor Waligora</h5>
                                 </div>
                                 <p className="text-muted small mb-3">Creator of KhulaCode · with thanks to <span className="fw-semibold text-dark">MaLisa Ndimba</span></p>
-                                <a href="mailto:khulacode@email.com" className="fw-semibold" style={{ color: 'var(--maincolor)' }}><i className="bi bi-envelope me-2"></i>khulacode@email.com</a>
+                                <a href="mailto:khulacode@email.com" className="fw-semibold" style={{ color: 'var(--maincolor)' }}><i className="bi bi-envelope me-2"></i>khulacode0@gmail.com</a>
                             </div>
                         </div>
                     </div>

@@ -37,7 +37,6 @@ const [prevUnit,setPrevUnit] = useState(0)
 const [tag, setTag] = useState("")
 const {makeRequest} = useApi()
 
-const nextButtonCaption = currentIndex===1&&currentUnitIndex+1=== unitLessons.length?`Unit ${unitUrl+1}`:currentIndex===1?nextLesson?.title:"Activity"
 
 const [selected,setSelected] = useState<number|null>(null)
 

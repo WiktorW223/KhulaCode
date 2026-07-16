@@ -15,9 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,3 +28,14 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+# Catch-all route: serves the built React app's index.html for any path
+# that isn't handled above (admin/, KhulaCode/, static/, media/). This lets
+# React Router handle client-side routes (e.g. direct links / page refreshes
+# on /student-dashboard) when Django is serving the frontend build in
+# production. The index.html is produced by `npm run build` and copied into
+# BASE_DIR/react_build by the CI/CD workflow before collectstatic runs.
+urlpatterns += [
+    re_path(r"^(?!admin/|KhulaCode/|static/|media/).*$",
+            TemplateView.as_view(template_name="index.html")),
+]

@@ -23,8 +23,13 @@ class Index(APIView):
 def get_all_students(request):
     if request.user.profile.is_teacher == False:
         return Response(status=status.HTTP_403_FORBIDDEN)
-    school = request.user.profile.school
-    students = Profile.objects.filter(is_teacher = False, school = school)
+    school_id = request.user.profile.school_id
+    if school_id is None:
+        return Response(
+            {"detail": "Your profile has no school assigned."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+    students = Profile.objects.filter(is_teacher=False, school_id=school_id)
     serializer = StudentSerializer(students,many=True)
     return Response(serializer.data)
 

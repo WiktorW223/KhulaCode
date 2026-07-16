@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { Link } from 'react-router-dom'
 
+const API_BASE_URL = import.meta.env.VITE_API_URL ?? "http://127.0.0.1:8000/KhulaCode/"
+
 type helloString = {
 msg:string;
 };
@@ -10,7 +12,8 @@ const [message,setMessage] = useState<string>("Loading...");
 useEffect(() =>{
     async function getMessage() {
         try{
-            const res = await fetch("http://127.0.0.1:8000/KhulaCode/test/");
+            const res = await fetch(`${API_BASE_URL}test/`);
+
             const jsonRes:helloString = await res.json();
             setMessage(jsonRes.msg);
         }

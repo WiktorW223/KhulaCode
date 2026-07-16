@@ -7,6 +7,9 @@ import NavDark from '../../components/navbar/nav-dark'
 import Footer from '../../components/footer/footer'
 import type React from 'react'
 
+const API_BASE_URL = import.meta.env.VITE_API_URL ?? "http://127.0.0.1:8000/KhulaCode/"
+
+
 type School = {
     id: number
     name: string
@@ -80,7 +83,8 @@ useEffect(()=>
 {
     const getSchools = async() =>
     {
-    const res = await fetch("http://127.0.0.1:8000/KhulaCode/get-schools/")
+    const res = await fetch(`${API_BASE_URL}get-schools/`)
+
 
 const data = await res.json()
 if(!res.ok)
@@ -99,7 +103,8 @@ const handleLogin = async (e:React.FormEvent)=>{
     setLoading(true)
     setErrors({})
     try{
-        const res = await fetch("http://127.0.0.1:8000/KhulaCode/login/",{
+        const res = await fetch(`${API_BASE_URL}login/`,{
+
             method: 'POST',
             headers:{
                 'Content-Type':'application/json'
@@ -157,7 +162,8 @@ e.preventDefault()
 setLoading(true)
 setErrors({})
 try{
-const res = await fetch("http://127.0.0.1:8000/KhulaCode/register/",{
+const res = await fetch(`${API_BASE_URL}register/`,{
+
     method: 'POST',
     headers:{
         'Content-Type' : 'application/json'

@@ -78,6 +78,7 @@ class TestUserPrivilages:
             response = self.client.get(reverse("curriculum"))
             self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+
 class ProgressTesting(APITestCase):
     def setUp(self):
         self.school = School.objects.create(name="Masonwabe Primary School")
@@ -112,7 +113,9 @@ class ProgressTesting(APITestCase):
         profile_data = response.data["profile_data"]
         self.assertEqual(profile_data["percentage"],100)
         self.assertEqual(profile_data["tag"],"Cyber Jungle Hero")
-        self.assertEqual(profile_data["area"],"http://127.0.0.1:8000/media/areas/done.png")
+        from django.conf import settings
+        self.assertEqual(profile_data["area"],f"{settings.MEDIA_BASE_URL}/areas/done.png")
+
     
     def test_unordered_lesson_completion(self):
         user = User.objects.create_user(first_name="Second",last_name="Test",username="Sec",password="222")

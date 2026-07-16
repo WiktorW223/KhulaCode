@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import BrandLogo from '../../assets/img/newlogo.png'
 import { useApi } from '../../lib/useApi'
 import { clearTokens, getAccessToken } from '../../lib/tokenService'
@@ -22,7 +22,6 @@ export default function StudentNavbar({refreshKey}:{refreshKey?:boolean}) {
     }
     const {makeRequest} = useApi()
     const access = getAccessToken()
-    const navigate = useNavigate()
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 992);
     const [toggle, setToggle] = useState<boolean>(false)
     const [isSticky, setIsSticky] = useState<boolean>(false);

@@ -3,6 +3,9 @@ import InstructorNavbar from '../../../components/instructor-dashboard/instructo
 import FooterDark from '../../../components/footer/footer-dark';
 import { useApi } from '../../../lib/useApi';
 
+const MEDIA_BASE_URL = import.meta.env.VITE_MEDIA_URL ?? "http://127.0.0.1:8000/media"
+
+
 export default function InstructorCreateCourse() {
     const [activeTab, setActiveTab] = useState<number>(1)
     const {makeRequest} = useApi()
@@ -226,7 +229,8 @@ export default function InstructorCreateCourse() {
                                             {
                                                 const updatedVideo:VideoItem = {
                                                     ...item,
-                                                    video_url:"http://127.0.0.1:8000/media/videos/"+e.target.value
+                                                    video_url:`${MEDIA_BASE_URL}/videos/`+e.target.value
+
                                                 }
                                                 const list = [...content]
                                                 list[i] = updatedVideo

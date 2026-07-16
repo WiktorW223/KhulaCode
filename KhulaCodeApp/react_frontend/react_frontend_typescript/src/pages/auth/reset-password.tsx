@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { Link,useNavigate, useParams } from 'react-router-dom'
 
+const API_BASE_URL = import.meta.env.VITE_API_URL ?? "http://127.0.0.1:8000/KhulaCode/"
+
 export default function ResetPassword(){
+
 
 const navigate = useNavigate()
 const [newPassword,setNewPassword] = useState("")
@@ -29,8 +32,9 @@ const [newPassword,setNewPassword] = useState("")
         
         try{
         setLoading(true)
-            const res = await fetch("http://127.0.0.1:8000/KhulaCode/reset-password/",
+            const res = await fetch(`${API_BASE_URL}reset-password/`,
           {
+
             method:"POST",
             headers:{"Content-Type":'application/json'},
             body:JSON.stringify({new_password:newPassword,user_id:userId,token})

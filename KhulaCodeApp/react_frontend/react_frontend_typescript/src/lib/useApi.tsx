@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import {clearTokens,getAccessToken,getRefreshToken,getTokenStorage} from "./tokenService"
 
+const API_BASE_URL = import.meta.env.VITE_API_URL ?? "http://127.0.0.1:8000/KhulaCode/"
+
 export function getBackendUrl(){
-    return "http://127.0.0.1:8000/KhulaCode/"
+    return API_BASE_URL
 }
 
 export function getFrontendUrl(){
-    return "http://localhost:5173/"
+    return import.meta.env.DEV ? "http://localhost:5173/" : "/"
 }
 
 export type makeRequest=
@@ -22,7 +24,7 @@ export function useApi(){
     const navigate = useNavigate()
     const makeRequest:makeRequest = async(url:string, options: any={}) =>{
         let access = getAccessToken()
-        let res = await fetch(`http://127.0.0.1:8000/KhulaCode/${url}`,{
+        let res = await fetch(`${API_BASE_URL}${url}`,{
             ...options,
             headers:{
                 ...(options.headers || {}),
@@ -34,7 +36,7 @@ export function useApi(){
         {
             await refreshToken()
             access = getAccessToken()
-            res = await fetch(`http://127.0.0.1:8000/KhulaCode/${url}`,{
+            res = await fetch(`${API_BASE_URL}${url}`,{
                 ...options,
                 headers:{
                     ...(options.headers || {}),
@@ -63,7 +65,7 @@ export const refreshToken = async() =>{
         return false
     }
 
-    const res = await fetch("http://127.0.0.1:8000/KhulaCode/token/refresh/",{
+    const res = await fetch(`${API_BASE_URL}token/refresh/`,{
         method:'POST',
         headers:{
             'Content-Type':'application/json'

@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import Register, ForgotPassword, ResetPassword, TokenView, LessonDetailView, get_schools, get_profile_info, get_many_lessons, make_lesson, mark_activity_complete,mark_video_complete,get_most_recent,get_num_lesson_unit,get_all_students, curriculum
+from .views import Register, ForgotPassword, ResetPassword, TokenView, LessonDetailView, get_profile_info, get_many_lessons, make_lesson, mark_activity_complete,mark_video_complete,get_most_recent,get_num_lesson_unit,get_all_students, curriculum,get_schools
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework_simplejwt.views import TokenRefreshView

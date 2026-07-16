@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +23,30 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-tru$mvxfa%8=qt==db7fq(wc(vk*8)1tq01(x5(@gb_9@8k$zc'
+# In production (Azure), set the SECRET_KEY environment variable via
+# App Service > Configuration > Application settings.
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY",
+    "django-insecure-tru$mvxfa%8=qt==db7fq(wc(vk*8)1tq01(x5(@gb_9@8k$zc",
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Set DEBUG=False as an App Service Application Setting in production.
+DEBUG = os.environ.get("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = []
+# Azure App Service default hostname for this app. Additional hosts can be
+# supplied via the ALLOWED_HOSTS env var (comma separated).
+AZURE_HOSTNAME = "khulacode-bmbhh9hrg3a2euc0.austriaeast-01.azurewebsites.net"
+
+ALLOWED_HOSTS = [AZURE_HOSTNAME, "localhost", "127.0.0.1"]
+extra_hosts = os.environ.get("ALLOWED_HOSTS")
+if extra_hosts:
+    ALLOWED_HOSTS += [h.strip() for h in extra_hosts.split(",") if h.strip()]
+
+CSRF_TRUSTED_ORIGINS = [f"https://{AZURE_HOSTNAME}"]
+extra_origins = os.environ.get("CSRF_TRUSTED_ORIGINS")
+if extra_origins:
+    CSRF_TRUSTED_ORIGINS += [o.strip() for o in extra_origins.split(",") if o.strip()]
 
 
 # Application definition
@@ -47,6 +67,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -62,7 +83,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "react_build"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,12 +100,16 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+# Set DATABASE_URL as an App Service Application Setting to point at
+# Azure Database for PostgreSQL, e.g.:
+# postgres://USER:PASSWORD@HOST:5432/DBNAME?sslmode=require
+# Falls back to local SQLite when DATABASE_URL is not set (local dev).
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+    )
 }
 
 
@@ -123,9 +148,33 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# The React production build (dist/) is copied here by the CI/CD workflow
+# before `collectstatic` runs, so WhiteNoise can serve its JS/CSS assets.
+STATICFILES_DIRS = [
+    d for d in [BASE_DIR / "react_build" / "assets"] if d.exists()
+]
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+# Base URL for user-uploaded media (videos, profile pictures, area badges)
+# served from Azure Blob Storage in production. In local dev this defaults
+# back to the Django dev server's own /media/ path.
+MEDIA_BASE_URL = os.environ.get(
+    "MEDIA_BASE_URL",
+    "http://127.0.0.1:8000/media",
+)
 
 # SESSION_COOKIE_SAMESITE = "None"
 # SESSION_COOKIE_SECURE = True

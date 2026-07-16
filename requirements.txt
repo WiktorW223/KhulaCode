@@ -4,3 +4,7 @@ pillow
 djangorestframework
 django-cors-headers
 djangorestframework-simplejwt
+gunicorn
+whitenoise
+psycopg2-binary
+dj-database-url
