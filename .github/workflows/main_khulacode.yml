@@ -61,15 +61,26 @@ jobs:
           source ../../antenv/bin/activate
           python manage.py collectstatic --noinput
 
+      # Assemble a minimal deployment package: only the Django backend
+      # (which now contains react_build/ and staticfiles/), requirements.txt
+      # and the startup script. The React source, raw assets, docs etc. are
+      # NOT needed at runtime — everything the app serves is already inside
+      # react_build/ and staticfiles/. This keeps the zip small enough for
+      # Kudu ZIP Deploy to succeed.
+      - name: Assemble deployment package
+        run: |
+          mkdir -p deploy_package
+          cp -r KhulaCodeApp/backend/. deploy_package/
+          cp requirements.txt deploy_package/
+          rm -f deploy_package/db.sqlite3
+          du -sh deploy_package
+
       # By default, when you enable GitHub CI/CD integration through the Azure portal, the platform automatically sets the SCM_DO_BUILD_DURING_DEPLOYMENT application setting to true. This triggers the use of Oryx, a build engine that handles application compilation and dependency installation (e.g., pip install) directly on the platform during deployment. Hence, we exclude the antenv virtual environment directory from the deployment artifact to reduce the payload size.
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
           name: python-app
-          path: |
-            .
-            !antenv/
-            !KhulaCodeApp/react_frontend/react_frontend_typescript/node_modules/
+          path: deploy_package/
 
       # 🚫 Opting Out of Oryx Build
       # If you prefer to disable the Oryx build process during deployment, follow these steps:
