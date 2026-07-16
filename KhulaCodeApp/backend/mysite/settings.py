@@ -165,6 +165,13 @@ STORAGES = {
     },
 }
 
+# Some third-party CSS (e.g. bundled font-awesome v4) references font files
+# via relative paths that don't exist in the collected static files. Without
+# this flag, collectstatic raises SuspiciousFileOperation / ValueError when
+# WhiteNoise's manifest storage can't resolve them. Setting it to False makes
+# WhiteNoise leave unresolvable references as-is instead of crashing.
+WHITENOISE_MANIFEST_STRICT = False
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
