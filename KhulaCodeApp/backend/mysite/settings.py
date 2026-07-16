@@ -152,9 +152,13 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # The React production build (dist/) is copied here by the CI/CD workflow
 # before `collectstatic` runs, so WhiteNoise can serve its JS/CSS assets.
+# Vite is configured with base "/static/" in production, so index.html
+# references /static/assets/index-*.js — hence we include the whole
+# react_build directory (its assets/ subfolder maps to /static/assets/).
 STATICFILES_DIRS = [
-    d for d in [BASE_DIR / "react_build" / "assets"] if d.exists()
+    d for d in [BASE_DIR / "react_build"] if d.exists()
 ]
+
 
 STORAGES = {
     "default": {
