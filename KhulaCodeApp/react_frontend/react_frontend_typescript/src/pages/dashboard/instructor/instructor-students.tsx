@@ -14,6 +14,7 @@ interface StudentList{
     percentage: number;
     date_joined: number;
     xp:number;
+    school:{name:string} | null;
 }
 
 export default function InstructorStudents() {
@@ -22,7 +23,7 @@ export default function InstructorStudents() {
     const [searchQuery,setSearchQuery] = useState("")
     const [sortBy, setSortBy] = useState("alphabetical")
     const filtered = [...students].filter((stu)=>`${stu.first_name} ${stu.last_name}`.toLowerCase().includes(searchQuery.toLowerCase()))
-
+    const schoolName = students[0]?.school?.name ?? ""
     const sorted = [...filtered].sort((a,b)=>{
         if(sortBy==="xp") return b.xp-a.xp
         if(sortBy ==="progress") return b.percentage - a.percentage
@@ -50,7 +51,7 @@ export default function InstructorStudents() {
                         <div className="pageTitle-wrap text-center">
                             <h1 className="text-white">My Students</h1>
                             <p className="mb-0" style={{ color: 'rgba(255,255,255,0.9)' }}>Track your class' progress through the Cyber Jungle.</p>
-                            <p className="mb-0" style={{ color: 'rgba(255,255,255,0.9)' }}>Track your class' progress through the Cyber Jungle.</p>
+                            {schoolName && <p className="mb-0" style={{ color: 'rgba(255,255,255,0.9)' }}>{schoolName}</p>}
                         </div>
                     </div>
                 </div>

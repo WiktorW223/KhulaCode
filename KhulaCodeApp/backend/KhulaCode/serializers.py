@@ -194,9 +194,10 @@ class StudentSerializer(serializers.ModelSerializer):
     percentage = serializers.SerializerMethodField()
     date_joined = serializers.DateTimeField(source="user.date_joined",read_only=True,format="%Y-%m-%d")
     img = serializers.SerializerMethodField()
+    school = SchoolSerializer(read_only=True)
     class Meta:
         model = Profile
-        fields = ["first_name","last_name","percentage","date_joined","img","xp"]
+        fields = ["first_name","last_name","percentage","date_joined","img","xp","school"]
     
     def get_last_unit(self,obj):
         if hasattr(self,"_last_unit"):
