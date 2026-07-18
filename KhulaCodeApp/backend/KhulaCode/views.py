@@ -23,6 +23,10 @@ class Index(APIView):
 def get_all_students(request):
     if request.user.profile.is_teacher == False:
         return Response(status=status.HTTP_403_FORBIDDEN)
+    if request.user.is_superuser:
+        students = Profile.objects.filter(is_teacher=False)
+        serializer = StudentSerializer(students,many=True)
+        return Response(serializer.data)
     school_id = request.user.profile.school_id
     if school_id is None:
         return Response(
