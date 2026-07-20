@@ -80,7 +80,7 @@ export default function Privacy() {
                         <p className="text-muted">We may update this policy from time to time and will post the new version here with an updated date.</p>
 
                         <h5 className="mt-5 mb-2">Contact</h5>
-                        <p className="text-muted mb-0">Questions about this policy or a child's information? Contact us at <a href="mailto:khulacode@email.com" className="fw-semibold" style={{ color: 'var(--maincolor)' }}>khulacode@email.com</a>.</p>
+                        <p className="text-muted mb-0">Questions about this policy or a child's information? Contact us at <a href="mailto:khulacode0@gmail.com" className="fw-semibold" style={{ color: 'var(--maincolor)' }}>khulacode0@gmail.com</a>.</p>
                     </div>
                 </div>
             </div>
