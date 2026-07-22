@@ -25,14 +25,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 # In production (Azure), set the SECRET_KEY environment variable via
 # App Service > Configuration > Application settings.
-SECRET_KEY = os.environ.get(
-    "SECRET_KEY",
-    "django-insecure-tru$mvxfa%8=qt==db7fq(wc(vk*8)1tq01(x5(@gb_9@8k$zc",
-)
+# DEBUG defaults to False; set DEBUG=True as an env var for local dev.
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-# Set DEBUG=False as an App Service Application Setting in production.
-DEBUG = os.environ.get("DEBUG", "True") == "True"
+if DEBUG:
+    # Local development only — never used when DEBUG=False.
+    SECRET_KEY = os.environ.get(
+        "SECRET_KEY", "django-insecure-local-dev-only-key"
+    )
+else:
+    # Production: SECRET_KEY env var is mandatory; crash loudly if missing.
+    SECRET_KEY = os.environ["SECRET_KEY"]
 
 # Azure App Service default hostname for this app. Additional hosts can be
 # supplied via the ALLOWED_HOSTS env var (comma separated).
@@ -74,10 +77,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = False
+# CORS_ALLOWED_ORIGINS must be a list. Only the Vite dev server needs
+# cross-origin access; production is same-origin (Django serves the build).
+CORS_ALLOWED_ORIGINS = (
+    ["http://localhost:5173", "http://127.0.0.1:5173"] if DEBUG else []
+)
+CORS_ALLOW_CREDENTIALS = False
 ROOT_URLCONF = 'mysite.urls'
 
 TEMPLATES = [
@@ -187,17 +194,42 @@ MEDIA_BASE_URL = os.environ.get(
     "http://127.0.0.1:8000/media",
 )
 
-# SESSION_COOKIE_SAMESITE = "None"
-# SESSION_COOKIE_SECURE = True
-
-SESSION_COOKIE_SECURE = False
 SESSION_COOKIE_SAMESITE = "Lax"
+
+# ---------------------------------------------------------------------------
+# HTTPS / security hardening — only enforced in production (DEBUG=False).
+# Azure App Service terminates TLS at its front-end proxy and forwards the
+# original scheme in X-Forwarded-Proto, so Django needs SECURE_PROXY_SSL_HEADER
+# to know the request was HTTPS (otherwise SECURE_SSL_REDIRECT would loop).
+# ---------------------------------------------------------------------------
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 31536000  # 1 year
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_REFERRER_POLICY = "same-origin"
+else:
+    SESSION_COOKIE_SECURE = False
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         #'rest_framework.authentication.SessionAuthentication',
     ),
+    # Basic brute-force protection on unauthenticated endpoints
+    # (login/register/forgot-password) and a sane global cap for users.
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '30/min',
+        'user': '300/min',
+    },
 }
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),

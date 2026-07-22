@@ -78,8 +78,6 @@ def get_activity(request,lesson_id):
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def mark_activity_complete(request,lesson_id,id):
-    # if not request.user.is_authenticated:
-    #     return Response({"error":"not authenticated"})
     user = request.user
     choice_order = request.data.get("choice_order")
     if choice_order is None:
@@ -133,8 +131,6 @@ def mark_activity_complete(request,lesson_id,id):
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def mark_video_complete(request,lesson_id,id):
-    # if not request.user.is_authenticated:
-    #     return Response({"error":"not authenticated"})
     user = request.user
     
     video = get_object_or_404(Video, lesson_id=lesson_id, pk=id)
@@ -260,7 +256,9 @@ class Register(APIView):
 class TokenView(TokenObtainPairView):
     serializer_class = TokenSerializer
         
+
 class ForgotPassword(APIView):
+    permission_classes = [IsAuthenticated]
     def post(self,request):
         if request.user.profile.is_teacher:
             username = request.data.get("username")
@@ -268,36 +266,14 @@ class ForgotPassword(APIView):
                 user = User.objects.get(username=username)
             except User.DoesNotExist:
                 return Response({"detail":'Error, please ensure user exists'},status=status.HTTP_400_BAD_REQUEST)
+            if user.profile.is_teacher or user.is_superuser or (user.profile.school!=request.user.profile.school):
+                return Response({"detail":'Error, please ensure you are changing the password of a student in your school'},status=status.HTTP_400_BAD_REQUEST)
             password = request.data.get("password")
             user.set_password(password)
             user.save()
-            # token = default_token_generator.make_token(user)
-            # reset_url = f"{FRONTEND_URL}/reset-password/{user.pk}/{token}"
-            #when khulacode email made
-            # send_mail(
-            #     "Reset your password",
-            #     f"Click here: {reset_url}",
-            #     "noreply@yourapp.com",
-            #     [user.email],
-            # )
             return Response({"detail":'password reset successfully. You may now return to login page.'},status=status.HTTP_200_OK)
         else:
             return Response({"detail":"You are not cleared to use this page. Please return to home page."},status=status.HTTP_403_FORBIDDEN)
 
-class ResetPassword(APIView):
-    def post(self, request):
-        user_id = request.data.get("user_id")
-        new_password = request.data.get("new_password")
-        token = request.data.get("token")
 
-        try:
-            user = User.objects.get(pk=user_id)
-        except User.DoesNotExist:
-            return Response({"detail":"invalid request or token 1"}, status=400)
-
-        if not default_token_generator.check_token(user,token):
-            return Response({"detail":"invalid request or token"},status=400)
-        user.set_password(new_password)
-        user.save()
-        return Response({"detail":"password reset successfully"})
         

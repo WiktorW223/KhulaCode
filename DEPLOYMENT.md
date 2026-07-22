@@ -227,3 +227,27 @@ https://khulacode-bmbhh9hrg3a2euc0.austriaeast-01.azurewebsites.net
 - **Media images broken**: verify the Blob container's public access level
   is "Blob" and `MEDIA_BASE_URL` exactly matches the container's public
   URL (no trailing slash).
+
+---
+
+## 8. Media loading performance
+
+Media (videos, pfps, badges) is served directly from Azure Blob Storage in
+Austria East. To speed up loading:
+
+- **Browser caching (done)**: all blobs in `khulacode-media` carry a
+  `Cache-Control: public, max-age=2592000` (30-day) header, so browsers
+  only download each file once. **Re-run
+  `bash scripts/azure_set_media_cache_headers.sh` after uploading new
+  media files** — newly uploaded blobs have no Cache-Control header by
+  default.
+- **CDN (not currently possible)**: Azure CDN classic no longer accepts
+  new profiles, and Azure Front Door is forbidden on Free Trial / Student
+  subscriptions. If the subscription is upgraded to pay-as-you-go, put an
+  Azure Front Door Standard endpoint in front of the storage account and
+  point `MEDIA_BASE_URL` (App Service setting) + `VITE_MEDIA_URL`
+  (`.env.production`) at it. With a custom domain, Cloudflare's free CDN
+  is another option.
+- **Compress uploads**: keep video files reasonably sized (H.264 mp4,
+  720p/1080p, ~2–5 Mbps bitrate) — file size dominates load time far more
+  than server location does for first-time views.
