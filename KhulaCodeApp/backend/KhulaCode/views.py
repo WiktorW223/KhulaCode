@@ -21,12 +21,13 @@ class Index(APIView):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def get_all_students(request):
-    if request.user.profile.is_teacher == False:
-        return Response(status=status.HTTP_403_FORBIDDEN)
+    profile = getattr(request.user,"profile",None)
     if request.user.is_superuser:
         students = Profile.objects.filter(is_teacher=False)
         serializer = StudentSerializer(students,many=True)
         return Response(serializer.data)
+    if request.user.profile.is_teacher == False:
+        return Response(status=status.HTTP_403_FORBIDDEN)
     school_id = request.user.profile.school_id
     if school_id is None:
         return Response(
