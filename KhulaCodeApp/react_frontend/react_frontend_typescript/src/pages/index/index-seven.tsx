@@ -12,7 +12,7 @@ import demoVid from '../../assets/videos/demo.mp4'
 import { useState } from 'react'
 
 const journey = [
-  { unit: 'Unit 0', title: 'Intro to Computers', desc: 'Get comfortable with computers. Xhosa voiceover, no coding yet.', icon: 'bi-pc-display', intro: true },
+  { unit: 'Unit 0', title: 'Intro to Computers', desc: 'Get comfortable with computers. isiXhosa voiceover, no coding yet.', icon: 'bi-pc-display', intro: true },
   { unit: 'Unit 1', title: 'Sequencing Sector', desc: 'Putting steps in the right order.', icon: 'bi-list-ol' },
   { unit: 'Unit 2', title: 'Decision Divide', desc: 'Making choices with if and else.', icon: 'bi-signpost-split' },
   { unit: 'Unit 3', title: 'Looping Lands', desc: 'Repeating steps with loops.', icon: 'bi-arrow-repeat' },
@@ -21,7 +21,7 @@ const journey = [
 ]
 
 const reasons = [
-  { icon: 'bi-translate', title: 'Taught in Xhosa', desc: "Coding concepts in a child's home language — not just English." },
+  { icon: 'bi-translate', title: 'Taught in isiXhosa', desc: "Coding concepts in a child's home language — not just English." },
   { icon: 'bi-film', title: 'Story-driven videos', desc: 'Lwazi turns abstract ideas into an adventure kids want to follow.' },
   { icon: 'bi-check2-circle', title: 'Learn, then check', desc: 'Every video is followed by questions that lock the concept in.' },
   { icon: 'bi-emoji-smile', title: 'Built for beginners', desc: 'No jargon and no prior experience — just the basics, step by step.' },
@@ -155,7 +155,7 @@ export default function IndexSeven() {
                             <div className="flow-step">
                                 <div className="flow-num">1</div>
                                 <h6 className="mb-2">Watch the video</h6>
-                                <p className="small text-muted mb-0">Follow Lwazi's animated lesson (or the Xhosa-voiced intro in Unit 0).</p>
+                                <p className="small text-muted mb-0">Follow Lwazi's animated lesson (or the isiXhosa-voiced intro in Unit 0).</p>
                             </div>
                             <div className="flow-step">
                                 <div className="flow-num">2</div>

@@ -22,7 +22,7 @@ export default function FooterDark() {
 						<div className="footer-widget">
 							<img src={logoIcon} className="rounded-4 mb-3" width="54" height="54" alt="KhulaCode" />
 								<h4 className="widget-title mb-2">KhulaCode</h4>
-							<p className="mb-0" style={{ maxWidth: 360 }}>Learn the basics of coding in Xhosa, guided by Lwazi — story-driven lessons that make computer science click for young minds.</p>
+							<p className="mb-0" style={{ maxWidth: 360 }}>Learn the basics of coding in isiXhosa, guided by Lwazi — story-driven lessons that make computer science click for young minds.</p>
 						</div>
 					</div>
 
