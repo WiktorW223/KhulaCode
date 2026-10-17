@@ -3785,6 +3785,14 @@ li.login-attri .account-drop a {
 .video-play-button.light span {
 	border-left: 19px solid var(--backupcolor);
 }
+
+.video-play-button.impact:before {
+  background:color-mix(in srgb, var(--greencolor), transparent 80%);
+}
+
+.video-play-button.impact:after {
+  background:var(--greencolor);
+}
 @keyframes pulse-border {
   0% {
     transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1);

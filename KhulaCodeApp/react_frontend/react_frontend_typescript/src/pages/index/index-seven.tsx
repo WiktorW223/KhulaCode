@@ -20,6 +20,9 @@ const journey = [
   { unit: 'Unit 5', title: 'Challenges Arena', desc: 'Put everything together in one final adventure.', icon: 'bi-trophy' },
 ]
 
+// TODO: replace with the real "Our Impact" video
+const impactVidPlaceholder = 'https://www.w3schools.com/html/mov_bbb.mp4'
+
 const reasons = [
   { icon: 'bi-translate', title: 'Taught in isiXhosa', desc: "Coding concepts in a child's home language — not just English." },
   { icon: 'bi-film', title: 'Story-driven videos', desc: 'Lwazi turns abstract ideas into an adventure kids want to follow.' },
@@ -33,6 +36,7 @@ export default function IndexSeven() {
   const startLink = access ? '/lesson/0/1' : '/register'
   const startLabel = access ? 'Continue learning' : 'Sign up to start learning'
   const [showDemoVid,setShowDemoVid] = useState(false)
+  const [showImpactVid,setShowImpactVid] = useState(false)
 
   return (
     <>
@@ -65,6 +69,10 @@ export default function IndexSeven() {
                                 <div className="join-buttons d-flex align-items-center justify-content-start gap-2">
                                     <Link onClick = {()=>setShowDemoVid(true)} id="play-video" data-bs-toggle="modal" data-bs-target="#staticBackdrop" className="video-play-button" to=""><span></span></Link>
                                     <Link onClick = {()=>setShowDemoVid(true)} to="" data-bs-toggle="modal" data-bs-target="#staticBackdrop" className="fw-semibold">How It Works?</Link>
+                                </div>
+                                <div className="join-buttons d-flex align-items-center justify-content-start gap-2">
+                                    <Link onClick = {()=>setShowImpactVid(true)} id="play-impact-video" data-bs-toggle="modal" data-bs-target="#impactBackdrop" className="video-play-button impact" to=""><span></span></Link>
+                                    <Link onClick = {()=>setShowImpactVid(true)} to="" data-bs-toggle="modal" data-bs-target="#impactBackdrop" className="fw-semibold">Our Impact</Link>
                                 </div>
                             </div>
                         </div>
@@ -186,6 +194,25 @@ export default function IndexSeven() {
                     <div className="modal-body p-0">
                     {showDemoVid&&<ReactPlayer
                     src={demoVid}
+                    playing={true}
+                    controls
+                    width="100%"
+                    height="450px"
+                    />}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div className="modal fade" id="impactBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="impactBackdropLabel" aria-hidden="true">
+            <div className="modal-dialog modal-dialog-centered modal-lg">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <button onClick={()=>setShowImpactVid(false)} type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div className="modal-body p-0">
+                    {showImpactVid&&<ReactPlayer
+                    src={impactVidPlaceholder}
                     playing={true}
                     controls
                     width="100%"
