@@ -3793,6 +3793,19 @@ li.login-attri .account-drop a {
 .video-play-button.impact:after {
   background:var(--greencolor);
 }
+
+.impact-watch-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 5px 12px;
+  border-radius: 50px;
+  color: var(--greencolor);
+  background: color-mix(in srgb, var(--greencolor), transparent 88%);
+  border: 1px solid color-mix(in srgb, var(--greencolor), transparent 75%);
+}
 @keyframes pulse-border {
   0% {
     transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1);

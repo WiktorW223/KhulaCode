@@ -20,8 +20,8 @@ const journey = [
   { unit: 'Unit 5', title: 'Challenges Arena', desc: 'Put everything together in one final adventure.', icon: 'bi-trophy' },
 ]
 
-// TODO: replace with the real "Our Impact" video
-const impactVidPlaceholder = 'https://www.w3schools.com/html/mov_bbb.mp4'
+// "Our Impact" video — served from Azure Blob in prod, Django /media in dev.
+const impactVidUrl = `${import.meta.env.VITE_MEDIA_URL}/videos/KC.mp4`
 
 const reasons = [
   { icon: 'bi-translate', title: 'Taught in isiXhosa', desc: "Coding concepts in a child's home language — not just English." },
@@ -73,6 +73,7 @@ export default function IndexSeven() {
                                 <div className="join-buttons d-flex align-items-center justify-content-start gap-2">
                                     <Link onClick = {()=>setShowImpactVid(true)} id="play-impact-video" data-bs-toggle="modal" data-bs-target="#impactBackdrop" className="video-play-button impact" to=""><span></span></Link>
                                     <Link onClick = {()=>setShowImpactVid(true)} to="" data-bs-toggle="modal" data-bs-target="#impactBackdrop" className="fw-semibold">Our Impact</Link>
+                                    <span className="impact-watch-pill">Watch • 1 min</span>
                                 </div>
                             </div>
                         </div>
@@ -212,7 +213,7 @@ export default function IndexSeven() {
                     </div>
                     <div className="modal-body p-0">
                     {showImpactVid&&<ReactPlayer
-                    src={impactVidPlaceholder}
+                    src={impactVidUrl}
                     playing={true}
                     controls
                     width="100%"
