@@ -21,7 +21,7 @@ const journey = [
 ]
 
 // "Our Impact" video — served from Azure Blob in prod, Django /media in dev.
-const impactVidUrl = `${import.meta.env.VITE_MEDIA_URL}/videos/KC.mp4`
+const impactVidUrl = `${import.meta.env.VITE_MEDIA_URL}/videos/KC2.mp4`
 
 const reasons = [
   { icon: 'bi-translate', title: 'Taught in isiXhosa', desc: "Coding concepts in a child's home language — not just English." },
